@@ -1,47 +1,71 @@
-import { sanityFetch } from '@/sanity/lib/live'
-import { GALLERY_QUERY, GALLERY_SLUGS_QUERY } from '@/sanity/lib/queries'
-import { urlFor } from '@/sanity/lib/image'
 import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { stegaClean } from '@sanity/client/stega'
+
+const GALLERIES: Record<string, { title: string; categoryTitle: string; description: string; date: string; images: string[] }> = {
+  bridal: {
+    title: 'Bridal Photography',
+    categoryTitle: 'Bridal',
+    description: 'Elegant bridal portraits that capture every detail of your special day, from the intricate jewellery to the joyous tears.',
+    date: '2025-12-01',
+    images: ['/BRIDAL.png', '/BRIDAL.png', '/HERO.png'],
+  },
+  candid: {
+    title: 'Candid Photography',
+    categoryTitle: 'Candid',
+    description: 'Natural, unposed moments that reflect genuine emotions — the laughter, the tears, the pure joy.',
+    date: '2025-11-15',
+    images: ['/CANDID.png', '/CANDID.png', '/HERO.png'],
+  },
+  engagement: {
+    title: 'Engagement Photography',
+    categoryTitle: 'Engagement',
+    description: 'Beautiful engagement shoots that tell your love story against stunning backdrops.',
+    date: '2025-10-20',
+    images: ['/ENGAGEMENT.png', '/ENGAGEMENT.png', '/HERO.png'],
+  },
+  wedding: {
+    title: 'Wedding Cinematography',
+    categoryTitle: 'Wedding',
+    description: 'Cinematic wedding films that bring your most cherished memories to life with stunning visuals.',
+    date: '2025-09-10',
+    images: ['/WEDDING.png', '/WEDDING.png', '/HERO.png'],
+  },
+  prewedding: {
+    title: 'Pre-Wedding Shoot',
+    categoryTitle: 'Pre-Wedding',
+    description: 'Creative pre-wedding sessions at handpicked locations that capture your unique bond.',
+    date: '2025-08-05',
+    images: ['/PREWEDDING.png', '/PREWEDDING.png', '/HERO.png'],
+  },
+  events: {
+    title: 'Event Photography',
+    categoryTitle: 'Events',
+    description: 'Professional coverage for engagements, receptions, and all your special celebrations.',
+    date: '2025-07-18',
+    images: ['/CORPERATE.png', '/CORPERATE.png', '/HERO.png'],
+  },
+}
 
 export async function generateStaticParams() {
-  try {
-    const { data } = await sanityFetch({ query: GALLERY_SLUGS_QUERY, perspective: 'published', stega: false })
-    return (data || []).map((g: any) => ({ slug: g.slug }))
-  } catch {
-    return []
-  }
+  return Object.keys(GALLERIES).map((slug) => ({ slug }))
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
-  try {
-    const { data } = await sanityFetch({ query: GALLERY_QUERY, params: { slug }, stega: false })
-    if (!data) return {}
-    return {
-      title: `${data.title} | VIP Studio`,
-      description: data.description,
-    }
-  } catch {
-    return { title: 'Portfolio | VIP Studio' }
+  const gallery = GALLERIES[slug]
+  if (!gallery) return {}
+  return {
+    title: `${gallery.title} | VIP Studio`,
+    description: gallery.description,
   }
 }
 
 export default async function GalleryPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
-  let gallery: any = null
-  try {
-    const res = await sanityFetch({ query: GALLERY_QUERY, params: { slug } })
-    gallery = res.data
-  } catch {
-    gallery = null
-  }
+  const gallery = GALLERIES[slug]
 
   if (!gallery) notFound()
-
-  const allImages = gallery.images || []
 
   return (
     <div className="py-20 px-4 max-w-7xl mx-auto">
@@ -54,32 +78,24 @@ export default async function GalleryPage({ params }: { params: Promise<{ slug: 
 
       <div className="mb-12">
         <h1 className="text-4xl font-bold mb-2">{gallery.title}</h1>
-        {gallery.categoryTitle && (
-          <span className="inline-block text-sm text-gray-500 bg-gray-100 px-3 py-1 rounded-full">
-            {gallery.categoryTitle}
-          </span>
-        )}
-        {gallery.description && (
-          <p className="text-gray-600 mt-4 max-w-2xl">{gallery.description}</p>
-        )}
-        {gallery.date && (
-          <p className="text-sm text-gray-400 mt-2">{gallery.date.slice(0, 10)}</p>
-        )}
+        <span className="inline-block text-sm text-gray-500 bg-gray-100 px-3 py-1 rounded-full">
+          {gallery.categoryTitle}
+        </span>
+        <p className="text-gray-600 mt-4 max-w-2xl">{gallery.description}</p>
+        <p className="text-sm text-gray-400 mt-2">{gallery.date}</p>
       </div>
 
       <div className="space-y-6">
-        {allImages.map((img: any, i: number) => (
+        {gallery.images.map((img, i) => (
           <div key={i} className="relative w-full aspect-[16/10] rounded-xl overflow-hidden bg-gray-100">
-            {img?.url && (
-              <Image
-                src={urlFor(img).width(1200).height(750).url()}
-                alt={`${gallery.title} - Image ${i + 1}`}
-                fill
-                className="object-contain"
-                sizes="100vw"
-                priority={i === 0}
-              />
-            )}
+            <Image
+              src={img}
+              alt={`${gallery.title} - Image ${i + 1}`}
+              fill
+              className="object-contain"
+              sizes="100vw"
+              priority={i === 0}
+            />
           </div>
         ))}
       </div>

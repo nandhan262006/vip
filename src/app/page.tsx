@@ -1,6 +1,3 @@
-import { sanityFetch } from '@/sanity/lib/live'
-import { HOME_QUERY } from '@/sanity/lib/queries'
-import { urlFor } from '@/sanity/lib/image'
 import Link from 'next/link'
 import Image from 'next/image'
 import ServicesStack from '@/components/ServicesStack'
@@ -14,24 +11,21 @@ const DEFAULT_SERVICES = [
   { _id: '6', title: 'Event Photography', description: 'Professional coverage for engagements, receptions, and all your special celebrations.', imageUrl: '/CORPERATE.png' },
 ]
 
+const STATIC_ABOUT = {
+  photographerName: 'Vijay',
+  experience: 22,
+  bio: 'National Award Winning Wedding Photographer based in Nellore, specializing in candid wedding photography and cinematography with over 22+ years of excellence.',
+}
+
 const WHATSAPP_NUMBER = '919299950999'
 
-export default async function HomePage() {
-  let data: any = {}
-  try {
-    const res = await sanityFetch({ query: HOME_QUERY })
-    data = res.data || {}
-  } catch {
-    data = {}
-  }
-  const { featured, about, services: sanityServices } = data || {}
-  const services = sanityServices?.length ? sanityServices : DEFAULT_SERVICES
-  const portfolioImages = [
-    '/BRIDAL.png', '/CANDID.png', '/CORPERATE.png', '/ENGAGEMENT.png',
-    '/HERO.png', '/MATERNITY.png', '/PREWEDDING.png', '/WEDDING.png',
-    '/BRIDAL.png', '/HERO.png',
-  ]
+const portfolioImages = [
+  '/BRIDAL.png', '/CANDID.png', '/CORPERATE.png', '/ENGAGEMENT.png',
+  '/HERO.png', '/MATERNITY.png', '/PREWEDDING.png', '/WEDDING.png',
+  '/BRIDAL.png', '/HERO.png',
+]
 
+export default async function HomePage() {
   return (
     <div>
       <section className="relative h-screen flex items-center justify-center bg-black">
@@ -68,102 +62,89 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {about && (
-        <section className="py-24 px-4 bg-black">
-          <div className="max-w-5xl mx-auto">
-            <div className="flex items-center gap-3 mb-4">
-              <span className="w-8 h-0.5 bg-red" />
-              <span className="text-red font-semibold text-sm uppercase tracking-widest">About</span>
-            </div>
-            <div className="grid md:grid-cols-2 gap-16 items-center">
-              <div>
-                <h2 className="text-4xl font-bold mb-6 leading-tight text-white">
-                  {about.photographerName || 'Vijay'} — <span className="text-red">{about.experience || 22}+ Years</span> of Excellence
-                </h2>
-                <p className="text-gray-400 leading-relaxed mb-6 text-lg">
-                  {about.bio || 'National Award Winning Wedding Photographer based in Nellore, specializing in candid wedding photography and cinematography.'}
-                </p>
-                <Link
-                  href="/about"
-                  className="inline-flex items-center gap-2 text-red font-medium hover:text-red-dark transition"
-                >
-                  Know More
-                  <span aria-hidden="true">&rarr;</span>
-                </Link>
-              </div>
-              <div className="relative aspect-[4/5] rounded-2xl overflow-hidden bg-gray-800">
-                {about.profileImage?.url ? (
-                  <Image
-                    src={urlFor(about.profileImage).width(600).height(750).url()}
-                    alt={about.photographerName || ''}
-                    fill
-                    className="object-cover"
-                  />
-                ) : (
-                  <div className="absolute inset-0 flex items-center justify-center text-gray-600">
-                    <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                  </div>
-                )}
-              </div>
-            </div>
+      <section className="py-24 px-4 bg-black">
+        <div className="max-w-5xl mx-auto">
+          <div className="flex items-center gap-3 mb-4">
+            <span className="w-8 h-0.5 bg-red" />
+            <span className="text-red font-semibold text-sm uppercase tracking-widest">About</span>
           </div>
-        </section>
-      )}
-
-      <ServicesStack services={services} />
-
-      {featured && featured.length > 0 && (
-        <section className="py-24 px-4 bg-black">
-          <div className="max-w-7xl mx-auto">
-            <div className="flex items-center justify-between mb-12">
-              <div>
-                <span className="text-red font-semibold text-sm uppercase tracking-widest">Portfolio</span>
-                <h2 className="text-4xl font-bold mt-3 text-white">Featured Work</h2>
-              </div>
+          <div className="grid md:grid-cols-2 gap-16 items-center">
+            <div>
+              <h2 className="text-4xl font-bold mb-6 leading-tight text-white">
+                {STATIC_ABOUT.photographerName} — <span className="text-red">{STATIC_ABOUT.experience}+ Years</span> of Excellence
+              </h2>
+              <p className="text-gray-400 leading-relaxed mb-6 text-lg">
+                {STATIC_ABOUT.bio}
+              </p>
               <Link
-                href="/portfolio"
-                className="hidden md:inline-flex items-center gap-2 text-red font-medium hover:text-red-dark transition"
+                href="/about"
+                className="inline-flex items-center gap-2 text-red font-medium hover:text-red-dark transition"
               >
-                View All <span aria-hidden="true">&rarr;</span>
+                Know More
+                <span aria-hidden="true">&rarr;</span>
               </Link>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {featured.map((item: any) => (
-                <Link
-                  key={item._id}
-                  href={`/portfolio/${item.slug}`}
-                  className="group relative aspect-[4/3] overflow-hidden rounded-xl bg-gray-100"
-                >
-                  {item.coverImage?.url && (
-                    <Image
-                      src={urlFor(item.coverImage).width(600).height(450).url()}
-                      alt={item.title}
-                      fill
-                      className="object-cover group-hover:scale-105 transition duration-500"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    />
-                  )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
-                  <div className="absolute bottom-0 left-0 right-0 p-5 text-white">
-                    <h3 className="font-semibold text-lg">{item.title}</h3>
-                    {item.categoryTitle && (
-                      <p className="text-sm text-gray-300">{item.categoryTitle}</p>
-                    )}
-                  </div>
-                </Link>
-              ))}
-            </div>
-            <div className="text-center mt-10 md:hidden">
-              <Link
-                href="/portfolio"
-                className="inline-flex items-center gap-2 text-red font-medium"
-              >
-                View All Galleries <span aria-hidden="true">&rarr;</span>
-              </Link>
+            <div className="relative aspect-[4/5] rounded-2xl overflow-hidden bg-gray-800">
+              <Image
+                src="/HERO.png"
+                alt="Vijay — VIP Studio"
+                fill
+                className="object-cover"
+              />
             </div>
           </div>
-        </section>
-      )}
+        </div>
+      </section>
+
+      <ServicesStack services={DEFAULT_SERVICES} />
+
+      <section className="py-24 px-4 bg-black">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex items-center justify-between mb-12">
+            <div>
+              <span className="text-red font-semibold text-sm uppercase tracking-widest">Portfolio</span>
+              <h2 className="text-4xl font-bold mt-3 text-white">Our Work</h2>
+            </div>
+            <Link
+              href="/portfolio"
+              className="hidden md:inline-flex items-center gap-2 text-red font-medium hover:text-red-dark transition"
+            >
+              View All <span aria-hidden="true">&rarr;</span>
+            </Link>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[...Array(6)].map((_, i) => (
+              <Link
+                key={i}
+                href="/portfolio"
+                className="group relative aspect-[4/3] overflow-hidden rounded-xl bg-gray-800"
+              >
+                <Image
+                  src={portfolioImages[i]}
+                  alt="Wedding Photography"
+                  fill
+                  className="object-cover group-hover:scale-105 transition duration-500"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+                <div className="absolute bottom-0 left-0 right-0 p-5 text-white">
+                  <h3 className="font-semibold text-lg">
+                    {['Bridal', 'Candid', 'Engagement', 'Cinematography', 'Pre-Wedding', 'Events'][i]}
+                  </h3>
+                </div>
+              </Link>
+            ))}
+          </div>
+          <div className="text-center mt-10 md:hidden">
+            <Link
+              href="/portfolio"
+              className="inline-flex items-center gap-2 text-red font-medium"
+            >
+              View All Galleries <span aria-hidden="true">&rarr;</span>
+            </Link>
+          </div>
+        </div>
+      </section>
 
       <section className="py-24 px-4 bg-black">
         <div className="max-w-7xl mx-auto">

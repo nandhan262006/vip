@@ -1,6 +1,4 @@
 import type { Metadata } from 'next'
-import { VisualEditing } from 'next-sanity/visual-editing'
-import { draftMode } from 'next/headers'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import PopupVideo from '@/components/PopupVideo'
@@ -47,8 +45,6 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  const isDraftMode = (await draftMode()).isEnabled
-
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'LocalBusiness',
@@ -112,7 +108,6 @@ export default async function RootLayout({
           </svg>
         </a>
 
-        {isDraftMode && <VisualEditing />}
       </body>
     </html>
   )

@@ -2,7 +2,6 @@
 
 import { useState, useRef, useEffect, useCallback } from 'react'
 import Image from 'next/image'
-import { urlFor } from '@/sanity/lib/image'
 
 export default function ServicesStack({ services }: { services: any[] }) {
   const trackRef = useRef<HTMLDivElement>(null)
@@ -159,16 +158,7 @@ export default function ServicesStack({ services }: { services: any[] }) {
                 onClick={() => !isActive && snap(i)}
               >
                 <div className="relative w-full aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl bg-gray-800">
-                  {service.image?.url ? (
-                    <Image
-                      src={urlFor(service.image).width(1200).height(800).url()}
-                      alt={service.title}
-                      fill
-                      className="object-cover"
-                      sizes="90vw"
-                      draggable={false}
-                    />
-                  ) : service.imageUrl ? (
+                  {service.imageUrl ? (
                     <Image
                       src={service.imageUrl}
                       alt={service.title}
