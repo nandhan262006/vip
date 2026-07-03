@@ -62,7 +62,9 @@ export default function PopupVideo() {
           <video
             src="/POPUP.mp4"
             autoPlay
+            muted
             playsInline
+            preload="auto"
             onEnded={handleClose}
             className="w-full h-auto max-h-[80vh] object-contain"
           />
