@@ -5,6 +5,8 @@ import { useState, useEffect, useRef } from 'react'
 export default function PopupVideo() {
   const [show, setShow] = useState(false)
   const [leaving, setLeaving] = useState(false)
+  const [playing, setPlaying] = useState(false)
+  const videoRef = useRef<HTMLVideoElement>(null)
   const playedRef = useRef(false)
 
   useEffect(() => {
@@ -26,7 +28,15 @@ export default function PopupVideo() {
     }
   }, [show])
 
+  const handlePlay = () => {
+    videoRef.current?.play()
+    setPlaying(true)
+  }
+
   const handleClose = () => {
+    if (videoRef.current && !videoRef.current.paused) {
+      videoRef.current.pause()
+    }
     setLeaving(true)
     setTimeout(() => {
       setShow(false)
@@ -58,16 +68,28 @@ export default function PopupVideo() {
             <path d="M6 6l12 12M6 18L18 6" />
           </svg>
         </button>
-        <div className="rounded-2xl overflow-hidden shadow-2xl">
+        <div className="rounded-2xl overflow-hidden shadow-2xl bg-black relative">
           <video
+            ref={videoRef}
             src="/POPUP.mp4"
-            autoPlay
-            muted
             playsInline
             preload="auto"
             onEnded={handleClose}
             className="w-full h-auto max-h-[80vh] object-contain"
           />
+          {!playing && (
+            <button
+              onClick={handlePlay}
+              className="absolute inset-0 flex items-center justify-center bg-black/40 hover:bg-black/50 transition cursor-pointer"
+              aria-label="Play video"
+            >
+              <div className="w-20 h-20 rounded-full bg-red flex items-center justify-center shadow-lg shadow-red/40 hover:scale-105 transition">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="white">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+              </div>
+            </button>
+          )}
         </div>
       </div>
     </div>
