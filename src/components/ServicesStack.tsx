@@ -157,7 +157,7 @@ export default function ServicesStack({ services }: { services: any[] }) {
                 }}
                 onClick={() => !isActive && snap(i)}
               >
-                <div className="relative w-full aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl bg-gray-200">
+                <div className="relative w-full aspect-[3/4] rounded-2xl overflow-hidden bg-transparent">
                   {service.imageUrl ? (
                     <Image
                       src={service.imageUrl}
@@ -186,6 +186,29 @@ export default function ServicesStack({ services }: { services: any[] }) {
             )
           })}
         </div>
+      </div>
+
+      <div className="hidden md:flex justify-between absolute top-1/2 left-4 right-4 -translate-y-1/2 pointer-events-none z-10">
+        <button
+          onClick={() => snap(activeIdx - 1)}
+          disabled={activeIdx === 0}
+          className="pointer-events-auto w-12 h-12 rounded-full bg-white/90 backdrop-blur shadow-lg flex items-center justify-center text-gray-900 hover:bg-white transition disabled:opacity-30 disabled:cursor-not-allowed"
+          aria-label="Previous service"
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M15 18l-6-6 6-6" />
+          </svg>
+        </button>
+        <button
+          onClick={() => snap(activeIdx + 1)}
+          disabled={activeIdx === services.length - 1}
+          className="pointer-events-auto w-12 h-12 rounded-full bg-white/90 backdrop-blur shadow-lg flex items-center justify-center text-gray-900 hover:bg-white transition disabled:opacity-30 disabled:cursor-not-allowed"
+          aria-label="Next service"
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M9 18l6-6-6-6" />
+          </svg>
+        </button>
       </div>
 
       <div className="flex justify-center gap-2 pb-8">
