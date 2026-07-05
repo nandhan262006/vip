@@ -86,14 +86,14 @@ export default async function HomePage() {
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 auto-rows-[200px] md:auto-rows-[240px]">
             {[
-              { src: '/BRIDAL.png', label: 'Bridal Wedding Photography', span: 'md:col-span-2 md:row-span-2' },
+              { src: '/BRIDAL.png', label: 'Bridal Wedding Photography', span: 'col-span-2 row-span-2 md:col-span-2 md:row-span-2' },
               { src: '/CANDID.png', label: 'Candid Wedding Photography', span: '' },
-              { src: '/ENGAGEMENT.png', label: 'Engagement Photography', span: '' },
-              { src: '/WEDDING.png', label: 'Wedding Cinematography', span: 'md:col-span-2' },
-              { src: '/PREWEDDING.png', label: 'Pre-Wedding Photography', span: 'md:row-span-2' },
+              { src: '/ENGAGEMENT.png', label: 'Engagement Photography', span: 'row-span-2' },
+              { src: '/WEDDING.png', label: 'Wedding Cinematography', span: 'col-span-2 md:col-span-2' },
+              { src: '/PREWEDDING.png', label: 'Pre-Wedding Photography', span: 'row-span-2 md:row-span-2' },
               { src: '/CORPERATE.png', label: 'Event Photography', span: '' },
               { src: '/MATERNITY.png', label: 'Maternity Photography', span: '' },
-              { src: '/HERO.png', label: 'Fashion Photography', span: 'md:col-span-2' },
+              { src: '/HERO.png', label: 'Fashion Photography', span: 'col-span-2 md:col-span-2' },
               { src: '/BRIDAL.png', label: 'Bridal Wedding Photography', span: '' },
               { src: '/CANDID.png', label: 'Candid Wedding Photography', span: '' },
             ].map((item, i) => (

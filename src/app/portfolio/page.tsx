@@ -109,11 +109,11 @@ export default async function PortfolioPage({
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 auto-rows-[220px] md:auto-rows-[260px]">
               {filtered.map((item, i) => {
                 const spans = [
-                  'md:col-span-2 md:row-span-2',
+                  'col-span-2 row-span-2 md:col-span-2 md:row-span-2',
                   '',
-                  'md:row-span-2',
+                  'row-span-2 md:row-span-2',
                   '',
-                  'md:col-span-2',
+                  'col-span-2 md:col-span-2',
                   '',
                 ]
                 return (
