@@ -4,10 +4,21 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Gallery',
-  description: 'Browse our complete wedding photography and cinematography gallery by VIP Studio.',
+  description: 'Browse our complete wedding photography and cinematography gallery by VIP Studio. Bridal, candid, engagement, pre-wedding, and event photography in Nellore.',
   openGraph: {
     title: 'Gallery | VIP Studio Wedding Photography',
+    description: 'View our complete collection of wedding photography and cinematography work in Nellore by National Award Winner Vijay.',
+    url: '/gallery',
+    siteName: 'VIP Studio',
+    locale: 'en_IN',
+    type: 'website',
+    images: [{ url: '/BRIDAL.png', width: 800, height: 600, alt: 'VIP Studio Wedding Gallery' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Gallery | VIP Studio Wedding Photography',
     description: 'View our complete collection of wedding photography and cinematography work in Nellore.',
+    images: ['/BRIDAL.png'],
   },
 }
 
@@ -38,7 +49,7 @@ export default async function GalleryPage() {
           >
             <Image
               src={img.src}
-              alt={`${img.galleryTitle} - Image ${i + 1}`}
+              alt={`${img.galleryTitle} - ${i + 1}`}
               width={800}
               height={600}
               className="w-full h-auto object-cover group-hover:scale-105 transition duration-500"

@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import type { Metadata } from 'next'
 
 const GALLERIES: Record<string, { title: string; categoryTitle: string; description: string; date: string; images: string[] }> = {
   bridal: {
@@ -51,13 +52,29 @@ export async function generateStaticParams() {
   return Object.keys(GALLERIES).map((slug) => ({ slug }))
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params
   const gallery = GALLERIES[slug]
   if (!gallery) return {}
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://vip-studio.vercel.app'
   return {
     title: `${gallery.title} | VIP Studio`,
     description: gallery.description,
+    openGraph: {
+      title: `${gallery.title} | VIP Studio Wedding Photography`,
+      description: gallery.description,
+      url: `${baseUrl}/portfolio/${slug}`,
+      siteName: 'VIP Studio',
+      locale: 'en_IN',
+      type: 'website',
+      images: [{ url: gallery.images[0], width: 800, height: 600, alt: gallery.title }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${gallery.title} | VIP Studio`,
+      description: gallery.description,
+      images: [gallery.images[0]],
+    },
   }
 }
 
@@ -67,8 +84,25 @@ export default async function GalleryPage({ params }: { params: Promise<{ slug: 
 
   if (!gallery) notFound()
 
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://vip-studio.vercel.app'
+
+  const imageGalleryJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'ImageGallery',
+    name: `${gallery.title} by VIP Studio`,
+    description: gallery.description,
+    url: `${baseUrl}/portfolio/${slug}`,
+    author: { '@type': 'Organization', name: 'VIP Studio' },
+    image: gallery.images.map((img) => `${baseUrl}${img}`),
+  }
+
   return (
     <div className="py-20 px-4 max-w-7xl mx-auto">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(imageGalleryJsonLd) }}
+      />
+
       <Link
         href="/portfolio"
         className="inline-flex items-center text-sm text-gray-500 hover:text-gray-900 mb-8"
@@ -90,7 +124,7 @@ export default async function GalleryPage({ params }: { params: Promise<{ slug: 
           <div key={i} className="relative w-full aspect-[16/10] rounded-xl overflow-hidden bg-gray-100">
             <Image
               src={img}
-              alt={`${gallery.title} - Image ${i + 1}`}
+              alt={`${gallery.title} - ${gallery.categoryTitle} photography by VIP Studio`}
               fill
               className="object-contain"
               sizes="100vw"

@@ -4,10 +4,21 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Portfolio',
-  description: 'Explore our wedding photography and cinematography portfolio. Browse through bridal, engagement, candid, and event galleries by VIP Studio.',
+  description: 'Explore our wedding photography and cinematography portfolio. Browse through bridal, engagement, candid, and event galleries by VIP Studio in Nellore.',
   openGraph: {
     title: 'Portfolio | VIP Studio Wedding Photography',
-    description: 'Browse our wedding photography and cinematography portfolio in Nellore. Bridal, candid, engagement, and event photography.',
+    description: 'Browse our wedding photography and cinematography portfolio in Nellore. Bridal, candid, engagement, and event photography by National Award Winner Vijay.',
+    url: '/portfolio',
+    siteName: 'VIP Studio',
+    locale: 'en_IN',
+    type: 'website',
+    images: [{ url: '/BRIDAL.png', width: 800, height: 600, alt: 'VIP Studio Wedding Photography Portfolio' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Portfolio | VIP Studio Wedding Photography',
+    description: 'Browse our wedding photography and cinematography portfolio in Nellore.',
+    images: ['/BRIDAL.png'],
   },
 }
 
@@ -113,7 +124,7 @@ export default async function PortfolioPage({
                   >
                     <Image
                       src={item.image}
-                      alt={item.title}
+                      alt={`${item.title} by VIP Studio`}
                       fill
                       className="object-cover group-hover:scale-105 transition duration-700"
                       sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"

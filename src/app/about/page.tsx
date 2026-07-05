@@ -17,23 +17,63 @@ const ABOUT = {
 
 export const metadata: Metadata = {
   title: 'About',
-  description: 'Learn about VIP Studio — National Award Winning Wedding Photography by Vijay in Nellore.',
+  description: 'Learn about VIP Studio — National Award Winning Wedding Photography by Vijay in Nellore with 22+ years of experience.',
   openGraph: {
     title: 'About VIP Studio | Wedding Photography Nellore',
+    description: 'National Award Winning Wedding Photographer based in Nellore with 22+ years of experience. Vijay Kumar, CEO of VIP Studio.',
+    url: '/about',
+    siteName: 'VIP Studio',
+    locale: 'en_IN',
+    type: 'profile',
+    images: [{ url: '/HERO.png', width: 800, height: 600, alt: 'VIP Studio Photographer Vijay Kumar' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'About VIP Studio | Wedding Photography Nellore',
     description: 'National Award Winning Wedding Photographer based in Nellore with 22+ years of experience.',
+    images: ['/HERO.png'],
   },
 }
 
 export default async function AboutPage() {
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://vip-studio.vercel.app'
+
+  const personJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: ABOUT.photographerName,
+    jobTitle: 'Wedding Photographer & CEO',
+    description: ABOUT.bio,
+    url: `${baseUrl}/about`,
+    image: `${baseUrl}/HERO.png`,
+    knowsAbout: [
+      'Wedding Photography',
+      'Cinematography',
+      'Candid Photography',
+      'Bridal Photography',
+      'Engagement Photography',
+    ],
+    award: ABOUT.awards,
+    worksFor: {
+      '@type': 'Organization',
+      name: 'VIP Studio',
+    },
+  }
+
   return (
     <div className="py-20 px-4 max-w-5xl mx-auto">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+      />
+
       <h1 className="text-4xl font-bold mb-8">About</h1>
 
       <div className="grid md:grid-cols-2 gap-12 items-start">
         <div className="relative aspect-[3/4] rounded-2xl overflow-hidden bg-gray-100">
           <Image
             src="/HERO.png"
-            alt="VIP Studio Photographer Vijay"
+            alt="VIP Studio Photographer Vijay Kumar — National Award Winning Wedding Photographer"
             fill
             className="object-cover"
           />

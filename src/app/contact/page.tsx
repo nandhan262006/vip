@@ -6,7 +6,18 @@ export const metadata: Metadata = {
   description: 'Get in touch with VIP Studio for wedding photography booking inquiries. Call +91 92999 50999 or reach us on WhatsApp.',
   openGraph: {
     title: 'Contact VIP Studio | Wedding Photography Nellore',
-    description: 'Book your wedding photography with National Award Winner Vijay. Located in Nellore, Andhra Pradesh.',
+    description: 'Book your wedding photography with National Award Winner Vijay. Located in Nellore, Andhra Pradesh. Call +91 92999 50999.',
+    url: '/contact',
+    siteName: 'VIP Studio',
+    locale: 'en_IN',
+    type: 'website',
+    images: [{ url: '/logo.png', width: 512, height: 512, alt: 'VIP Studio Contact' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Contact VIP Studio | Wedding Photography Nellore',
+    description: 'Book your wedding photography with National Award Winner Vijay. Call +91 92999 50999.',
+    images: ['/logo.png'],
   },
 }
 
@@ -24,7 +35,7 @@ export default function ContactPage() {
           <div className="space-y-4 text-gray-600">
             <div>
               <p className="font-medium text-gray-900">Location</p>
-              <p>Nellore, Andhra Pradesh</p>
+              <p>26-1-1639, beside MGB Mall, Obulreddy Nagar, Dargamitta, Nellore — 524003</p>
             </div>
             <div>
               <p className="font-medium text-gray-900">Phone / WhatsApp</p>
@@ -85,7 +96,7 @@ export default function ContactPage() {
           allowFullScreen
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
-          title="VIP Studio Location"
+          title="VIP Studio Location in Nellore, Andhra Pradesh"
         />
       </div>
     </div>

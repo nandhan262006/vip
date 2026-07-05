@@ -1,18 +1,39 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import PopupVideo from '@/components/PopupVideo'
 import './globals.css'
 
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  themeColor: '#CC0000',
+}
+
 export async function generateMetadata(): Promise<Metadata> {
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://vip-studio.vercel.app'
   return {
-    metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'https://vip-studio.vercel.app'),
+    metadataBase: new URL(baseUrl),
     title: {
       default: 'VIP Studio — Wedding Photography & Cinematography in Nellore',
       template: '%s | VIP Studio',
     },
     description: 'National Award Winning Wedding Photography by Vijay. Based in Nellore, 22+ years of experience in candid wedding photography, cinematography, and event coverage.',
-    keywords: ['wedding photography Nellore', 'wedding cinematography', 'candid photographer', 'VIP Studio', 'Vijay photographer', 'wedding photographer Andhra Pradesh'],
+    keywords: [
+      'wedding photography Nellore',
+      'wedding cinematography',
+      'candid photographer Nellore',
+      'VIP Studio',
+      'Vijay photographer',
+      'wedding photographer Andhra Pradesh',
+      'best wedding photographer',
+      'wedding films Nellore',
+      'engagement photography',
+      'bridal photography',
+    ],
+    applicationName: 'VIP Studio',
+    category: 'Wedding Photography & Cinematography',
+    classification: 'Photography Services',
     openGraph: {
       title: 'VIP Studio — Wedding Photography & Cinematography',
       description: 'National Award Winning Wedding Photography by Vijay. Based in Nellore, serving with 22+ years of experience.',
@@ -31,9 +52,11 @@ export async function generateMetadata(): Promise<Metadata> {
     robots: {
       index: true,
       follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
     },
     alternates: {
-      canonical: process.env.NEXT_PUBLIC_BASE_URL || 'https://vip-studio.vercel.app',
+      canonical: baseUrl,
     },
   }
 }
@@ -45,46 +68,85 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://vip-studio.vercel.app'
+
   const jsonLd = {
     '@context': 'https://schema.org',
-    '@type': 'LocalBusiness',
-    name: 'VIP Studio',
-    description: 'National Award Winning Wedding Photography & Cinematography',
-    image: `${process.env.NEXT_PUBLIC_BASE_URL || 'https://vip-studio.vercel.app'}/logo.png`,
-    url: process.env.NEXT_PUBLIC_BASE_URL || 'https://vip-studio.vercel.app',
-    telephone: '+91 92999 50999',
-    email: 'contact@vipstudio.com',
-    address: {
-      '@type': 'PostalAddress',
-      streetAddress: '26-1-1639, beside MGB Mall, Obulreddy Nagar, Dargamitta',
-      addressLocality: 'Nellore',
-      addressRegion: 'Andhra Pradesh',
-      postalCode: '524003',
-      addressCountry: 'IN',
-    },
-    geo: {
-      '@type': 'GeoCoordinates',
-      latitude: 14.4426,
-      longitude: 79.9865,
-    },
-    openingHoursSpecification: [
-      { '@type': 'OpeningHoursSpecification', dayOfWeek: 'Monday', opens: '09:30', closes: '20:00' },
-      { '@type': 'OpeningHoursSpecification', dayOfWeek: 'Tuesday', opens: '09:30', closes: '20:00' },
-      { '@type': 'OpeningHoursSpecification', dayOfWeek: 'Wednesday', opens: '09:30', closes: '20:00' },
-      { '@type': 'OpeningHoursSpecification', dayOfWeek: 'Thursday', opens: '09:30', closes: '20:00' },
-      { '@type': 'OpeningHoursSpecification', dayOfWeek: 'Friday', opens: '09:30', closes: '20:00' },
-      { '@type': 'OpeningHoursSpecification', dayOfWeek: 'Saturday', opens: '09:30', closes: '20:00' },
-      { '@type': 'OpeningHoursSpecification', dayOfWeek: 'Sunday', opens: '09:30', closes: '14:00' },
-    ],
-    sameAs: [
-      'https://www.instagram.com/vipevents_nellore/',
-      'https://www.facebook.com/VIPweddingsnellore',
-      'https://www.youtube.com/channel/UCtNRNNFqPvOB_4SK7',
+    '@graph': [
+      {
+        '@type': 'WebSite',
+        '@id': `${baseUrl}/#website`,
+        url: baseUrl,
+        name: 'VIP Studio',
+        description: 'National Award Winning Wedding Photography & Cinematography',
+        publisher: { '@id': `${baseUrl}/#organization` },
+        inLanguage: 'en-IN',
+      },
+      {
+        '@type': 'LocalBusiness',
+        '@id': `${baseUrl}/#organization`,
+        name: 'VIP Studio',
+        description: 'National Award Winning Wedding Photography & Cinematography',
+        image: `${baseUrl}/logo.png`,
+        url: baseUrl,
+        telephone: '+91 92999 50999',
+        email: 'contact@vipstudio.com',
+        founder: {
+          '@type': 'Person',
+          name: 'Vijay Kumar',
+          jobTitle: 'CEO & Wedding Photographer',
+        },
+        address: {
+          '@type': 'PostalAddress',
+          streetAddress: '26-1-1639, beside MGB Mall, Obulreddy Nagar, Dargamitta',
+          addressLocality: 'Nellore',
+          addressRegion: 'Andhra Pradesh',
+          postalCode: '524003',
+          addressCountry: 'IN',
+        },
+        geo: {
+          '@type': 'GeoCoordinates',
+          latitude: 14.4426,
+          longitude: 79.9865,
+        },
+        openingHoursSpecification: [
+          { '@type': 'OpeningHoursSpecification', dayOfWeek: 'Monday', opens: '09:30', closes: '20:00' },
+          { '@type': 'OpeningHoursSpecification', dayOfWeek: 'Tuesday', opens: '09:30', closes: '20:00' },
+          { '@type': 'OpeningHoursSpecification', dayOfWeek: 'Wednesday', opens: '09:30', closes: '20:00' },
+          { '@type': 'OpeningHoursSpecification', dayOfWeek: 'Thursday', opens: '09:30', closes: '20:00' },
+          { '@type': 'OpeningHoursSpecification', dayOfWeek: 'Friday', opens: '09:30', closes: '20:00' },
+          { '@type': 'OpeningHoursSpecification', dayOfWeek: 'Saturday', opens: '09:30', closes: '20:00' },
+          { '@type': 'OpeningHoursSpecification', dayOfWeek: 'Sunday', opens: '09:30', closes: '14:00' },
+        ],
+        sameAs: [
+          'https://www.instagram.com/vipevents_nellore/',
+          'https://www.facebook.com/VIPweddingsnellore',
+          'https://www.youtube.com/channel/UCtNRNNFqPvOB_4SK7',
+        ],
+        areaServed: 'Nellore, Andhra Pradesh, India',
+        priceRange: '₹₹',
+      },
+      {
+        '@type': 'Service',
+        '@id': `${baseUrl}/#service`,
+        name: 'Wedding Photography Services',
+        provider: { '@id': `${baseUrl}/#organization` },
+        areaServed: 'Nellore, Andhra Pradesh, India',
+        serviceType: [
+          'Wedding Photography',
+          'Wedding Cinematography',
+          'Bridal Photography',
+          'Engagement Photography',
+          'Candid Photography',
+          'Pre-Wedding Shoot',
+          'Event Photography',
+        ],
+      },
     ],
   }
 
   return (
-    <html lang="en">
+    <html lang="en-IN">
       <body className="min-h-screen bg-white text-gray-900 antialiased">
         <script
           type="application/ld+json"

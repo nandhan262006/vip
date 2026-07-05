@@ -14,8 +14,26 @@ const DEFAULT_SERVICES = [
 const WHATSAPP_NUMBER = '919299950999'
 
 export default async function HomePage() {
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://vip-studio.vercel.app'
+
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: baseUrl },
+      { '@type': 'ListItem', position: 2, name: 'Services', item: `${baseUrl}/#services` },
+      { '@type': 'ListItem', position: 3, name: 'Portfolio', item: `${baseUrl}/portfolio` },
+      { '@type': 'ListItem', position: 4, name: 'Contact', item: `${baseUrl}/contact` },
+    ],
+  }
+
   return (
     <div>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+
       <section className="relative h-screen flex items-center justify-center bg-white">
         <div className="absolute inset-0 bg-gradient-to-b from-white via-white/95 to-red/10" />
         <div className="relative z-10 text-center px-4">
@@ -68,16 +86,16 @@ export default async function HomePage() {
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 auto-rows-[200px] md:auto-rows-[240px]">
             {[
-              { src: '/BRIDAL.png', label: 'Bridal', span: 'md:col-span-2 md:row-span-2' },
-              { src: '/CANDID.png', label: 'Candid', span: '' },
-              { src: '/ENGAGEMENT.png', label: 'Engagement', span: '' },
-              { src: '/WEDDING.png', label: 'Cinematography', span: 'md:col-span-2' },
-              { src: '/PREWEDDING.png', label: 'Pre-Wedding', span: 'md:row-span-2' },
-              { src: '/CORPERATE.png', label: 'Events', span: '' },
-              { src: '/MATERNITY.png', label: 'Maternity', span: '' },
-              { src: '/HERO.png', label: 'Fashion', span: 'md:col-span-2' },
-              { src: '/BRIDAL.png', label: 'Bridal', span: '' },
-              { src: '/CANDID.png', label: 'Candid', span: '' },
+              { src: '/BRIDAL.png', label: 'Bridal Wedding Photography', span: 'md:col-span-2 md:row-span-2' },
+              { src: '/CANDID.png', label: 'Candid Wedding Photography', span: '' },
+              { src: '/ENGAGEMENT.png', label: 'Engagement Photography', span: '' },
+              { src: '/WEDDING.png', label: 'Wedding Cinematography', span: 'md:col-span-2' },
+              { src: '/PREWEDDING.png', label: 'Pre-Wedding Photography', span: 'md:row-span-2' },
+              { src: '/CORPERATE.png', label: 'Event Photography', span: '' },
+              { src: '/MATERNITY.png', label: 'Maternity Photography', span: '' },
+              { src: '/HERO.png', label: 'Fashion Photography', span: 'md:col-span-2' },
+              { src: '/BRIDAL.png', label: 'Bridal Wedding Photography', span: '' },
+              { src: '/CANDID.png', label: 'Candid Wedding Photography', span: '' },
             ].map((item, i) => (
               <Link
                 key={i}
@@ -86,7 +104,7 @@ export default async function HomePage() {
               >
                 <Image
                   src={item.src}
-                  alt="Wedding Photography"
+                  alt={item.label}
                   fill
                   className="object-cover group-hover:scale-105 transition duration-700"
                   sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
@@ -160,7 +178,7 @@ export default async function HomePage() {
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                title="VIP Studio Location in Nellore"
+                title="VIP Studio Location in Nellore, Andhra Pradesh"
               />
             </div>
           </div>
