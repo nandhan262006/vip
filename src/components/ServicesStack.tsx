@@ -76,9 +76,9 @@ export default function ServicesStack({ services }: { services: any[] }) {
   }
 
   return (
-    <section id="services" className="relative bg-black overflow-hidden">
+    <section id="services" className="relative bg-surface overflow-hidden">
       <div className="grid md:grid-cols-2 gap-10 items-center max-w-5xl mx-auto px-4 pt-24 pb-16">
-        <div className="relative aspect-[3/4] rounded-2xl overflow-hidden bg-gray-800 order-1">
+        <div className="relative aspect-[3/4] rounded-2xl overflow-hidden bg-gray-200 order-1">
           <Image
             src="/HERO.png"
             alt="VIP Studio"
@@ -93,22 +93,22 @@ export default function ServicesStack({ services }: { services: any[] }) {
         </div>
         <div className="order-2">
           <span className="text-red font-semibold text-sm uppercase tracking-widest">About</span>
-          <h2 className="text-4xl font-bold mt-3 mb-4 text-white">VIP Studio</h2>
-          <p className="text-gray-400 leading-relaxed mb-6">
+          <h2 className="text-4xl font-bold mt-3 mb-4 text-gray-900">VIP Studio</h2>
+          <p className="text-gray-500 leading-relaxed mb-6">
             National Award Winning Wedding Photographer based in Nellore, specializing in candid wedding photography and cinematography with over 22+ years of excellence.
           </p>
           <div className="grid grid-cols-3 gap-4 mb-6">
-            <div className="text-center p-4 rounded-xl bg-white/5">
+            <div className="text-center p-4 rounded-xl bg-white border border-gray-200">
               <div className="text-3xl font-bold text-red">22+</div>
-              <div className="text-gray-400 text-sm mt-1">Years</div>
+              <div className="text-gray-500 text-sm mt-1">Years</div>
             </div>
-            <div className="text-center p-4 rounded-xl bg-white/5">
+            <div className="text-center p-4 rounded-xl bg-white border border-gray-200">
               <div className="text-3xl font-bold text-red">500+</div>
-              <div className="text-gray-400 text-sm mt-1">Weddings</div>
+              <div className="text-gray-500 text-sm mt-1">Weddings</div>
             </div>
-            <div className="text-center p-4 rounded-xl bg-white/5">
+            <div className="text-center p-4 rounded-xl bg-white border border-gray-200">
               <div className="text-3xl font-bold text-red">Award</div>
-              <div className="text-gray-400 text-sm mt-1">Winning</div>
+              <div className="text-gray-500 text-sm mt-1">Winning</div>
             </div>
           </div>
         </div>
@@ -116,8 +116,8 @@ export default function ServicesStack({ services }: { services: any[] }) {
 
       <div className="text-center pt-16 pb-8 px-4 max-w-7xl mx-auto">
         <span className="text-red font-semibold text-sm uppercase tracking-widest">What We Offer</span>
-        <h2 className="text-4xl font-bold mt-3 mb-4 text-white">Our Services</h2>
-        <p className="text-gray-400 max-w-2xl mx-auto">
+        <h2 className="text-4xl font-bold mt-3 mb-4 text-gray-900">Our Services</h2>
+        <p className="text-gray-500 max-w-2xl mx-auto">
           Comprehensive wedding photography and cinematography services tailored to make your special day unforgettable.
         </p>
       </div>
@@ -157,7 +157,7 @@ export default function ServicesStack({ services }: { services: any[] }) {
                 }}
                 onClick={() => !isActive && snap(i)}
               >
-                <div className="relative w-full aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl bg-gray-800">
+                <div className="relative w-full aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl bg-gray-200">
                   {service.imageUrl ? (
                     <Image
                       src={service.imageUrl}
@@ -168,12 +168,12 @@ export default function ServicesStack({ services }: { services: any[] }) {
                       draggable={false}
                     />
                   ) : (
-                    <div className="absolute inset-0 bg-gray-800" />
+                    <div className="absolute inset-0 bg-gray-200" />
                   )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent" />
                   <div className="absolute bottom-0 left-0 right-0 p-6 md:p-10 text-white">
                     <h3 className="text-2xl md:text-3xl font-bold mb-2">{service.title}</h3>
-                    <p className="text-gray-200 text-sm md:text-base leading-relaxed line-clamp-2">
+                    <p className="text-white/80 text-sm md:text-base leading-relaxed line-clamp-2">
                       {service.description}
                     </p>
                     <div className="mt-4 flex items-center gap-2 text-red text-sm font-medium">
@@ -194,7 +194,7 @@ export default function ServicesStack({ services }: { services: any[] }) {
             key={i}
             onClick={() => snap(i)}
             className={`w-2 h-2 rounded-full transition-all duration-300 ${
-              i === activeIdx ? 'bg-red w-6' : 'bg-gray-600 hover:bg-gray-500'
+              i === activeIdx ? 'bg-red w-6' : 'bg-gray-300 hover:bg-gray-400'
             }`}
           />
         ))}

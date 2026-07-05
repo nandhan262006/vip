@@ -16,8 +16,8 @@ const WHATSAPP_NUMBER = '919299950999'
 export default async function HomePage() {
   return (
     <div>
-      <section className="relative h-screen flex items-center justify-center bg-black">
-        <div className="absolute inset-0 bg-gradient-to-b from-black via-black/95 to-red/20" />
+      <section className="relative h-screen flex items-center justify-center bg-white">
+        <div className="absolute inset-0 bg-gradient-to-b from-white via-white/95 to-red/10" />
         <div className="relative z-10 text-center px-4">
           <h1 className="sr-only">VIP Studio — Wedding Photography & Cinematography in Nellore</h1>
           <Image
@@ -25,12 +25,12 @@ export default async function HomePage() {
             alt="VIP Studio — Wedding Photography & Cinematography"
             width={500}
             height={200}
-            className="mx-auto !w-auto !h-auto brightness-0 invert"
+            className="mx-auto !w-auto !h-auto"
             priority
           />
-          <p className="text-gray-400 text-sm md:text-base mt-4 mb-2 tracking-wider">&ldquo;Director of Wedding Photography&rdquo; &mdash; Kodak</p>
+          <p className="text-gray-500 text-sm md:text-base mt-4 mb-2 tracking-wider">&ldquo;Director of Wedding Photography&rdquo; &mdash; Kodak</p>
           <p className="text-red font-semibold text-xs md:text-sm uppercase tracking-widest">National Award Winner in Wedding Photography 2010</p>
-          <p className="text-gray-500 text-xs md:text-sm mt-2 mb-12">Vijay | CEO, <span className="text-red">VIP</span> STUDIOS</p>
+          <p className="text-gray-400 text-xs md:text-sm mt-2 mb-12">Vijay | CEO, <span className="text-red">VIP</span> STUDIOS</p>
           <div className="flex flex-wrap gap-4 justify-center">
             <Link
               href="/portfolio"
@@ -42,7 +42,7 @@ export default async function HomePage() {
               href={`https://wa.me/${WHATSAPP_NUMBER}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="border-2 border-white text-white px-8 py-3.5 rounded-full font-medium hover:bg-white hover:text-black transition"
+              className="border-2 border-gray-900 text-gray-900 px-8 py-3.5 rounded-full font-medium hover:bg-gray-900 hover:text-white transition"
             >
               Book via WhatsApp
             </a>
@@ -52,12 +52,12 @@ export default async function HomePage() {
 
       <ServicesStack services={DEFAULT_SERVICES} />
 
-      <section className="py-24 px-4 bg-black">
+      <section className="py-24 px-4 bg-surface">
         <div className="max-w-7xl mx-auto">
           <div className="flex items-center justify-between mb-12">
             <div>
               <span className="text-red font-semibold text-sm uppercase tracking-widest">Portfolio</span>
-              <h2 className="text-4xl font-bold mt-3 text-white">Our Work</h2>
+              <h2 className="text-4xl font-bold mt-3 text-gray-900">Our Work</h2>
             </div>
             <Link
               href="/portfolio"
@@ -66,25 +66,37 @@ export default async function HomePage() {
               View All <span aria-hidden="true">&rarr;</span>
             </Link>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {['/BRIDAL.png', '/CANDID.png', '/ENGAGEMENT.png', '/WEDDING.png', '/PREWEDDING.png', '/CORPERATE.png'].map((src, i) => (
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 auto-rows-[200px] md:auto-rows-[240px]">
+            {[
+              { src: '/BRIDAL.png', label: 'Bridal', span: 'md:col-span-2 md:row-span-2' },
+              { src: '/CANDID.png', label: 'Candid', span: '' },
+              { src: '/ENGAGEMENT.png', label: 'Engagement', span: '' },
+              { src: '/WEDDING.png', label: 'Cinematography', span: 'md:col-span-2' },
+              { src: '/PREWEDDING.png', label: 'Pre-Wedding', span: 'md:row-span-2' },
+              { src: '/CORPERATE.png', label: 'Events', span: '' },
+              { src: '/MATERNITY.png', label: 'Maternity', span: '' },
+              { src: '/HERO.png', label: 'Fashion', span: 'md:col-span-2' },
+              { src: '/BRIDAL.png', label: 'Bridal', span: '' },
+              { src: '/CANDID.png', label: 'Candid', span: '' },
+            ].map((item, i) => (
               <Link
                 key={i}
                 href="/portfolio"
-                className="group relative aspect-[4/3] overflow-hidden rounded-xl bg-gray-800"
+                className={`group relative overflow-hidden rounded-xl bg-gray-200 ${item.span}`}
               >
                 <Image
-                  src={src}
+                  src={item.src}
                   alt="Wedding Photography"
                   fill
-                  className="object-cover group-hover:scale-105 transition duration-500"
+                  className="object-cover group-hover:scale-105 transition duration-700"
                   sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 p-5 text-white">
-                  <h3 className="font-semibold text-lg">
-                    {['Bridal', 'Candid', 'Engagement', 'Cinematography', 'Pre-Wedding', 'Events'][i]}
-                  </h3>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300" />
+                <div className="absolute bottom-0 left-0 right-0 p-4 text-white translate-y-2 group-hover:translate-y-0 transition duration-300 opacity-0 group-hover:opacity-100">
+                  <h3 className="font-semibold text-base">{item.label}</h3>
+                </div>
+                <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm text-gray-900 text-xs font-medium px-3 py-1 rounded-full opacity-0 group-hover:opacity-100 transition duration-300">
+                  {item.label}
                 </div>
               </Link>
             ))}
@@ -100,14 +112,14 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="py-24 px-4 bg-black">
+      <section className="py-24 px-4 bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
             <span className="text-red font-semibold text-sm uppercase tracking-widest">Location</span>
-            <h2 className="text-4xl font-bold mt-3 text-white">Find Us</h2>
-            <p className="text-gray-400 mt-3">26-1-1639, beside MGB Mall, Obulreddy Nagar, Dargamitta, Nellore — 524003</p>
+            <h2 className="text-4xl font-bold mt-3 text-gray-900">Find Us</h2>
+            <p className="text-gray-500 mt-3">26-1-1639, beside MGB Mall, Obulreddy Nagar, Dargamitta, Nellore — 524003</p>
           </div>
-          <div className="rounded-2xl overflow-hidden shadow-lg bg-gray-900">
+          <div className="rounded-2xl overflow-hidden shadow-lg bg-gray-100">
             <iframe
               src="https://www.google.com/maps?q=26-1-1639+beside+MGB+Mall+Obulreddy+Nagar+Dargamitta+Nellore+Andhra+Pradesh+524003&output=embed"
               width="100%"
@@ -122,8 +134,8 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="py-24 px-4 bg-gradient-to-br from-black via-black to-red relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,rgba(204,0,0,0.2),transparent_60%)]" />
+      <section className="py-24 px-4 bg-gradient-to-br from-gray-900 via-gray-900 to-red relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,rgba(204,0,0,0.15),transparent_60%)]" />
         <div className="relative z-10 max-w-3xl mx-auto text-center text-white">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">Ready to Capture Your Story?</h2>
           <p className="text-lg text-gray-300 mb-10">
@@ -141,7 +153,7 @@ export default async function HomePage() {
             </a>
             <Link
               href="/contact"
-              className="border-2 border-white text-white px-10 py-4 rounded-full font-medium hover:bg-white hover:text-black transition text-lg"
+              className="border-2 border-white text-white px-10 py-4 rounded-full font-medium hover:bg-white hover:text-gray-900 transition text-lg"
             >
               Send a Message
             </Link>

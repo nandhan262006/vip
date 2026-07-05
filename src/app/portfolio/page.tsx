@@ -73,27 +73,64 @@ export default async function PortfolioPage({
       </div>
 
       {filtered.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filtered.map((item) => (
-            <Link
-              key={item._id}
-              href={`/portfolio/${item.slug}`}
-              className="group relative aspect-[4/3] overflow-hidden rounded-xl bg-gray-100"
-            >
-              <Image
-                src={item.image}
-                alt={item.title}
-                fill
-                className="object-cover group-hover:scale-105 transition duration-500"
-                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300" />
-              <div className="absolute bottom-0 left-0 right-0 p-4 text-white translate-y-2 group-hover:translate-y-0 transition duration-300">
-                <h3 className="font-semibold text-lg">{item.title}</h3>
-                <p className="text-sm text-gray-300">{item.date}</p>
-              </div>
-            </Link>
-          ))}
+        <div className="relative">
+          {filtered.length === 1 ? (
+            <div className="max-w-lg mx-auto">
+              <Link
+                href={`/portfolio/${filtered[0].slug}`}
+                className="group relative aspect-[4/5] overflow-hidden rounded-2xl bg-gray-100 block shadow-xl"
+              >
+                <Image
+                  src={filtered[0].image}
+                  alt={filtered[0].title}
+                  fill
+                  className="object-cover group-hover:scale-105 transition duration-700"
+                  sizes="50vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 text-white">
+                  <h3 className="text-2xl font-bold">{filtered[0].title}</h3>
+                  <p className="text-white/70 text-sm mt-1">{filtered[0].date}</p>
+                </div>
+              </Link>
+            </div>
+          ) : (
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 auto-rows-[220px] md:auto-rows-[260px]">
+              {filtered.map((item, i) => {
+                const spans = [
+                  'md:col-span-2 md:row-span-2',
+                  '',
+                  'md:row-span-2',
+                  '',
+                  'md:col-span-2',
+                  '',
+                ]
+                return (
+                  <Link
+                    key={item._id}
+                    href={`/portfolio/${item.slug}`}
+                    className={`group relative overflow-hidden rounded-xl bg-gray-100 ${spans[i % spans.length]}`}
+                  >
+                    <Image
+                      src={item.image}
+                      alt={item.title}
+                      fill
+                      className="object-cover group-hover:scale-105 transition duration-700"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300" />
+                    <div className="absolute bottom-0 left-0 right-0 p-4 text-white translate-y-2 group-hover:translate-y-0 transition duration-300 opacity-0 group-hover:opacity-100">
+                      <h3 className="font-semibold text-sm">{item.title}</h3>
+                      <p className="text-xs text-white/60">{item.date}</p>
+                    </div>
+                    <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm text-gray-900 text-xs font-medium px-3 py-1 rounded-full opacity-0 group-hover:opacity-100 transition duration-300">
+                      {item.categoryTitle}
+                    </div>
+                  </Link>
+                )
+              })}
+            </div>
+          )}
         </div>
       ) : (
         <p className="text-gray-400 text-center py-20">No galleries found.</p>

@@ -25,16 +25,16 @@ const ALL_IMAGES = [
 
 export default async function GalleryPage() {
   return (
-    <div className="py-20 px-4 max-w-7xl mx-auto bg-black min-h-screen">
-      <h1 className="text-4xl font-bold mb-2 text-white">Gallery</h1>
-      <p className="text-gray-400 mb-8">Browse our complete collection</p>
+    <div className="py-20 px-4 max-w-7xl mx-auto bg-surface min-h-screen">
+      <h1 className="text-4xl font-bold mb-2 text-gray-900">Gallery</h1>
+      <p className="text-gray-500 mb-8">Browse our complete collection</p>
 
       <div className="columns-1 md:columns-2 lg:columns-3 gap-4 space-y-4">
         {ALL_IMAGES.map((img, i) => (
           <Link
             key={`${img.gallerySlug}-${i}`}
             href={`/portfolio/${img.gallerySlug}`}
-            className="break-inside-avoid block rounded-xl overflow-hidden bg-gray-800 group relative"
+            className="break-inside-avoid block rounded-xl overflow-hidden bg-gray-200 group relative"
           >
             <Image
               src={img.src}

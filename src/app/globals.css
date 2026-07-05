@@ -6,8 +6,15 @@
   --color-red: #CC0000;
   --color-red-dark: #990000;
   --color-red-light: #FF1A1A;
+  --color-surface: #F8F9FA;
+  --color-surface-alt: #F0F1F3;
 }
 
 html {
   scroll-behavior: smooth;
+}
+
+body {
+  background-color: #FFFFFF;
+  color: #111827;
 }

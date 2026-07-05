@@ -10,18 +10,18 @@ export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false)
 
   return (
-    <header className="sticky top-0 z-50 bg-black/90 backdrop-blur border-b border-white/10">
+    <header className="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-gray-200">
       <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
         <Link href="/" className="flex items-center">
-          <Image src="/logo.png" alt="VIP Studio" width={56} height={56} className="object-contain brightness-0 invert" />
+          <Image src="/logo.png" alt="VIP Studio" width={56} height={56} className="object-contain" />
         </Link>
 
         <nav className="hidden md:flex items-center gap-8">
-          <Link href="/" className="text-sm text-gray-300 hover:text-red transition">Home</Link>
-          <Link href="/#services" className="text-sm text-gray-300 hover:text-red transition">Services</Link>
-          <Link href="/portfolio" className="text-sm text-gray-300 hover:text-red transition">Portfolio</Link>
-          <Link href="/about" className="text-sm text-gray-300 hover:text-red transition">About</Link>
-          <Link href="/contact" className="text-sm text-gray-300 hover:text-red transition">Contact</Link>
+          <Link href="/" className="text-sm text-gray-600 hover:text-red transition">Home</Link>
+          <Link href="/#services" className="text-sm text-gray-600 hover:text-red transition">Services</Link>
+          <Link href="/portfolio" className="text-sm text-gray-600 hover:text-red transition">Portfolio</Link>
+          <Link href="/about" className="text-sm text-gray-600 hover:text-red transition">About</Link>
+          <Link href="/contact" className="text-sm text-gray-600 hover:text-red transition">Contact</Link>
           <a
             href={`https://wa.me/${WHATSAPP_NUMBER}`}
             target="_blank"
@@ -33,7 +33,7 @@ export default function Header() {
         </nav>
 
         <button
-          className="md:hidden p-2 text-white"
+          className="md:hidden p-2 text-gray-900"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Toggle menu"
         >
@@ -48,12 +48,12 @@ export default function Header() {
       </div>
 
       {menuOpen && (
-        <div className="md:hidden border-t border-white/10 bg-black/95 px-4 py-4 space-y-3">
-          <Link href="/" className="block text-sm text-gray-300 hover:text-red" onClick={() => setMenuOpen(false)}>Home</Link>
-          <Link href="/#services" className="block text-sm text-gray-300 hover:text-red" onClick={() => setMenuOpen(false)}>Services</Link>
-          <Link href="/portfolio" className="block text-sm text-gray-300 hover:text-red" onClick={() => setMenuOpen(false)}>Portfolio</Link>
-          <Link href="/about" className="block text-sm text-gray-300 hover:text-red" onClick={() => setMenuOpen(false)}>About</Link>
-          <Link href="/contact" className="block text-sm text-gray-300 hover:text-red" onClick={() => setMenuOpen(false)}>Contact</Link>
+        <div className="md:hidden border-t border-gray-200 bg-white/95 px-4 py-4 space-y-3">
+          <Link href="/" className="block text-sm text-gray-600 hover:text-red" onClick={() => setMenuOpen(false)}>Home</Link>
+          <Link href="/#services" className="block text-sm text-gray-600 hover:text-red" onClick={() => setMenuOpen(false)}>Services</Link>
+          <Link href="/portfolio" className="block text-sm text-gray-600 hover:text-red" onClick={() => setMenuOpen(false)}>Portfolio</Link>
+          <Link href="/about" className="block text-sm text-gray-600 hover:text-red" onClick={() => setMenuOpen(false)}>About</Link>
+          <Link href="/contact" className="block text-sm text-gray-600 hover:text-red" onClick={() => setMenuOpen(false)}>Contact</Link>
           <a
             href={`https://wa.me/${WHATSAPP_NUMBER}`}
             target="_blank"
