@@ -117,19 +117,52 @@ export default async function HomePage() {
           <div className="text-center mb-12">
             <span className="text-red font-semibold text-sm uppercase tracking-widest">Location</span>
             <h2 className="text-4xl font-bold mt-3 text-gray-900">Find Us</h2>
-            <p className="text-gray-500 mt-3">26-1-1639, beside MGB Mall, Obulreddy Nagar, Dargamitta, Nellore — 524003</p>
           </div>
-          <div className="rounded-2xl overflow-hidden shadow-lg bg-gray-100">
-            <iframe
-              src="https://www.google.com/maps?q=26-1-1639+beside+MGB+Mall+Obulreddy+Nagar+Dargamitta+Nellore+Andhra+Pradesh+524003&output=embed"
-              width="100%"
-              height="400"
-              style={{ border: 0 }}
-              allowFullScreen
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              title="VIP Studio Location in Nellore"
-            />
+          <div className="grid md:grid-cols-2 gap-10 items-center">
+            <div className="space-y-6">
+              <div>
+                <p className="font-medium text-gray-900">Address</p>
+                <p className="text-gray-500 mt-1">26-1-1639, beside MGB Mall, Obulreddy Nagar, Dargamitta, Nellore — 524003</p>
+              </div>
+              <div>
+                <p className="font-medium text-gray-900">Phone / WhatsApp</p>
+                <a href="https://wa.me/919299950999" target="_blank" rel="noopener noreferrer" className="text-red hover:text-red-dark transition mt-1 block">
+                  +91 92999 50999
+                </a>
+              </div>
+              <div>
+                <p className="font-medium text-gray-900">Instagram</p>
+                <a href="https://www.instagram.com/vipevents_nellore/" target="_blank" rel="noopener noreferrer" className="text-red hover:text-red-dark transition mt-1 block">
+                  @vipevents_nellore
+                </a>
+              </div>
+              <div>
+                <p className="font-medium text-gray-900">Facebook</p>
+                <a href="https://www.facebook.com/VIPweddingsnellore" target="_blank" rel="noopener noreferrer" className="text-red hover:text-red-dark transition mt-1 block">
+                  VIP Weddings Nellore
+                </a>
+              </div>
+              <a
+                href="https://maps.app.goo.gl/VEJbmw21SPY4QaDY9"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-red font-medium hover:text-red-dark transition text-sm"
+              >
+                Open in Google Maps &rarr;
+              </a>
+            </div>
+            <div className="rounded-2xl overflow-hidden shadow-lg bg-gray-100">
+              <iframe
+                src="https://www.google.com/maps?q=26-1-1639+beside+MGB+Mall+Obulreddy+Nagar+Dargamitta+Nellore+Andhra+Pradesh+524003&output=embed"
+                width="100%"
+                height="350"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="VIP Studio Location in Nellore"
+              />
+            </div>
           </div>
         </div>
       </section>
