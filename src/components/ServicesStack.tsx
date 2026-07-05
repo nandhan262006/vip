@@ -99,15 +99,15 @@ export default function ServicesStack({ services }: { services: any[] }) {
           </p>
           <div className="grid grid-cols-3 gap-4 mb-6">
             <div className="text-center p-4 rounded-xl bg-white border border-gray-200">
-              <div className="text-3xl font-bold text-red">22+</div>
+              <div className="text-xl md:text-3xl font-bold text-red">22+</div>
               <div className="text-gray-500 text-sm mt-1">Years</div>
             </div>
             <div className="text-center p-4 rounded-xl bg-white border border-gray-200">
-              <div className="text-3xl font-bold text-red">500+</div>
+              <div className="text-xl md:text-3xl font-bold text-red">500+</div>
               <div className="text-gray-500 text-sm mt-1">Weddings</div>
             </div>
             <div className="text-center p-4 rounded-xl bg-white border border-gray-200">
-              <div className="text-3xl font-bold text-red">Award</div>
+              <div className="text-xl md:text-3xl font-bold text-red">Award</div>
               <div className="text-gray-500 text-sm mt-1">Winning</div>
             </div>
           </div>
