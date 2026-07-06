@@ -20,7 +20,6 @@ export default function Footer() {
               <Link href="/" className="block hover:text-red transition">Home</Link>
               <Link href="/#services" className="block hover:text-red transition">Services</Link>
               <Link href="/portfolio" className="block hover:text-red transition">Portfolio</Link>
-              <Link href="/about" className="block hover:text-red transition">About</Link>
               <Link href="/contact" className="block hover:text-red transition">Contact</Link>
             </nav>
           </div>
@@ -32,6 +31,7 @@ export default function Footer() {
               <Link href="/portfolio" className="block hover:text-red transition">Engagement</Link>
               <Link href="/portfolio" className="block hover:text-red transition">Candid Photography</Link>
               <Link href="/portfolio" className="block hover:text-red transition">Cinematography</Link>
+              <Link href="/build-your-quote" className="block hover:text-red transition">Build Your Quote</Link>
             </nav>
           </div>
 

@@ -46,8 +46,6 @@ export default async function HomePage() {
             className="mx-auto !w-auto !h-auto"
             priority
           />
-          <p className="text-gray-500 text-sm md:text-base mt-4 mb-2 tracking-wider">&ldquo;Director of Wedding Photography&rdquo; &mdash; Kodak</p>
-          <p className="text-red font-semibold text-xs md:text-sm uppercase tracking-widest">National Award Winner in Wedding Photography 2010</p>
           <p className="text-gray-400 text-xs md:text-sm mt-2 mb-12">Vijay | CEO, <span className="text-red">VIP</span> STUDIOS</p>
           <div className="flex flex-wrap gap-4 justify-center">
             <Link
@@ -64,6 +62,50 @@ export default async function HomePage() {
             >
               Book via WhatsApp
             </a>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-24 px-4 bg-white">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div className="relative aspect-[3/4] rounded-2xl overflow-hidden bg-gray-100 max-w-md mx-auto w-full">
+              <Image
+                src="/HERO.png"
+                alt="VIP Studio Photographer Vijay Kumar — National Award Winning Wedding Photographer"
+                fill
+                className="object-cover"
+              />
+            </div>
+            <div>
+              <span className="text-red font-semibold text-sm uppercase tracking-widest">About</span>
+              <h2 className="text-4xl font-bold mt-3 mb-6 text-gray-900">Vijay Kumar</h2>
+              <p className="text-gray-600 leading-relaxed mb-6">
+                With over 22 years of experience, Vijay Kumar is a National Award Winning Wedding Photographer based in Nellore, Andhra Pradesh. His journey in photography began with a passion for capturing candid emotions and has since evolved into one of the most trusted names in wedding photography and cinematography in the region.
+              </p>
+              <p className="text-gray-600 leading-relaxed mb-6">
+                Recognized by Kodak as the &ldquo;Director of Wedding Photography&rdquo; and awarded the National Award for Wedding Photography in 2010, Vijay has photographed over 2000 weddings across India. His style blends traditional storytelling with modern cinematography, creating timeless memories for every couple.
+              </p>
+              <div className="mb-6">
+                <h3 className="font-semibold text-gray-900 mb-2">Awards</h3>
+                <ul className="list-disc list-inside text-gray-600 space-y-1">
+                  <li>National Award Winner in Wedding Photography 2010</li>
+                  <li>Recognized by Kodak as Director of Wedding Photography</li>
+                </ul>
+              </div>
+              <div className="grid grid-cols-3 gap-6">
+                {[
+                  { value: '22+', label: 'Years Experience' },
+                  { value: '2000+', label: 'Weddings Shot' },
+                  { value: 'National', label: 'Awards Won' },
+                ].map((stat, i) => (
+                  <div key={i} className="text-center p-4 bg-surface rounded-xl">
+                    <p className="text-3xl font-bold text-gray-900">{stat.value}</p>
+                    <p className="text-sm text-gray-500 mt-1">{stat.label}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -119,13 +161,21 @@ export default async function HomePage() {
               </Link>
             ))}
           </div>
-          <div className="text-center mt-10">
+          <div className="text-center mt-10 space-y-4">
             <Link
               href="/portfolio"
               className="inline-flex items-center gap-2 text-red font-medium hover:text-red-dark transition"
             >
               View All Galleries <span aria-hidden="true">&rarr;</span>
             </Link>
+            <div>
+              <Link
+                href="/build-your-quote"
+                className="inline-block bg-red text-white px-10 py-4 rounded-full font-medium hover:bg-red-dark transition text-lg shadow-lg shadow-red/30"
+              >
+                Build Your Quote
+              </Link>
+            </div>
           </div>
         </div>
       </section>
