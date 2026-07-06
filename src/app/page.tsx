@@ -66,49 +66,6 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="py-24 px-4 bg-white">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="relative aspect-[3/4] rounded-2xl overflow-hidden bg-gray-100 max-w-md mx-auto w-full">
-              <Image
-                src="/HERO.png"
-                alt="VIP Studio Photographer Vijay Kumar — National Award Winning Wedding Photographer"
-                fill
-                className="object-cover"
-              />
-            </div>
-            <div>
-              <span className="text-red font-semibold text-sm uppercase tracking-widest">About</span>
-              <h2 className="text-4xl font-bold mt-3 mb-6 text-gray-900">Vijay Kumar</h2>
-              <p className="text-gray-600 leading-relaxed mb-6">
-                With over 22 years of experience, Vijay Kumar is a National Award Winning Wedding Photographer based in Nellore, Andhra Pradesh. His journey in photography began with a passion for capturing candid emotions and has since evolved into one of the most trusted names in wedding photography and cinematography in the region.
-              </p>
-              <p className="text-gray-600 leading-relaxed mb-6">
-                Recognized by Kodak as the &ldquo;Director of Wedding Photography&rdquo; and awarded the National Award for Wedding Photography in 2010, Vijay has photographed over 2000 weddings across India. His style blends traditional storytelling with modern cinematography, creating timeless memories for every couple.
-              </p>
-              <div className="mb-6">
-                <h3 className="font-semibold text-gray-900 mb-2">Awards</h3>
-                <ul className="list-disc list-inside text-gray-600 space-y-1">
-                  <li>National Award Winner in Wedding Photography 2010</li>
-                  <li>Recognized by Kodak as Director of Wedding Photography</li>
-                </ul>
-              </div>
-              <div className="grid grid-cols-3 gap-6">
-                {[
-                  { value: '22+', label: 'Years Experience' },
-                  { value: '2000+', label: 'Weddings Shot' },
-                  { value: 'National', label: 'Awards Won' },
-                ].map((stat, i) => (
-                  <div key={i} className="text-center p-4 bg-surface rounded-xl">
-                    <p className="text-3xl font-bold text-gray-900">{stat.value}</p>
-                    <p className="text-sm text-gray-500 mt-1">{stat.label}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
       <ServicesStack services={DEFAULT_SERVICES} />
 
