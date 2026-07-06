@@ -161,7 +161,7 @@ export default async function RootLayout({
 
         <a
           href={`tel:${PHONE_NUMBER}`}
-          className="fixed bottom-6 right-20 z-50 bg-red text-white p-3.5 rounded-full shadow-lg hover:bg-red-dark transition shadow-red/40 hover:shadow-xl hover:shadow-red/50"
+          className="fixed bottom-20 right-6 z-50 bg-red text-white p-3.5 rounded-full shadow-lg hover:bg-red-dark transition shadow-red/40 hover:shadow-xl hover:shadow-red/50"
           aria-label="Call VIP Studio"
         >
           <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor">

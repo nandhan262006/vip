@@ -1,26 +1,8 @@
-import Image from 'next/image'
-import Link from 'next/link'
-import type { Metadata } from 'next'
+'use client'
 
-export const metadata: Metadata = {
-  title: 'Gallery',
-  description: 'Browse our complete wedding photography and cinematography gallery by VIP Studio. Bridal, candid, engagement, pre-wedding, and event photography in Nellore.',
-  openGraph: {
-    title: 'Gallery | VIP Studio Wedding Photography',
-    description: 'View our complete collection of wedding photography and cinematography work in Nellore by National Award Winner Vijay.',
-    url: '/gallery',
-    siteName: 'VIP Studio',
-    locale: 'en_IN',
-    type: 'website',
-    images: [{ url: '/BRIDAL.png', width: 800, height: 600, alt: 'VIP Studio Wedding Gallery' }],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Gallery | VIP Studio Wedding Photography',
-    description: 'View our complete collection of wedding photography and cinematography work in Nellore.',
-    images: ['/BRIDAL.png'],
-  },
-}
+import { useState } from 'react'
+import Image from 'next/image'
+import Lightbox from '@/components/Lightbox'
 
 const ALL_IMAGES = [
   { src: '/BRIDAL.png', galleryTitle: 'Bridal Photography', gallerySlug: 'bridal' },
@@ -34,7 +16,9 @@ const ALL_IMAGES = [
   { src: '/BRIDAL.png', galleryTitle: 'Bridal Photography', gallerySlug: 'bridal' },
 ]
 
-export default async function GalleryPage() {
+export default function GalleryPage() {
+  const [lightbox, setLightbox] = useState<string | null>(null)
+
   return (
     <div className="py-20 px-4 max-w-7xl mx-auto bg-surface min-h-screen">
       <h1 className="text-4xl font-bold mb-2 text-gray-900">Gallery</h1>
@@ -42,10 +26,10 @@ export default async function GalleryPage() {
 
       <div className="columns-1 md:columns-2 lg:columns-3 gap-4 space-y-4">
         {ALL_IMAGES.map((img, i) => (
-          <Link
+          <button
             key={`${img.gallerySlug}-${i}`}
-            href={`/portfolio/${img.gallerySlug}`}
-            className="break-inside-avoid block rounded-xl overflow-hidden bg-gray-200 group relative"
+            onClick={() => setLightbox(img.src)}
+            className="break-inside-avoid block w-full text-left rounded-xl overflow-hidden bg-gray-200 group relative cursor-pointer"
           >
             <Image
               src={img.src}
@@ -59,9 +43,13 @@ export default async function GalleryPage() {
             <div className="absolute bottom-0 left-0 right-0 p-4 text-white translate-y-2 group-hover:translate-y-0 transition duration-300 opacity-0 group-hover:opacity-100">
               <p className="text-sm font-medium">{img.galleryTitle}</p>
             </div>
-          </Link>
+          </button>
         ))}
       </div>
+
+      {lightbox && (
+        <Lightbox src={lightbox} alt="Gallery image" onClose={() => setLightbox(null)} />
+      )}
     </div>
   )
 }

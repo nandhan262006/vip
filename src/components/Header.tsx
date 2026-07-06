@@ -12,9 +12,9 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-gray-200">
-      <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
         <Link href="/" className="flex items-center">
-          <Image src="/logo.png" alt="VIP Studio" width={56} height={56} className="object-contain" />
+          <Image src="/logo.png" alt="VIP Studio" width={200} height={100} className="h-16 w-auto object-contain" />
         </Link>
 
         <nav className="hidden md:flex items-center gap-8">
