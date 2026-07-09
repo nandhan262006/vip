@@ -22,7 +22,7 @@ export default function Header() {
           <Link href="/about" className="text-sm text-gray-600 hover:text-red transition">About</Link>
           <Link href="/#services" className="text-sm text-gray-600 hover:text-red transition">Services</Link>
           <Link href="/portfolio" className="text-sm text-gray-600 hover:text-red transition">Portfolio</Link>
-          <Link href="/build-your-quote" className="text-sm text-gray-600 hover:text-red transition">Build Your Quote</Link>
+          <Link href="/build-your-quote" className="text-sm text-gray-600 hover:text-red transition">Build Your Wedding Quote</Link>
           <Link href="/contact" className="text-sm text-gray-600 hover:text-red transition">Contact</Link>
           <a
             href={`https://wa.me/${WHATSAPP_NUMBER}`}
@@ -61,7 +61,7 @@ export default function Header() {
           <Link href="/about" className="block text-sm text-gray-600 hover:text-red" onClick={() => setMenuOpen(false)}>About</Link>
           <Link href="/#services" className="block text-sm text-gray-600 hover:text-red" onClick={() => setMenuOpen(false)}>Services</Link>
           <Link href="/portfolio" className="block text-sm text-gray-600 hover:text-red" onClick={() => setMenuOpen(false)}>Portfolio</Link>
-          <Link href="/build-your-quote" className="block text-sm text-gray-600 hover:text-red" onClick={() => setMenuOpen(false)}>Build Your Quote</Link>
+          <Link href="/build-your-quote" className="block text-sm text-gray-600 hover:text-red" onClick={() => setMenuOpen(false)}>Build Your Wedding Quote</Link>
           <Link href="/contact" className="block text-sm text-gray-600 hover:text-red" onClick={() => setMenuOpen(false)}>Contact</Link>
           <a
             href={`https://wa.me/${WHATSAPP_NUMBER}`}
