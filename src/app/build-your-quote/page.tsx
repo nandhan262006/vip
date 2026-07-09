@@ -3,7 +3,7 @@ import Image from 'next/image'
 import QuoteBuilder from '@/components/QuoteBuilder'
 
 export const metadata: Metadata = {
-  title: 'Build Your Quote',
+  title: 'Build Your Wedding Quote',
   description: 'Build your own wedding photography & cinematography quote. Select events, albums, and more to get an instant price estimate.',
 }
 
@@ -30,7 +30,7 @@ export default function BuildYourQuotePage() {
             href="#builder"
             className="inline-block bg-[#dc143c] text-white px-10 py-3.5 rounded-full font-medium hover:brightness-110 transition shadow-lg"
           >
-            Build Your Quote
+            Build Your Wedding Quote
           </a>
         </div>
       </section>

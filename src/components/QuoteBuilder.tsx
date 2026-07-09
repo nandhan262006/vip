@@ -41,7 +41,8 @@ function calcTotal(visibleSteps: Step[], quantities: Record<string, number>, sel
 function buildPdf(
   formData: { name: string; date: string; venue: string; phone: string; email: string },
   totalPrice: number,
-  items: { name: string; qty: number; price: number }[]
+  items: { name: string; qty: number; price: number }[],
+  logoDataUrl?: string
 ) {
   const doc = new jsPDF({ format: 'a4', unit: 'mm' })
   const M = 20
@@ -51,17 +52,21 @@ function buildPdf(
   const D: [number, number, number] = [30, 30, 30]
   let y = M
 
+  if (logoDataUrl) {
+    doc.addImage(logoDataUrl, 'PNG', M, y - 5, 35, 17.5)
+  }
+  const tx = logoDataUrl ? M + 42 : M
   doc.setFont('helvetica', 'bold')
   doc.setFontSize(24)
   doc.setTextColor(...R)
-  doc.text('VIP Studio', M, y)
+  doc.text('VIP Studio', tx, y)
   y += 8
   doc.setFont('helvetica', 'normal')
   doc.setFontSize(10)
   doc.setTextColor(...G)
-  doc.text('Wedding Photography & Cinematography', M, y)
+  doc.text('Wedding Photography & Cinematography', tx, y)
   y += 5
-  doc.text('+91 92999 50999', M, y)
+  doc.text('+91 92999 50999', tx, y)
   doc.setDrawColor(...R)
   doc.setLineWidth(0.8)
   doc.line(M, y, M + W, y)
@@ -141,6 +146,17 @@ export default function QuoteBuilder() {
   const [form, setForm] = useState({ name: '', date: '', venue: '', phone: '', email: '', accepted: false })
   const [done, setDone] = useState(false)
   const [lastStep, setLastStep] = useState(0)
+  const [logoDataUrl, setLogoDataUrl] = useState<string | null>(null)
+
+  useEffect(() => {
+    fetch('/logo.png')
+      .then((r) => r.blob())
+      .then((blob) => {
+        const reader = new FileReader()
+        reader.onloadend = () => setLogoDataUrl(reader.result as string)
+        reader.readAsDataURL(blob)
+      })
+  }, [])
 
   const visibleSteps = useMemo(() => STEPS.filter((s) => !s.condition || s.condition(sels)), [sels])
   const step = visibleSteps[stepIdx]
@@ -195,9 +211,9 @@ export default function QuoteBuilder() {
   }, [stepIdx])
 
   const doPdf = useCallback(() => {
-    const doc = buildPdf(form, total, summary)
+    const doc = buildPdf(form, total, summary, logoDataUrl || undefined)
     doc.save(`TBD-Quote-${form.name.replace(/\s+/g, '-') || 'quote'}.pdf`)
-  }, [form, total, summary])
+  }, [form, total, summary, logoDataUrl])
 
   const doWhatsApp = useCallback(() => {
     if (!form.accepted || !form.name || !form.phone || !form.email) return
