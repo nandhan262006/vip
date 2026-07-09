@@ -54,13 +54,13 @@ export async function generateMetadata(): Promise<Metadata> {
       siteName: 'VIP Studio - Best Photographer in Nellore',
       locale: 'en_IN',
       type: 'website',
-      images: [{ url: '/og-image.webp', width: 1200, height: 630, alt: 'VIP Studio — Best Photographer in Nellore | Wedding Photography' }],
+      images: [{ url: '/og-image.png', width: 409, height: 510, alt: 'VIP Studio — Best Photographer in Nellore | Wedding Photography' }],
     },
     twitter: {
       card: 'summary_large_image',
       title: 'Best Photographer in Nellore — VIP Studio | Award Winning Wedding Photography',
       description: 'National Award Winning Best Photographer in Nellore. Wedding Photographer of the Year 2010. Book Vijay Kumar for candid wedding photography.',
-      images: ['/og-image.webp'],
+      images: ['/og-image.png'],
     },
     robots: {
       index: true,
