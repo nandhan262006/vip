@@ -131,7 +131,7 @@ export default async function HomePage() {
                 href="/build-your-quote"
                 className="inline-block bg-red text-white px-10 py-4 rounded-full font-medium hover:bg-red-dark transition text-lg shadow-lg shadow-red/30"
               >
-                Build Your Quote
+                Build Your Wedding Quote
               </Link>
             </div>
           </div>

@@ -32,7 +32,7 @@ export default function Footer() {
               <Link href="/portfolio" className="block hover:text-red transition">Engagement</Link>
               <Link href="/portfolio" className="block hover:text-red transition">Candid Photography</Link>
               <Link href="/portfolio" className="block hover:text-red transition">Cinematography</Link>
-              <Link href="/build-your-quote" className="block hover:text-red transition">Build Your Quote</Link>
+              <Link href="/build-your-quote" className="block hover:text-red transition">Build Your Wedding Quote</Link>
             </nav>
           </div>
 
