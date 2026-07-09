@@ -74,7 +74,7 @@ export default function ContactPage() {
           <div className="mt-6">
             <p className="font-medium text-gray-900 mb-2">Find Us</p>
             <a
-              href="https://maps.app.goo.gl/VEJbmw21SPY4QaDY9"
+              href="https://maps.app.goo.gl/1EMxVrRVyRVp5KCLA"
               target="_blank"
               rel="noopener noreferrer"
               className="text-red hover:text-red-dark transition text-sm"

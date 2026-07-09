@@ -16,7 +16,7 @@ const WHATSAPP_NUMBER = '919299950999'
 const PHONE_NUMBER = '+919299950999'
 
 export default async function HomePage() {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://vip-studio.vercel.app'
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://vipstudios.in'
 
   const breadcrumbJsonLd = {
     '@context': 'https://schema.org',
@@ -39,7 +39,7 @@ export default async function HomePage() {
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
         <HeroSlider />
         <div className="relative z-10 text-center px-4">
-          <h1 className="sr-only">VIP Studio — Wedding Photography & Cinematography in Nellore</h1>
+          <h1 className="sr-only">Best Photographer in Nellore — VIP Studio | National Award Winning Wedding Photography & Cinematography by Vijay Kumar</h1>
           <Image
             src="/logo.png"
             alt="VIP Studio — Wedding Photography & Cinematography"
@@ -169,7 +169,7 @@ export default async function HomePage() {
                 </a>
               </div>
               <a
-                href="https://maps.app.goo.gl/VEJbmw21SPY4QaDY9"
+                href="https://maps.app.goo.gl/1EMxVrRVyRVp5KCLA"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 text-red font-medium hover:text-red-dark transition text-sm"
@@ -190,6 +190,38 @@ export default async function HomePage() {
               />
             </div>
           </div>
+        </div>
+      </section>
+
+      <section className="py-20 px-4 bg-white border-t border-gray-200">
+        <div className="max-w-6xl mx-auto text-center">
+          <span className="text-red font-semibold text-sm uppercase tracking-widest">Awards & Recognition</span>
+          <h2 className="text-3xl md:text-4xl font-bold mt-3 mb-6 text-gray-900">
+            Recognized as the <span className="text-red">Best Photographer in Nellore</span>
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+            <div className="p-6 rounded-xl bg-surface border border-gray-200">
+              <div className="text-red font-bold text-lg">National Award</div>
+              <p className="text-gray-900 font-semibold mt-2">Wedding Photography</p>
+              <p className="text-gray-500 text-sm mt-1">Government of India</p>
+            </div>
+            <div className="p-6 rounded-xl bg-surface border border-gray-200">
+              <div className="text-red font-bold text-lg">2010</div>
+              <p className="text-gray-900 font-semibold mt-2">Wedding Photographer of the Year</p>
+              <p className="text-gray-500 text-sm mt-1">Kodak</p>
+            </div>
+            <div className="p-6 rounded-xl bg-surface border border-gray-200">
+              <div className="text-red font-bold text-lg">15+ Years</div>
+              <p className="text-gray-900 font-semibold mt-2">Award-Winning Excellence</p>
+              <p className="text-gray-500 text-sm mt-1">VIP Studio, Nellore</p>
+            </div>
+          </div>
+          <Link
+            href="/about"
+            className="inline-flex items-center gap-2 text-red font-medium hover:text-red-dark transition mt-8"
+          >
+            Meet the Best Photographer in Nellore <span aria-hidden="true">&rarr;</span>
+          </Link>
         </div>
       </section>
 
