@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useMemo, useCallback } from 'react'
+import { useState, useMemo, useCallback, useRef, useEffect } from 'react'
 import Image from 'next/image'
 import jsPDF from 'jspdf'
 import { STEPS, type Step, type StepItem } from '@/data/quoteSteps'
@@ -16,7 +16,7 @@ function fmt(n: number) {
 function getSummary(visibleSteps: Step[], quantities: Record<string, number>, selections: Record<string, number>) {
   const items: { name: string; qty: number; price: number }[] = []
   for (const step of visibleSteps) {
-    if (step.type === 'final' || step.type === 'welcome' || step.type === 'yes-no') continue
+    if (step.type === 'final' || step.type === 'welcome') continue
     for (const item of step.items) {
       const qty = quantities[item.id] || selections[item.id] || 0
       if (qty > 0) {
@@ -140,6 +140,7 @@ export default function QuoteBuilder() {
   const [sels, setSels] = useState<Record<string, number>>({})
   const [form, setForm] = useState({ name: '', date: '', venue: '', phone: '', email: '', accepted: false })
   const [done, setDone] = useState(false)
+  const [lastStep, setLastStep] = useState(0)
 
   const visibleSteps = useMemo(() => STEPS.filter((s) => !s.condition || s.condition(sels)), [sels])
   const step = visibleSteps[stepIdx]
@@ -148,11 +149,9 @@ export default function QuoteBuilder() {
 
   const canGo = useMemo(() => {
     if (!step) return false
-    if (step.type === 'final') return form.accepted && form.name && form.phone && form.email
-    if (step.type === 'welcome') return true
-    if (step.type === 'multi-quantity') return Object.values(qtys).some((v) => v > 0)
-    return Object.values(sels).some((v) => v > 0)
-  }, [step, qtys, sels, form])
+    if (step.type === 'final') return form.name && form.phone && form.email
+    return true
+  }, [step, form])
 
   const handleQty = useCallback((id: string, d: number) => {
     setQtys((p) => {
@@ -165,7 +164,7 @@ export default function QuoteBuilder() {
 
   const handleSel = useCallback((id: string) => {
     setSels((p) => {
-      if (step?.type === 'single-select' || step?.type === 'yes-no' || step?.type === 'timeline' || step?.type === 'style-select') {
+      if (step?.type === 'single-select') {
         const next = { ...p }
         for (const item of step.items) {
           delete next[item.id]
@@ -179,11 +178,20 @@ export default function QuoteBuilder() {
 
   const next = useCallback(() => {
     if (!canGo) return
-    if (stepIdx < visibleSteps.length - 1) { setStepIdx((i) => i + 1) }
-  }, [canGo, stepIdx, visibleSteps.length])
+    if (stepIdx < visibleSteps.length - 1) {
+      if (visibleSteps[stepIdx + 1]?.type === 'final') setLastStep(stepIdx)
+      setStepIdx((i) => i + 1)
+    }
+  }, [canGo, stepIdx, visibleSteps])
 
   const prev = useCallback(() => {
     if (stepIdx > 0) { setStepIdx((i) => i - 1) }
+  }, [stepIdx])
+
+  const topRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    topRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }, [stepIdx])
 
   const doPdf = useCallback(() => {
@@ -212,18 +220,33 @@ export default function QuoteBuilder() {
 
   function renderQtyCard(item: StepItem) {
     const q = qtys[item.id] || 0
+    const selected = q > 0
+    const toggle = () => {
+      if (selected) {
+        setQtys((p) => { const { [item.id]: _, ...r } = p; return r })
+      } else {
+        setQtys((p) => ({ ...p, [item.id]: 1 }))
+      }
+    }
     return (
-      <div key={item.id} className="flex flex-col items-center gap-2 p-5 bg-white rounded-xl border border-gray-200 shadow-sm min-w-[150px]">
-        <div className="relative w-16 h-16">
-          <Image src={item.image} alt={item.name} fill className="object-contain" />
+      <div key={item.id} onClick={toggle}
+        className={cn(
+          'flex flex-col items-center gap-2 p-4 sm:p-5 rounded-xl border-2 transition-all w-full sm:w-auto min-w-0 sm:min-w-[150px] cursor-pointer',
+          selected ? 'border-[#dc143c] bg-[#dc143c]/5 scale-[1.03] shadow-md' : 'border-gray-200 bg-white hover:border-gray-300 shadow-sm hover:shadow'
+        )}
+      >
+        <div className="relative w-16 h-16 pointer-events-none">
+          <Image src={item.image} alt={item.name} fill className={cn('object-contain', selected ? 'scale-110' : '')} />
         </div>
-        <span className="text-xs font-semibold text-gray-800 text-center leading-tight">{item.name}</span>
-        <span className="text-[11px] text-gray-400">{item.price === 0 ? 'FREE' : fmt(item.price)}</span>
-        <div className="flex items-center gap-2 mt-1">
-          <button onClick={() => handleQty(item.id, -1)} className="w-7 h-7 rounded-full bg-gray-100 text-gray-500 font-bold hover:bg-gray-200 flex items-center justify-center text-sm leading-none">&minus;</button>
-          <span className="w-5 text-center font-bold text-sm">{q}</span>
-          <button onClick={() => handleQty(item.id, 1)} className="w-7 h-7 rounded-full text-white font-bold flex items-center justify-center text-sm leading-none" style={{ backgroundColor: '#dc143c' }}>+</button>
-        </div>
+        <span className={cn('text-xs font-semibold text-center leading-tight pointer-events-none', selected ? 'text-[#dc143c]' : 'text-gray-800')}>{item.name}</span>
+        <span className={cn('text-[11px] pointer-events-none', selected ? 'text-[#dc143c]' : 'text-gray-400')}>{item.price === 0 ? 'FREE' : fmt(item.price)}</span>
+        {selected && (
+          <div className="flex items-center gap-2 mt-1" onClick={(e) => e.stopPropagation()}>
+            <button onClick={() => handleQty(item.id, -1)} className="w-7 h-7 rounded-full bg-gray-100 text-gray-500 font-bold hover:bg-gray-200 flex items-center justify-center text-sm leading-none">&minus;</button>
+            <span className="w-5 text-center font-bold text-sm">{q}</span>
+            <button onClick={() => handleQty(item.id, 1)} className="w-7 h-7 rounded-full text-white font-bold flex items-center justify-center text-sm leading-none" style={{ backgroundColor: '#dc143c' }}>+</button>
+          </div>
+        )}
       </div>
     )
   }
@@ -233,7 +256,7 @@ export default function QuoteBuilder() {
     return (
       <button key={item.id} onClick={() => handleSel(item.id)}
         className={cn(
-          'flex flex-col items-center gap-3 p-6 rounded-xl border-2 transition-all min-w-[155px]',
+          'flex flex-col items-center gap-3 p-4 sm:p-6 rounded-xl border-2 transition-all w-full sm:w-auto min-w-0 sm:min-w-[155px]',
           sel ? 'border-[#dc143c] bg-[#dc143c]/5 scale-[1.03] shadow-md' : 'border-gray-200 bg-white hover:border-gray-300 shadow-sm hover:shadow'
         )}
       >
@@ -259,20 +282,7 @@ export default function QuoteBuilder() {
           </div>
           <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">{step.title}</h1>
           {step.subtitle && <p className="text-gray-500 max-w-lg mx-auto mb-8 text-sm">{step.subtitle}</p>}
-          <div className="text-4xl font-bold mb-6" style={{ color: '#dc143c' }}>{fmt(0)}</div>
           <button onClick={next} className="text-white font-semibold px-10 py-3.5 rounded-full text-base shadow-lg hover:brightness-110 transition" style={{ backgroundColor: '#dc143c' }}>GET STARTED</button>
-        </div>
-      )
-    }
-
-    if (step.type === 'yes-no') {
-      return (
-        <div>
-          <div className="text-center mb-8">
-            <h2 className="text-xl md:text-2xl font-bold text-gray-900">{step.title}</h2>
-            {step.subtitle && <p className="text-gray-500 text-sm mt-1">{step.subtitle}</p>}
-          </div>
-          <div className="flex flex-wrap gap-6 justify-center">{step.items.map(renderOptCard)}</div>
         </div>
       )
     }
@@ -295,18 +305,6 @@ export default function QuoteBuilder() {
           <div className="text-center mb-8">
             <h2 className="text-xl md:text-2xl font-bold text-gray-900">{step.title}</h2>
             {step.subtitle && <p className="text-gray-500 text-sm mt-1">{step.subtitle}</p>}
-          </div>
-          <div className="flex flex-wrap gap-6 justify-center">{step.items.map(renderOptCard)}</div>
-        </div>
-      )
-    }
-
-    if (step.type === 'timeline' || step.type === 'style-select') {
-      return (
-        <div>
-          <div className="text-center mb-8">
-            <h2 className="text-xl md:text-2xl font-bold text-gray-900">{step.title}</h2>
-            {step.subtitle && <p className="text-gray-500 text-sm mt-3 max-w-xl mx-auto">{step.subtitle}</p>}
           </div>
           <div className="flex flex-wrap gap-6 justify-center">{step.items.map(renderOptCard)}</div>
         </div>
@@ -344,19 +342,12 @@ export default function QuoteBuilder() {
               </div>
             </div>
           </div>
-          <div className="bg-gray-50 rounded-xl border border-gray-200 p-4 mb-4 text-[11px] text-gray-500 leading-relaxed">
-            <p>If another photography team's hired, the contract will be canceled immediately. Sessions last for 5-6 hours. Travel and stay is arranged by the client. Full payment is due on the wedding day, and the Outputs timeline depends on timely payment. If the project is on hold for 6 months, we're not responsible for data loss. Original data can be received via client-provided drive. We prioritise careful handling of your original data; in case of you losing the data, re-copying is available at Rs. 29,999/- for lifelong memories.</p>
-            <label className="flex items-start gap-2 mt-3 cursor-pointer">
-              <input type="checkbox" checked={form.accepted} onChange={(e) => setForm((f) => ({ ...f, accepted: e.target.checked }))} className="mt-0.5 h-4 w-4 rounded border-gray-300 accent-[#dc143c]" />
-              <span className="text-gray-600 text-xs">I accept the terms of agreement.</span>
-            </label>
-          </div>
           <div className="flex flex-col sm:flex-row gap-3">
-            <button onClick={doPdf} disabled={!form.accepted || !form.name || !form.phone || !form.email}
+            <button onClick={doPdf} disabled={!form.name || !form.phone || !form.email}
               className="flex-1 py-3 rounded-full font-semibold text-sm border-2 transition disabled:opacity-40 disabled:cursor-not-allowed hover:bg-[#dc143c] hover:text-white"
               style={{ borderColor: '#dc143c', color: '#dc143c' }}
             >Download PDF</button>
-            <button onClick={doWhatsApp} disabled={!form.accepted || !form.name || !form.phone || !form.email}
+            <button onClick={doWhatsApp} disabled={!form.name || !form.phone || !form.email}
               className="flex-1 py-3 rounded-full font-semibold text-sm text-white transition disabled:opacity-40 disabled:cursor-not-allowed hover:brightness-110"
               style={{ backgroundColor: '#dc143c' }}
             >Send via WhatsApp</button>
@@ -373,29 +364,36 @@ export default function QuoteBuilder() {
 
   return (
     <div style={{ backgroundColor: '#F6F1E6' }} className="min-h-screen">
-      <div className="max-w-4xl mx-auto px-4 py-10">
+      <div ref={topRef} className="max-w-4xl mx-auto px-4 py-10">
         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 md:p-8">
           {step.type !== 'welcome' && step.type !== 'final' && (
             <div className="flex items-center justify-between mb-6 pb-4 border-b border-gray-100">
-              <div className="flex items-center gap-4">
-                <span className="text-xs text-gray-400">
-                  Step {visibleSteps.filter((s) => s.type !== 'welcome' && s.type !== 'final').indexOf(step) + 1} / {visibleSteps.filter((s) => s.type !== 'welcome' && s.type !== 'final').length}
-                </span>
-                <button onClick={() => setStepIdx(visibleSteps.length - 1)} className="text-xs font-semibold text-[#dc143c] border border-[#dc143c] rounded-full px-3 py-1 hover:bg-[#dc143c] hover:text-white transition">
-                  Skip to total
-                </button>
-              </div>
+              <span className="text-xs text-gray-400">
+                Step {visibleSteps.filter((s) => s.type !== 'welcome' && s.type !== 'final').indexOf(step) + 1} / {visibleSteps.filter((s) => s.type !== 'welcome' && s.type !== 'final').length}
+              </span>
               <span className="text-base font-bold" style={{ color: '#dc143c' }}>{fmt(total)}</span>
             </div>
           )}
           {renderContent()}
           {step.type !== 'welcome' && step.type !== 'final' && (
             <div className="flex justify-between mt-8 pt-5 border-t border-gray-100">
-              <button onClick={prev} className="px-6 py-2.5 rounded-full border border-gray-300 text-gray-500 text-sm font-medium hover:bg-gray-50 transition">Previous step</button>
+              <button onClick={prev} className="px-6 py-2.5 rounded-full border-2 text-sm font-medium transition"
+                style={{ borderColor: '#dc143c', color: '#dc143c' }}
+              >Previous step</button>
               <button onClick={next} disabled={!canGo}
-                className={cn('px-8 py-2.5 rounded-full text-sm font-medium transition', canGo ? 'text-white shadow-md hover:brightness-110' : 'bg-gray-200 text-gray-400 cursor-not-allowed')}
+                className={cn('px-5 md:px-8 py-2 md:py-2.5 rounded-full text-xs md:text-sm font-medium transition', canGo ? 'text-white shadow-md hover:brightness-110' : 'bg-gray-200 text-gray-400 cursor-not-allowed')}
                 style={canGo ? { backgroundColor: '#dc143c' } : {}}
               >Next step</button>
+              <button onClick={() => { setLastStep(stepIdx); setStepIdx(visibleSteps.length - 1) }} className="text-[10px] md:text-xs font-semibold text-[#dc143c] border border-[#dc143c] rounded-full px-2 md:px-3 py-1 hover:bg-[#dc143c] hover:text-white transition">
+                Skip to total
+              </button>
+            </div>
+          )}
+          {step.type === 'final' && (
+            <div className="flex justify-center mt-8 pt-5 border-t border-gray-100">
+              <button onClick={() => setStepIdx(lastStep)} className="px-4 md:px-6 py-2 md:py-2.5 rounded-full border-2 text-xs md:text-sm font-medium transition"
+                style={{ borderColor: '#dc143c', color: '#dc143c' }}
+              >Back to select more</button>
             </div>
           )}
         </div>

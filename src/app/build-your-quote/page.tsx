@@ -35,36 +35,6 @@ export default function BuildYourQuotePage() {
         </div>
       </section>
 
-      <section className="py-20 px-4 bg-[#F6F1E6]">
-        <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-8">
-          {[
-            {
-              icon: '/quotes/camera.png',
-              title: 'Discover our services',
-              desc: 'including candid photography, traditional photography, albums, and more.',
-            },
-            {
-              icon: '/quotes/photo.png',
-              title: 'Build Your Quote',
-              desc: 'Select what you love and see instant pricing with a real-time quote that updates as you make your selections.',
-            },
-            {
-              icon: '/quotes/surprise.png',
-              title: 'Seal the Deal and Save the Date',
-              desc: 'Enter your details to receive a personalized quote via email, connect with our team to finalize the details, and reserve your spot with a 30% deposit to secure your special day.',
-            },
-          ].map((item, i) => (
-            <div key={i} className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 text-center">
-              <div className="relative w-16 h-16 mx-auto mb-4">
-                <Image src={item.icon} alt="" fill className="object-contain" />
-              </div>
-              <h3 className="font-bold text-lg text-gray-900 mb-2">{item.title}</h3>
-              <p className="text-gray-500 text-sm leading-relaxed">{item.desc}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
       <div id="builder">
         <QuoteBuilder />
       </div>

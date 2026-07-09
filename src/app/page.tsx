@@ -158,8 +158,8 @@ export default async function HomePage() {
               </div>
               <div>
                 <p className="font-medium text-gray-900">Instagram</p>
-                <a href="https://www.instagram.com/vipevents_nellore/" target="_blank" rel="noopener noreferrer" className="text-red hover:text-red-dark transition mt-1 block">
-                  @vipevents_nellore
+                <a href="https://www.instagram.com/vipstudios.in/" target="_blank" rel="noopener noreferrer" className="text-red hover:text-red-dark transition mt-1 block">
+                  @vipstudios.in
                 </a>
               </div>
               <div>
@@ -169,7 +169,7 @@ export default async function HomePage() {
                 </a>
               </div>
               <a
-                href="https://maps.app.goo.gl/1EMxVrRVyRVp5KCLA"
+                href="https://maps.app.goo.gl/JUXE7VGbpJDuJyzMA"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 text-red font-medium hover:text-red-dark transition text-sm"
@@ -179,7 +179,7 @@ export default async function HomePage() {
             </div>
             <div className="rounded-2xl overflow-hidden shadow-lg bg-gray-100">
               <iframe
-                src="https://www.google.com/maps?q=26-1-1639+beside+MGB+Mall+Obulreddy+Nagar+Dargamitta+Nellore+Andhra+Pradesh+524003&output=embed"
+                src="https://www.google.com/maps?ll=14.4330217,79.9670549&z=17&t=m&hl=en-US&gl=US&mapclient=embed&q=VIP+STUDIOS+Nellore&output=embed"
                 width="100%"
                 height="350"
                 style={{ border: 0 }}

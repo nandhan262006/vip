@@ -51,12 +51,12 @@ export default function ContactPage() {
             <div>
               <p className="font-medium text-gray-900">Instagram</p>
               <a
-                href="https://www.instagram.com/vipevents_nellore/"
+                href="https://www.instagram.com/vipstudios.in/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-900 underline hover:text-gray-600"
               >
-                @vipevents_nellore
+                @vipstudios.in
               </a>
             </div>
             <div>
@@ -74,7 +74,7 @@ export default function ContactPage() {
           <div className="mt-6">
             <p className="font-medium text-gray-900 mb-2">Find Us</p>
             <a
-              href="https://maps.app.goo.gl/1EMxVrRVyRVp5KCLA"
+              href="https://maps.app.goo.gl/JUXE7VGbpJDuJyzMA"
               target="_blank"
               rel="noopener noreferrer"
               className="text-red hover:text-red-dark transition text-sm"
@@ -89,7 +89,7 @@ export default function ContactPage() {
 
       <div className="mt-12 rounded-2xl overflow-hidden shadow-lg bg-gray-100">
         <iframe
-          src="https://www.google.com/maps?q=26-1-1639+beside+MGB+Mall+Obulreddy+Nagar+Dargamitta+Nellore+Andhra+Pradesh+524003&output=embed"
+          src="https://www.google.com/maps?ll=14.4330217,79.9670549&z=17&t=m&hl=en-US&gl=US&mapclient=embed&q=VIP+STUDIOS+Nellore&output=embed"
           width="100%"
           height="350"
           style={{ border: 0 }}

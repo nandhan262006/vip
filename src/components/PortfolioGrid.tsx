@@ -14,14 +14,14 @@ type GalleryItem = {
 }
 
 export default function PortfolioGrid({ items, single }: { items: GalleryItem[]; single: boolean }) {
-  const [lightbox, setLightbox] = useState<string | null>(null)
+  const [lightboxIdx, setLightboxIdx] = useState<number | null>(null)
 
   if (single) {
     const item = items[0]
     return (
       <div className="max-w-lg mx-auto">
         <button
-          onClick={() => setLightbox(item.image)}
+          onClick={() => setLightboxIdx(0)}
           className="group relative aspect-[4/5] overflow-hidden rounded-2xl bg-gray-100 block w-full shadow-xl cursor-pointer text-left"
         >
           <Image
@@ -37,8 +37,13 @@ export default function PortfolioGrid({ items, single }: { items: GalleryItem[];
             <p className="text-white/70 text-sm mt-1">{item.date}</p>
           </div>
         </button>
-        {lightbox && (
-          <Lightbox src={lightbox} alt={item.title} onClose={() => setLightbox(null)} />
+        {lightboxIdx !== null && (
+          <Lightbox
+            images={items.map((x) => ({ src: x.image, alt: x.title }))}
+            currentIndex={lightboxIdx}
+            onClose={() => setLightboxIdx(null)}
+            onNavigate={(i) => setLightboxIdx(i)}
+          />
         )}
       </div>
     )
@@ -59,7 +64,7 @@ export default function PortfolioGrid({ items, single }: { items: GalleryItem[];
         {items.map((item, i) => (
           <button
             key={item._id}
-            onClick={() => setLightbox(item.image)}
+            onClick={() => setLightboxIdx(i)}
             className={`group relative overflow-hidden rounded-xl bg-gray-100 text-left cursor-pointer ${spans[i % spans.length]}`}
           >
             <Image
@@ -80,11 +85,12 @@ export default function PortfolioGrid({ items, single }: { items: GalleryItem[];
           </button>
         ))}
       </div>
-      {lightbox && (
+      {lightboxIdx !== null && (
         <Lightbox
-          src={lightbox}
-          alt="Portfolio image"
-          onClose={() => setLightbox(null)}
+          images={items.map((x) => ({ src: x.image, alt: x.title }))}
+          currentIndex={lightboxIdx}
+          onClose={() => setLightboxIdx(null)}
+          onNavigate={(i) => setLightboxIdx(i)}
         />
       )}
     </>

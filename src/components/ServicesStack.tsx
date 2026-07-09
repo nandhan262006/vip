@@ -3,21 +3,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
 import Image from 'next/image'
 
-const ABOUT_IMAGES = [
-  '/og-image.png',
-  '/unnamed (2).webp',
-  '/unnamed (3).webp',
-]
-
 export default function ServicesStack({ services }: { services: any[] }) {
-  const [aboutIdx, setAboutIdx] = useState(0)
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setAboutIdx((prev) => (prev + 1) % ABOUT_IMAGES.length)
-    }, 4000)
-    return () => clearInterval(timer)
-  }, [])
   const trackRef = useRef<HTMLDivElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   const [activeIdx, setActiveIdx] = useState(0)
@@ -93,35 +79,17 @@ export default function ServicesStack({ services }: { services: any[] }) {
     <section id="services" className="relative bg-surface overflow-hidden">
       <div className="grid md:grid-cols-2 gap-10 items-center max-w-5xl mx-auto px-4 pt-24 pb-16">
         <div className="relative aspect-[3/4] rounded-2xl overflow-hidden bg-gray-200 order-1">
-          {ABOUT_IMAGES.map((src, i) => (
-            <div
-              key={src}
-              className={`absolute inset-0 transition-opacity duration-1000 ${i === aboutIdx ? 'opacity-100' : 'opacity-0'}`}
-            >
-              <Image
-                src={src}
-                alt="VIP Studio"
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 100vw, 50vw"
-                priority={i === 0}
-              />
-            </div>
-          ))}
-          <div className="absolute bottom-0 right-0 bg-gradient-to-l from-black/70 to-transparent p-5 text-right z-10">
+          <Image
+            src="/og-image.png"
+            alt="VIP Studio"
+            fill
+            className="object-cover"
+            sizes="(max-width: 768px) 100vw, 50vw"
+            priority
+          />
+          <div className="absolute bottom-0 right-0 bg-gradient-to-l from-black/70 to-transparent p-5 text-right">
             <p className="text-white text-lg font-medium">Vijay Kumar</p>
             <p className="text-red text-xs">CEO, VIP STUDIOS</p>
-          </div>
-          <div className="absolute bottom-0 left-0 right-0 flex justify-center gap-1.5 pb-3 z-10">
-            {ABOUT_IMAGES.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => setAboutIdx(i)}
-                className={`w-1.5 h-1.5 rounded-full transition-all ${
-                  i === aboutIdx ? 'bg-white w-4' : 'bg-white/50'
-                }`}
-              />
-            ))}
           </div>
         </div>
         <div className="order-2">
@@ -156,15 +124,15 @@ export default function ServicesStack({ services }: { services: any[] }) {
           <div className="grid grid-cols-3 gap-4 mb-6">
             <div className="text-center p-4 rounded-xl bg-white border border-gray-200">
               <div className="text-xl md:text-3xl font-bold text-red">25+</div>
-              <div className="text-gray-500 text-sm mt-1">Years</div>
+              <div className="text-gray-500 text-sm mt-1">Years of Experience</div>
             </div>
             <div className="text-center p-4 rounded-xl bg-white border border-gray-200">
-              <div className="text-xl md:text-3xl font-bold text-red">500+</div>
+              <div className="text-xl md:text-3xl font-bold text-red">1500+</div>
               <div className="text-gray-500 text-sm mt-1">Weddings</div>
             </div>
             <div className="text-center p-4 rounded-xl bg-white border border-gray-200">
               <div className="text-xl md:text-3xl font-bold text-red">Award</div>
-              <div className="text-gray-500 text-sm mt-1">Winning</div>
+              <div className="text-gray-500 text-sm mt-1">Winner</div>
             </div>
           </div>
         </div>
@@ -187,7 +155,7 @@ export default function ServicesStack({ services }: { services: any[] }) {
         onPointerUp={onPointerUp}
         onPointerCancel={onPointerUp}
       >
-        <div className="flex items-center justify-center h-[600px] md:h-[700px] relative">
+        <div className="flex items-center justify-center min-h-[400px] sm:h-[600px] md:h-[700px] relative">
           {services.map((service, i) => {
             const diff = i - activeIdx
             const abs = Math.abs(diff)
@@ -244,24 +212,24 @@ export default function ServicesStack({ services }: { services: any[] }) {
         </div>
       </div>
 
-      <div className="hidden md:flex justify-between absolute top-1/2 left-4 right-4 -translate-y-1/2 pointer-events-none z-10">
+      <div className="flex justify-between absolute top-1/2 left-2 right-2 sm:left-4 sm:right-4 -translate-y-1/2 pointer-events-none z-10">
         <button
           onClick={() => snap(activeIdx - 1)}
           disabled={activeIdx === 0}
-          className="pointer-events-auto w-12 h-12 rounded-full bg-white/90 backdrop-blur shadow-lg flex items-center justify-center text-gray-900 hover:bg-white transition disabled:opacity-30 disabled:cursor-not-allowed"
+          className="pointer-events-auto w-9 h-9 sm:w-12 sm:h-12 rounded-full bg-white/90 backdrop-blur shadow-lg flex items-center justify-center text-gray-900 hover:bg-white transition disabled:opacity-30 disabled:cursor-not-allowed"
           aria-label="Previous service"
         >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <svg width="16" height="16" className="sm:w-5 sm:h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
             <path d="M15 18l-6-6 6-6" />
           </svg>
         </button>
         <button
           onClick={() => snap(activeIdx + 1)}
           disabled={activeIdx === services.length - 1}
-          className="pointer-events-auto w-12 h-12 rounded-full bg-white/90 backdrop-blur shadow-lg flex items-center justify-center text-gray-900 hover:bg-white transition disabled:opacity-30 disabled:cursor-not-allowed"
+          className="pointer-events-auto w-9 h-9 sm:w-12 sm:h-12 rounded-full bg-white/90 backdrop-blur shadow-lg flex items-center justify-center text-gray-900 hover:bg-white transition disabled:opacity-30 disabled:cursor-not-allowed"
           aria-label="Next service"
         >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <svg width="16" height="16" className="sm:w-5 sm:h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
             <path d="M9 18l6-6-6-6" />
           </svg>
         </button>

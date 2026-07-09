@@ -17,7 +17,7 @@ const ALL_IMAGES = [
 ]
 
 export default function GalleryPage() {
-  const [lightbox, setLightbox] = useState<string | null>(null)
+  const [lightboxIdx, setLightboxIdx] = useState<number | null>(null)
 
   return (
     <div className="py-20 px-4 max-w-7xl mx-auto bg-surface min-h-screen">
@@ -28,7 +28,7 @@ export default function GalleryPage() {
         {ALL_IMAGES.map((img, i) => (
           <button
             key={`${img.gallerySlug}-${i}`}
-            onClick={() => setLightbox(img.src)}
+            onClick={() => setLightboxIdx(i)}
             className="break-inside-avoid block w-full text-left rounded-xl overflow-hidden bg-gray-200 group relative cursor-pointer"
           >
             <Image
@@ -47,8 +47,13 @@ export default function GalleryPage() {
         ))}
       </div>
 
-      {lightbox && (
-        <Lightbox src={lightbox} alt="Gallery image" onClose={() => setLightbox(null)} />
+      {lightboxIdx !== null && (
+        <Lightbox
+          images={ALL_IMAGES.map((x) => ({ src: x.src, alt: x.galleryTitle }))}
+          currentIndex={lightboxIdx}
+          onClose={() => setLightboxIdx(null)}
+          onNavigate={(i) => setLightboxIdx(i)}
+        />
       )}
     </div>
   )

@@ -29,6 +29,8 @@ const GALLERIES = [
   { _id: '4', slug: 'wedding', title: 'Wedding Cinematography', categoryTitle: 'Wedding', image: '/WEDDING.png', date: '2025-09-10' },
   { _id: '5', slug: 'prewedding', title: 'Pre-Wedding Shoot', categoryTitle: 'Pre-Wedding', image: '/PREWEDDING.png', date: '2025-08-05' },
   { _id: '6', slug: 'events', title: 'Event Photography', categoryTitle: 'Events', image: '/CORPERATE.png', date: '2025-07-18' },
+  { _id: '7', slug: 'maternity', title: 'Maternity Photography', categoryTitle: 'Maternity', image: '/MATERNITY.png', date: '2025-06-01' },
+  { _id: '8', slug: 'baby', title: 'Baby Photography', categoryTitle: 'Baby', image: '/MATERNITY.png', date: '2025-05-15' },
 ]
 
 const CATEGORIES = [
@@ -38,6 +40,8 @@ const CATEGORIES = [
   { _id: 'c4', title: 'Wedding', slug: 'wedding' },
   { _id: 'c5', title: 'Pre-Wedding', slug: 'prewedding' },
   { _id: 'c6', title: 'Events', slug: 'events' },
+  { _id: 'c7', title: 'Maternity', slug: 'maternity' },
+  { _id: 'c8', title: 'Baby', slug: 'baby' },
 ]
 
 export default async function PortfolioPage({

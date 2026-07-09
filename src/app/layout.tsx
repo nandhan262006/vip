@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
-import PopupVideo from '@/components/PopupVideo'
 import './globals.css'
 
 export const viewport: Viewport = {
@@ -146,7 +145,7 @@ export default async function RootLayout({
           'Event Photography',
         ],
         sameAs: [
-          'https://www.instagram.com/vipevents_nellore/',
+          'https://www.instagram.com/vipstudios.in/',
           'https://www.facebook.com/VIPstudiosnellore',
           'https://www.youtube.com/channel/UCtNRNNFqPvOB_4SK7',
         ],
@@ -194,7 +193,7 @@ export default async function RootLayout({
           { '@type': 'OpeningHoursSpecification', dayOfWeek: 'Sunday', opens: '09:30', closes: '14:00' },
         ],
         sameAs: [
-          'https://www.instagram.com/vipevents_nellore/',
+          'https://www.instagram.com/vipstudios.in/',
           'https://www.facebook.com/VIPstudiosnellore',
           'https://www.youtube.com/channel/UCtNRNNFqPvOB_4SK7',
         ],
@@ -256,8 +255,6 @@ export default async function RootLayout({
         <Header />
         <main>{children}</main>
         <Footer />
-
-        <PopupVideo />
 
         <a
           href={`tel:${PHONE_NUMBER}`}

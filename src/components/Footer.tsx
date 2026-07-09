@@ -39,7 +39,7 @@ export default function Footer() {
           <div>
             <h4 className="font-semibold text-sm text-gray-900 mb-4">Connect</h4>
             <div className="space-y-2.5 text-sm text-gray-500">
-              <a href="https://www.instagram.com/vipevents_nellore/" target="_blank" rel="noopener noreferrer" className="block hover:text-red transition">
+              <a href="https://www.instagram.com/vipstudios.in/" target="_blank" rel="noopener noreferrer" className="block hover:text-red transition">
                 Instagram
               </a>
               <a href="https://www.facebook.com/VIPstudiosnellore" target="_blank" rel="noopener noreferrer" className="block hover:text-red transition">
@@ -51,7 +51,7 @@ export default function Footer() {
               <a href={`https://wa.me/${WHATSAPP_NUMBER}`} target="_blank" rel="noopener noreferrer" className="block hover:text-red transition">
                 WhatsApp
               </a>
-              <a href="https://maps.app.goo.gl/1EMxVrRVyRVp5KCLA" target="_blank" rel="noopener noreferrer" className="block hover:text-red transition">
+              <a href="https://maps.app.goo.gl/JUXE7VGbpJDuJyzMA" target="_blank" rel="noopener noreferrer" className="block hover:text-red transition">
                 Google Maps
               </a>
             </div>
@@ -61,7 +61,7 @@ export default function Footer() {
         <div className="border-t border-gray-200 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-500">
           <p>&copy; {new Date().getFullYear()} VIP Studio. All rights reserved.</p>
           <div className="flex gap-6">
-            <a href="https://maps.app.goo.gl/1EMxVrRVyRVp5KCLA" target="_blank" rel="noopener noreferrer" className="hover:text-red transition">
+            <a href="https://maps.app.goo.gl/JUXE7VGbpJDuJyzMA" target="_blank" rel="noopener noreferrer" className="hover:text-red transition">
               Nellore, Andhra Pradesh
             </a>
             <a href={`https://wa.me/${WHATSAPP_NUMBER}`} target="_blank" rel="noopener noreferrer" className="hover:text-red transition">
