@@ -4,9 +4,9 @@ import { useState, useRef, useEffect, useCallback } from 'react'
 import Image from 'next/image'
 
 const ABOUT_IMAGES = [
-  '/unnamed.webp',
-  '/unnamed (1).webp',
+  '/og-image.png',
   '/unnamed (2).webp',
+  '/unnamed (3).webp',
 ]
 
 export default function ServicesStack({ services }: { services: any[] }) {

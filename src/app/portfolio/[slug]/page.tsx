@@ -56,7 +56,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params
   const gallery = GALLERIES[slug]
   if (!gallery) return {}
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://vip-studio.vercel.app'
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://vipstudios.in'
   return {
     title: `${gallery.title} | VIP Studio`,
     description: gallery.description,
@@ -84,7 +84,7 @@ export default async function GalleryPage({ params }: { params: Promise<{ slug: 
 
   if (!gallery) notFound()
 
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://vip-studio.vercel.app'
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://vipstudios.in'
 
   const imageGalleryJsonLd = {
     '@context': 'https://schema.org',
