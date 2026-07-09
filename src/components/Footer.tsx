@@ -42,7 +42,7 @@ export default function Footer() {
               <a href="https://www.instagram.com/vipevents_nellore/" target="_blank" rel="noopener noreferrer" className="block hover:text-red transition">
                 Instagram
               </a>
-              <a href="https://www.facebook.com/VIPweddingsnellore" target="_blank" rel="noopener noreferrer" className="block hover:text-red transition">
+              <a href="https://www.facebook.com/VIPstudiosnellore" target="_blank" rel="noopener noreferrer" className="block hover:text-red transition">
                 Facebook
               </a>
               <a href="https://www.youtube.com/channel/UCtNRNNFqPvOB_4SK7" target="_blank" rel="noopener noreferrer" className="block hover:text-red transition">

@@ -147,7 +147,7 @@ export default async function RootLayout({
         ],
         sameAs: [
           'https://www.instagram.com/vipevents_nellore/',
-          'https://www.facebook.com/VIPweddingsnellore',
+          'https://www.facebook.com/VIPstudiosnellore',
           'https://www.youtube.com/channel/UCtNRNNFqPvOB_4SK7',
         ],
         foundingDate: '2008',
@@ -195,7 +195,7 @@ export default async function RootLayout({
         ],
         sameAs: [
           'https://www.instagram.com/vipevents_nellore/',
-          'https://www.facebook.com/VIPweddingsnellore',
+          'https://www.facebook.com/VIPstudiosnellore',
           'https://www.youtube.com/channel/UCtNRNNFqPvOB_4SK7',
         ],
         areaServed: ['Nellore', 'Andhra Pradesh', 'India'],

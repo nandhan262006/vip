@@ -62,7 +62,7 @@ export default function ContactPage() {
             <div>
               <p className="font-medium text-gray-900">Facebook</p>
               <a
-                href="https://www.facebook.com/VIPweddingsnellore"
+                href="https://www.facebook.com/VIPstudiosnellore"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-900 underline hover:text-gray-600"

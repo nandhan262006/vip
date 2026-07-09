@@ -164,7 +164,7 @@ export default async function HomePage() {
               </div>
               <div>
                 <p className="font-medium text-gray-900">Facebook</p>
-                <a href="https://www.facebook.com/VIPweddingsnellore" target="_blank" rel="noopener noreferrer" className="text-red hover:text-red-dark transition mt-1 block">
+                <a href="https://www.facebook.com/VIPstudiosnellore" target="_blank" rel="noopener noreferrer" className="text-red hover:text-red-dark transition mt-1 block">
                   VIP Weddings Nellore
                 </a>
               </div>
