@@ -14,6 +14,10 @@ export async function generateMetadata(): Promise<Metadata> {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://vipstudios.in'
   return {
     metadataBase: new URL(baseUrl),
+    icons: {
+      icon: '/favicon.png',
+      apple: '/favicon.png',
+    },
     title: {
       default: 'Best Photographer in Nellore | Vijay — VIP Studio Wedding Photography',
       template: '%s | VIP Studio — Best Photographer in Nellore',
