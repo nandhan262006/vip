@@ -32,7 +32,7 @@ export default function HeroSection() {
           animate="visible"
         >
           <Image
-            src="/ulu.png"
+            src="/AWARDWINNIGPHOTO.jpeg"
             alt=""
             fill
             className="object-cover"
@@ -48,7 +48,7 @@ export default function HeroSection() {
           animate="visible"
         >
           <Image
-            src="/ulu.png"
+            src="/AWARDWINNIGPHOTO.jpeg"
             alt=""
             fill
             className="object-cover"
