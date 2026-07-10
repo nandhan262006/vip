@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import ServicesStack from '@/components/ServicesStack'
-import HeroSlider from '@/components/HeroSlider'
+import HeroSection from '@/components/HeroSection'
 
 const DEFAULT_SERVICES = [
   { _id: '1', title: 'Bridal Photography', description: 'Elegant bridal portraits that capture every detail of your special day, from the intricate jewellery to the joyous tears.', imageUrl: '/BRIDAL.png' },
@@ -36,36 +36,7 @@ export default async function HomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
 
-      <section className="relative h-screen flex items-center justify-center overflow-hidden">
-        <HeroSlider />
-        <div className="relative z-10 text-center px-4">
-          <h1 className="sr-only">Best Photographer in Nellore — VIP Studio | National Award Winning Wedding Photography & Cinematography by Vijay Kumar</h1>
-          <Image
-            src="/logo.png"
-            alt="VIP Studio — Wedding Photography & Cinematography"
-            width={500}
-            height={200}
-            className="mx-auto !w-auto !h-auto"
-            priority
-          />
-          <div className="flex flex-wrap gap-4 justify-center mt-8">
-            <Link
-              href="/portfolio"
-              className="bg-red text-white px-8 py-3.5 rounded-full font-medium hover:bg-red-dark transition shadow-lg shadow-red/30"
-            >
-              View Portfolio
-            </Link>
-            <a
-              href={`https://wa.me/${WHATSAPP_NUMBER}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-red text-white px-8 py-3.5 rounded-full font-medium hover:bg-red-dark transition shadow-lg shadow-red/30"
-            >
-              Book via WhatsApp
-            </a>
-          </div>
-        </div>
-      </section>
+      <HeroSection />
 
 
       <ServicesStack services={DEFAULT_SERVICES} />

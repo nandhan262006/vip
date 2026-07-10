@@ -3,11 +3,11 @@
 @theme inline {
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-  --color-red: #CC0000;
-  --color-red-dark: #990000;
-  --color-red-light: #FF1A1A;
-  --color-surface: #F8F9FA;
-  --color-surface-alt: #F0F1F3;
+  --color-red: #B40000;
+  --color-red-dark: #8A0000;
+  --color-red-light: #D40000;
+  --color-surface: #FDF8F3;
+  --color-surface-alt: #F5EDE0;
 }
 
 html {
@@ -20,7 +20,7 @@ body {
 }
 
 *:focus-visible {
-  outline: 2px solid #CC0000;
+  outline: 2px solid #B40000;
   outline-offset: 2px;
 }
 
