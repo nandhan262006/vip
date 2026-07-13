@@ -3,7 +3,23 @@
 import { useState, useMemo, useCallback, useRef, useEffect } from 'react'
 import Image from 'next/image'
 import jsPDF from 'jspdf'
-import { STEPS, type Step, type StepItem } from '@/data/quoteSteps'
+
+interface StepItem {
+  id: string
+  name: string
+  image: string
+  price: number
+  category?: string
+}
+
+interface Step {
+  id: string
+  title: string
+  subtitle?: string
+  type: 'welcome' | 'multi-quantity' | 'single-select' | 'final'
+  items: StepItem[]
+  condition?: (selections: Record<string, number>) => boolean
+}
 
 function cn(...classes: (string | boolean | undefined | null)[]) {
   return classes.filter(Boolean).join(' ')
@@ -147,6 +163,7 @@ export default function QuoteBuilder() {
   const [done, setDone] = useState(false)
   const [lastStep, setLastStep] = useState(0)
   const [logoDataUrl, setLogoDataUrl] = useState<string | null>(null)
+  const [loadedSteps, setLoadedSteps] = useState<Step[] | null>(null)
 
   useEffect(() => {
     fetch('/logo.png')
@@ -156,9 +173,28 @@ export default function QuoteBuilder() {
         reader.onloadend = () => setLogoDataUrl(reader.result as string)
         reader.readAsDataURL(blob)
       })
+    fetch('/api/admin/quotes')
+      .then((r) => r.json())
+      .then((data: Step[]) => {
+        const steps: Step[] = (data as unknown as Array<{ stepId: string; title: string; subtitle: string | null; type: string; items: string }>).map((q) => ({
+          id: q.stepId,
+          title: q.title,
+          subtitle: q.subtitle || undefined,
+          type: q.type as Step['type'],
+          items: (() => { try { return JSON.parse(q.items) as StepItem[] } catch { return [] as StepItem[] } })(),
+        }))
+        setLoadedSteps(steps)
+      })
+      .catch(() => {
+        // keep null, will show loading
+      })
   }, [])
 
-  const visibleSteps = useMemo(() => STEPS.filter((s) => !s.condition || s.condition(sels)), [sels])
+  const visibleSteps = useMemo(() => {
+    const steps = loadedSteps || []
+    return steps.filter((s) => !s.condition || s.condition(sels))
+  }, [loadedSteps, sels])
+
   const step = visibleSteps[stepIdx]
   const total = useMemo(() => calcTotal(visibleSteps, qtys, sels), [visibleSteps, qtys, sels])
   const summary = useMemo(() => getSummary(visibleSteps, qtys, sels), [visibleSteps, qtys, sels])
@@ -173,7 +209,7 @@ export default function QuoteBuilder() {
     setQtys((p) => {
       const c = p[id] || 0
       const n = Math.max(0, c + d)
-      if (n === 0) { const { [id]: _, ...r } = p; return r }
+      if (n === 0) { const next = { ...p }; delete next[id]; return next }
       return { ...p, [id]: n }
     })
   }, [])
@@ -187,7 +223,7 @@ export default function QuoteBuilder() {
         }
         return { ...next, [id]: 1 }
       }
-      if (p[id]) { const { [id]: _, ...r } = p; return r }
+      if (p[id]) { const next = { ...p }; delete next[id]; return next }
       return { ...p, [id]: 1 }
     })
   }, [step])
@@ -211,13 +247,23 @@ export default function QuoteBuilder() {
   }, [stepIdx])
 
   const doPdf = useCallback(() => {
+    fetch('/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name: form.name, email: form.email, phone: form.phone, message: `Quote: ${fmt(total)} | Date: ${form.date || '—'} | Venue: ${form.venue || '—'}` }),
+    }).catch(() => {})
     const doc = buildPdf(form, total, summary, logoDataUrl || undefined)
     doc.save(`TBD-Quote-${form.name.replace(/\s+/g, '-') || 'quote'}.pdf`)
   }, [form, total, summary, logoDataUrl])
 
   const doWhatsApp = useCallback(() => {
-    if (!form.accepted || !form.name || !form.phone || !form.email) return
+    if (!form.name || !form.phone || !form.email) return
     setDone(true)
+    fetch('/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name: form.name, email: form.email, phone: form.phone, message: `Quote: ${fmt(total)} | Date: ${form.date || '—'} | Venue: ${form.venue || '—'}` }),
+    }).catch(() => {})
     const msg = [
       `*New Quote from VIP Studio*`,
       `Name: ${form.name}`,
@@ -234,12 +280,20 @@ export default function QuoteBuilder() {
     doPdf()
   }, [form, total, summary, doPdf])
 
+  if (!loadedSteps) {
+    return (
+      <div style={{ backgroundColor: '#F6F1E6' }} className="min-h-screen flex items-center justify-center">
+        <p className="text-gray-400 text-lg">Loading quote builder...</p>
+      </div>
+    )
+  }
+
   function renderQtyCard(item: StepItem) {
     const q = qtys[item.id] || 0
     const selected = q > 0
     const toggle = () => {
       if (selected) {
-        setQtys((p) => { const { [item.id]: _, ...r } = p; return r })
+        setQtys((p) => { const next = { ...p }; delete next[item.id]; return next })
       } else {
         setQtys((p) => ({ ...p, [item.id]: 1 }))
       }

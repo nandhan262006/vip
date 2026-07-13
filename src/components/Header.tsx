@@ -4,10 +4,12 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useState } from 'react'
 
-const WHATSAPP_NUMBER = '919299950999'
-const PHONE_NUMBER = '+919299950999'
+interface HeaderProps {
+  whatsapp: string
+  phone: string
+}
 
-export default function Header() {
+export default function Header({ whatsapp, phone }: HeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false)
 
   return (
@@ -22,35 +24,17 @@ export default function Header() {
           <Link href="/about" className="text-sm text-gray-600 hover:text-red transition">About</Link>
           <Link href="/#services" className="text-sm text-gray-600 hover:text-red transition">Services</Link>
           <Link href="/portfolio" className="text-sm text-gray-600 hover:text-red transition">Portfolio</Link>
-          <Link href="/build-your-quote" className="text-sm text-gray-600 hover:text-red transition">Build Your Wedding Quote</Link>
+          <Link href="/build-your-quote" className="text-sm text-gray-600 hover:text-red transition">Quote</Link>
+          <Link href="/reviews" className="text-sm text-gray-600 hover:text-red transition">Reviews</Link>
           <Link href="/contact" className="text-sm text-gray-600 hover:text-red transition">Contact</Link>
-          <a
-            href={`https://wa.me/${WHATSAPP_NUMBER}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-red text-white text-sm px-5 py-2 rounded-full font-medium hover:bg-red-dark transition"
-          >
-            WhatsApp
-          </a>
-          <a
-            href={`tel:${PHONE_NUMBER}`}
-            className="border-2 border-red text-red text-sm px-5 py-2 rounded-full font-medium hover:bg-red hover:text-white transition"
-          >
-            Call Now
-          </a>
+          <Link href="/admin" className="text-sm text-gray-400 hover:text-red transition">Admin</Link>
+          <a href={`https://wa.me/${whatsapp}`} target="_blank" rel="noopener noreferrer" className="bg-red text-white text-sm px-5 py-2 rounded-full font-medium hover:bg-red-dark transition">WhatsApp</a>
+          <a href={`tel:${phone}`} className="border-2 border-red text-red text-sm px-5 py-2 rounded-full font-medium hover:bg-red hover:text-white transition">Call Now</a>
         </nav>
 
-        <button
-          className="md:hidden p-2 text-gray-900"
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Toggle menu"
-        >
+        <button className="md:hidden p-2 text-gray-900" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle menu">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            {menuOpen ? (
-              <path d="M6 6l12 12M6 18L18 6" />
-            ) : (
-              <path d="M4 6h16M4 12h16M4 18h16" />
-            )}
+            {menuOpen ? <path d="M6 6l12 12M6 18L18 6" /> : <path d="M4 6h16M4 12h16M4 18h16" />}
           </svg>
         </button>
       </div>
@@ -61,24 +45,12 @@ export default function Header() {
           <Link href="/about" className="block text-sm text-gray-600 hover:text-red" onClick={() => setMenuOpen(false)}>About</Link>
           <Link href="/#services" className="block text-sm text-gray-600 hover:text-red" onClick={() => setMenuOpen(false)}>Services</Link>
           <Link href="/portfolio" className="block text-sm text-gray-600 hover:text-red" onClick={() => setMenuOpen(false)}>Portfolio</Link>
-          <Link href="/build-your-quote" className="block text-sm text-gray-600 hover:text-red" onClick={() => setMenuOpen(false)}>Build Your Wedding Quote</Link>
+          <Link href="/build-your-quote" className="block text-sm text-gray-600 hover:text-red" onClick={() => setMenuOpen(false)}>Quote</Link>
+          <Link href="/reviews" className="block text-sm text-gray-600 hover:text-red" onClick={() => setMenuOpen(false)}>Reviews</Link>
           <Link href="/contact" className="block text-sm text-gray-600 hover:text-red" onClick={() => setMenuOpen(false)}>Contact</Link>
-          <a
-            href={`https://wa.me/${WHATSAPP_NUMBER}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block text-sm text-red font-medium"
-            onClick={() => setMenuOpen(false)}
-          >
-            WhatsApp Booking
-          </a>
-          <a
-            href={`tel:${PHONE_NUMBER}`}
-            className="block text-sm text-red font-medium"
-            onClick={() => setMenuOpen(false)}
-          >
-            Call Now
-          </a>
+          <Link href="/admin" className="block text-sm text-gray-400 hover:text-red" onClick={() => setMenuOpen(false)}>Admin</Link>
+          <a href={`https://wa.me/${whatsapp}`} target="_blank" rel="noopener noreferrer" className="block text-sm text-red font-medium" onClick={() => setMenuOpen(false)}>WhatsApp Booking</a>
+          <a href={`tel:${phone}`} className="block text-sm text-red font-medium" onClick={() => setMenuOpen(false)}>Call Now</a>
         </div>
       )}
     </header>

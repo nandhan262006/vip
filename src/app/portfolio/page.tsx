@@ -1,13 +1,14 @@
 import Link from 'next/link'
 import type { Metadata } from 'next'
 import PortfolioGrid from '@/components/PortfolioGrid'
+import { getGalleriesCached, getCategoriesCached } from '@/lib/data'
 
 export const metadata: Metadata = {
   title: 'Portfolio',
-  description: 'Explore our wedding photography and cinematography portfolio. Browse through bridal, engagement, candid, and event galleries by VIP Studio in Nellore.',
+  description: 'Explore our wedding photography and cinematography portfolio.',
   openGraph: {
     title: 'Portfolio | VIP Studio Wedding Photography',
-    description: 'Browse our wedding photography and cinematography portfolio in Nellore. Bridal, candid, engagement, and event photography by National Award Winner Vijay.',
+    description: 'Browse our wedding photography and cinematography portfolio in Nellore.',
     url: '/portfolio',
     siteName: 'VIP Studio',
     locale: 'en_IN',
@@ -22,39 +23,34 @@ export const metadata: Metadata = {
   },
 }
 
-const GALLERIES = [
-  { _id: '1', slug: 'bridal', title: 'Bridal Photography', categoryTitle: 'Bridal', image: '/BRIDAL.png', date: '2025-12-01' },
-  { _id: '2', slug: 'candid', title: 'Candid Photography', categoryTitle: 'Candid', image: '/CANDID.png', date: '2025-11-15' },
-  { _id: '3', slug: 'engagement', title: 'Engagement Photography', categoryTitle: 'Engagement', image: '/ENGAGEMENT.png', date: '2025-10-20' },
-  { _id: '4', slug: 'wedding', title: 'Wedding Cinematography', categoryTitle: 'Wedding', image: '/WEDDING.png', date: '2025-09-10' },
-  { _id: '5', slug: 'prewedding', title: 'Pre-Wedding Shoot', categoryTitle: 'Pre-Wedding', image: '/PREWEDDING.png', date: '2025-08-05' },
-  { _id: '6', slug: 'events', title: 'Event Photography', categoryTitle: 'Events', image: '/CORPERATE.png', date: '2025-07-18' },
-  { _id: '7', slug: 'maternity', title: 'Maternity Photography', categoryTitle: 'Maternity', image: '/MATERNITY.png', date: '2025-06-01' },
-  { _id: '8', slug: 'baby', title: 'Baby Photography', categoryTitle: 'Baby', image: '/MATERNITY.png', date: '2025-05-15' },
-]
-
-const CATEGORIES = [
-  { _id: 'c1', title: 'Bridal', slug: 'bridal' },
-  { _id: 'c2', title: 'Candid', slug: 'candid' },
-  { _id: 'c3', title: 'Engagement', slug: 'engagement' },
-  { _id: 'c4', title: 'Wedding', slug: 'wedding' },
-  { _id: 'c5', title: 'Pre-Wedding', slug: 'prewedding' },
-  { _id: 'c6', title: 'Events', slug: 'events' },
-  { _id: 'c7', title: 'Maternity', slug: 'maternity' },
-  { _id: 'c8', title: 'Baby', slug: 'baby' },
-]
-
-export default async function PortfolioPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ category?: string }>
-}) {
+export default async function PortfolioPage({ searchParams }: { searchParams: Promise<{ category?: string }> }) {
   const { category: categoryParam } = await searchParams
   const activeCategory = categoryParam || ''
 
+  let galleries: { id: string; slug: string; title: string; coverImage: string; date: Date; category?: { id: string; title: string; slug: string } | null }[] = []
+  let categories: { id: string; title: string; slug: string }[] = []
+
+  try {
+    const [g, c] = await Promise.all([getGalleriesCached(), getCategoriesCached()])
+    galleries = g
+    categories = c
+  } catch {
+    galleries = []
+    categories = []
+  }
+
   const filtered = activeCategory
-    ? GALLERIES.filter((g) => g.slug === activeCategory)
-    : GALLERIES
+    ? galleries.filter((g) => g.slug === activeCategory || g.category?.slug === activeCategory)
+    : galleries
+
+  const items = filtered.map((g) => ({
+    _id: g.id,
+    slug: g.slug,
+    title: g.title,
+    categoryTitle: g.category?.title || '',
+    image: g.coverImage,
+    date: typeof g.date === 'string' ? g.date : g.date.toISOString(),
+  }))
 
   return (
     <div className="py-20 px-4 max-w-7xl mx-auto">
@@ -62,33 +58,14 @@ export default async function PortfolioPage({
       <p className="text-gray-500 mb-8">Explore our work</p>
 
       <div className="flex flex-wrap gap-3 mb-12">
-        <Link
-          href="/portfolio"
-          className={`px-5 py-2 rounded-full text-sm font-medium transition ${
-            !activeCategory
-              ? 'bg-gray-900 text-white'
-              : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-          }`}
-        >
-          All
-        </Link>
-        {CATEGORIES.map((cat) => (
-          <Link
-            key={cat._id}
-            href={`/portfolio?category=${cat.slug}`}
-            className={`px-5 py-2 rounded-full text-sm font-medium transition ${
-              activeCategory === cat.slug
-                ? 'bg-gray-900 text-white'
-                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-            }`}
-          >
-            {cat.title}
-          </Link>
+        <Link href="/portfolio" className={`px-5 py-2 rounded-full text-sm font-medium transition ${!activeCategory ? 'bg-gray-900 text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}>All</Link>
+        {categories.map((cat) => (
+          <Link key={cat.id} href={`/portfolio?category=${cat.slug}`} className={`px-5 py-2 rounded-full text-sm font-medium transition ${activeCategory === cat.slug ? 'bg-gray-900 text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}>{cat.title}</Link>
         ))}
       </div>
 
-      {filtered.length > 0 ? (
-        <PortfolioGrid items={filtered} single={filtered.length === 1} />
+      {items.length > 0 ? (
+        <PortfolioGrid items={items} single={items.length === 1} />
       ) : (
         <p className="text-gray-400 text-center py-20">No galleries found.</p>
       )}

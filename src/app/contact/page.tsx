@@ -1,12 +1,17 @@
 import ContactForm from '@/components/ContactForm'
 import type { Metadata } from 'next'
+import { getSettingsCached } from '@/lib/data'
+
+async function getSettings() {
+  return getSettingsCached()
+}
 
 export const metadata: Metadata = {
   title: 'Contact',
-  description: 'Get in touch with VIP Studio for wedding photography booking inquiries. Call +91 92999 50999 or reach us on WhatsApp.',
+  description: 'Get in touch with VIP Studio for wedding photography booking inquiries.',
   openGraph: {
     title: 'Contact VIP Studio | Wedding Photography Nellore',
-    description: 'Book your wedding photography with National Award Winner Vijay. Located in Nellore, Andhra Pradesh. Call +91 92999 50999.',
+    description: 'Book your wedding photography with National Award Winner Vijay.',
     url: '/contact',
     siteName: 'VIP Studio',
     locale: 'en_IN',
@@ -16,18 +21,19 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Contact VIP Studio | Wedding Photography Nellore',
-    description: 'Book your wedding photography with National Award Winner Vijay. Call +91 92999 50999.',
+    description: 'Book your wedding photography with National Award Winner Vijay.',
     images: ['/logo.png'],
   },
 }
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const settings = await getSettings()
+  const address = settings.address || '26-1-1639, beside MGB Mall, Obulreddy Nagar, Dargamitta, Nellore — 524003'
+
   return (
     <div className="py-20 px-4 max-w-3xl mx-auto">
       <h1 className="text-4xl font-bold mb-2">Contact Us</h1>
-      <p className="text-gray-500 mb-10">
-        Ready to capture your special moments? Get in touch with us.
-      </p>
+      <p className="text-gray-500 mb-10">Ready to capture your special moments? Get in touch with us.</p>
 
       <div className="grid md:grid-cols-2 gap-12">
         <div>
@@ -35,69 +41,31 @@ export default function ContactPage() {
           <div className="space-y-4 text-gray-600">
             <div>
               <p className="font-medium text-gray-900">Location</p>
-              <p>26-1-1639, beside MGB Mall, Obulreddy Nagar, Dargamitta, Nellore — 524003</p>
+              <p>{address}</p>
             </div>
             <div>
               <p className="font-medium text-gray-900">Phone / WhatsApp</p>
-              <a
-                href="https://wa.me/919299950999"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-red hover:text-red-dark transition"
-              >
-                +91 92999 50999
-              </a>
+              <a href="https://wa.me/919299950999" target="_blank" rel="noopener noreferrer" className="text-red hover:text-red-dark transition">+91 92999 50999</a>
             </div>
             <div>
               <p className="font-medium text-gray-900">Instagram</p>
-              <a
-                href="https://www.instagram.com/vipstudios.in/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-900 underline hover:text-gray-600"
-              >
-                @vipstudios.in
-              </a>
+              <a href="https://www.instagram.com/vipstudios.in/" target="_blank" rel="noopener noreferrer" className="text-gray-900 underline hover:text-gray-600">@vipstudios.in</a>
             </div>
             <div>
               <p className="font-medium text-gray-900">Facebook</p>
-              <a
-                href="https://www.facebook.com/VIPstudiosnellore"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-900 underline hover:text-gray-600"
-              >
-                VIP Weddings Nellore
-              </a>
+              <a href="https://www.facebook.com/VIPstudiosnellore" target="_blank" rel="noopener noreferrer" className="text-gray-900 underline hover:text-gray-600">VIP Weddings Nellore</a>
             </div>
           </div>
           <div className="mt-6">
             <p className="font-medium text-gray-900 mb-2">Find Us</p>
-            <a
-              href="https://maps.app.goo.gl/JUXE7VGbpJDuJyzMA"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-red hover:text-red-dark transition text-sm"
-            >
-              Open in Google Maps &rarr;
-            </a>
+            <a href={settings.googleMaps || 'https://maps.app.goo.gl/JUXE7VGbpJDuJyzMA'} target="_blank" rel="noopener noreferrer" className="text-red hover:text-red-dark transition text-sm">Open in Google Maps &rarr;</a>
           </div>
         </div>
-
         <ContactForm />
       </div>
 
       <div className="mt-12 rounded-2xl overflow-hidden shadow-lg bg-gray-100">
-        <iframe
-          src="https://www.google.com/maps?ll=14.4330217,79.9670549&z=17&t=m&hl=en-US&gl=US&mapclient=embed&q=VIP+STUDIOS+Nellore&output=embed"
-          width="100%"
-          height="350"
-          style={{ border: 0 }}
-          allowFullScreen
-          loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade"
-          title="VIP Studio Location in Nellore, Andhra Pradesh"
-        />
+        <iframe src="https://www.google.com/maps?ll=14.4330217,79.9670549&z=17&t=m&hl=en-US&gl=US&mapclient=embed&q=VIP+STUDIOS+Nellore&output=embed" width="100%" height="350" style={{ border: 0 }} allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade" title="VIP Studio Location in Nellore" />
       </div>
     </div>
   )

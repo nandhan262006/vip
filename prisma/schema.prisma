@@ -1,0 +1,93 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model SiteSetting {
+  id    String @id @default(cuid())
+  key   String @unique
+  value String
+}
+
+model Service {
+  id          String @id @default(cuid())
+  title       String
+  description String
+  imageUrl    String
+  order       Int    @default(0)
+}
+
+model Category {
+  id        String    @id @default(cuid())
+  title     String
+  slug      String    @unique
+  order     Int       @default(0)
+  galleries Gallery[]
+}
+
+model Gallery {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  description String
+  coverImage  String
+  categoryId  String
+  category    Category @relation(fields: [categoryId], references: [id])
+  images      String   @default("[]")
+  featured    Boolean  @default(false)
+  gridSpan    String   @default("")
+  date        DateTime @default(now())
+  order       Int      @default(0)
+}
+
+model Award {
+  id           String @id @default(cuid())
+  year         String
+  title        String
+  organization String
+  description  String
+  order        Int    @default(0)
+}
+
+model Stat {
+  id          String @id @default(cuid())
+  number      String
+  label       String
+  description String
+  order       Int    @default(0)
+}
+
+model QuoteStep {
+  id       String  @id @default(cuid())
+  stepId   String  @unique
+  title    String
+  subtitle String?
+  type     String
+  items    String  @default("[]")
+  order    Int     @default(0)
+}
+
+model ContactSubmission {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  phone     String?
+  message   String
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model Review {
+  id       String  @id @default(cuid())
+  name     String
+  text     String
+  rating   Int     @default(5)
+  avatar   String  @default("")
+  images   String  @default("[]")
+  featured Boolean @default(false)
+  date     String
+  order    Int     @default(0)
+}

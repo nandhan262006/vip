@@ -3,8 +3,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
 import Image from 'next/image'
 
-export default function ServicesStack({ services }: { services: any[] }) {
-  const trackRef = useRef<HTMLDivElement>(null)
+export default function ServicesStack({ services }: { services: { _id: string; title: string; description: string; imageUrl?: string }[] }) {
   const containerRef = useRef<HTMLDivElement>(null)
   const [activeIdx, setActiveIdx] = useState(0)
   const stateRef = useRef({ startX: 0, lastX: 0, velocity: 0, offset: 0, idx: 0, dragging: false, width: 0 })
@@ -102,8 +101,8 @@ export default function ServicesStack({ services }: { services: any[] }) {
             <p>📸 <strong className="text-gray-900">Wedding Photographer of the Year 2010</strong> (Kodak)</p>
             <p>✨ <strong className="text-gray-900">15 Years of Excellence</strong></p>
             <p>
-              I'm Vijay, founder of VIP STUDIOS. With over 25 years of experience in wedding photography,
-              I've always believed that the best photographs come from capturing people exactly as they are —
+              I&apos;m Vijay, founder of VIP STUDIOS. With over 25 years of experience in wedding photography,
+              I&apos;ve always believed that the best photographs come from capturing people exactly as they are —
               real emotions, real moments, and real stories.
             </p>
             <p>
@@ -111,7 +110,7 @@ export default function ServicesStack({ services }: { services: any[] }) {
               and dedication that continue to drive every wedding we capture today.
             </p>
             <p>
-              If you're searching for the Best Wedding Photographers in Nellore, Wedding Photography
+              If you&apos;re searching for the Best Wedding Photographers in Nellore, Wedding Photography
               in Nellore, Candid Wedding Photographers in Nellore, Traditional Wedding Photography,
               Bridal Photography, Groom Portraits, Pre Wedding Photography, Engagement Photography,
               or Wedding Cinematography, VIP STUDIOS brings award-winning experience to every celebration.
