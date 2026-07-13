@@ -20,7 +20,6 @@ export async function generateMetadata(): Promise<Metadata> {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.vipstudios.in'
   const seoKeywords = (() => { try { return JSON.parse(settings.seoKeywords || '[]') } catch { return [] } })()
   return {
-    metadataBase: new URL(baseUrl),
     icons: {
       icon: '/favicon.png',
       apple: '/favicon.png',
@@ -52,7 +51,7 @@ export async function generateMetadata(): Promise<Metadata> {
       'max-image-preview': 'large',
       'max-snippet': -1,
     },
-    alternates: { canonical: baseUrl },
+    alternates: { canonical: 'https://www.vipstudios.in' },
   }
 }
 
