@@ -5,8 +5,7 @@ const COOKIE_NAME = 'admin_auth'
 const COOKIE_MAX_AGE = 60 * 60 * 24
 
 export async function POST(request: Request) {
-  const formData = await request.formData()
-  const password = formData.get('password') as string
+  const { password } = await request.json()
   const adminPassword = process.env.ADMIN_PASSWORD
 
   if (!adminPassword) {
@@ -14,8 +13,7 @@ export async function POST(request: Request) {
   }
 
   if (password !== adminPassword) {
-    const loginUrl = new URL('/admin/login?error=1', request.url)
-    return NextResponse.redirect(loginUrl)
+    return NextResponse.json({ error: 'Invalid password' }, { status: 401 })
   }
 
   const cookieStore = await cookies()
@@ -27,6 +25,5 @@ export async function POST(request: Request) {
     path: '/',
   })
 
-  const adminUrl = new URL('/admin', request.url)
-  return NextResponse.redirect(adminUrl)
+  return NextResponse.json({ success: true })
 }
