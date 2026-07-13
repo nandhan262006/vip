@@ -5,7 +5,7 @@ import './globals.css'
 import { getSettingsCached } from '@/lib/data'
 
 async function getSettings() {
-  return getSettingsCached()
+  try { return await getSettingsCached() } catch { return {} as Record<string, string> }
 }
 
 export const viewport: Viewport = {
@@ -15,7 +15,8 @@ export const viewport: Viewport = {
 }
 
 export async function generateMetadata(): Promise<Metadata> {
-  const settings = await getSettingsCached()
+  let settings: Record<string, string> = {}
+  try { settings = await getSettingsCached() } catch { /* use defaults */ }
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.vipstudios.in'
   const seoKeywords = (() => { try { return JSON.parse(settings.seoKeywords || '[]') } catch { return [] } })()
   return {
