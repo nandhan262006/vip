@@ -27,7 +27,7 @@ export default function Header({ whatsapp, phone }: HeaderProps) {
           <Link href="/build-your-quote" className="text-sm text-gray-600 hover:text-red transition">Quote</Link>
           <Link href="/reviews" className="text-sm text-gray-600 hover:text-red transition">Reviews</Link>
           <Link href="/contact" className="text-sm text-gray-600 hover:text-red transition">Contact</Link>
-          <Link href="/admin" className="text-sm text-gray-400 hover:text-red transition">Admin</Link>
+          <Link href="/admin" className="text-sm text-gray-500 hover:text-red transition">Admin</Link>
           <a href={`https://wa.me/${whatsapp}`} target="_blank" rel="noopener noreferrer" className="bg-red text-white text-sm px-5 py-2 rounded-full font-medium hover:bg-red-dark transition">WhatsApp</a>
           <a href={`tel:${phone}`} className="border-2 border-red text-red text-sm px-5 py-2 rounded-full font-medium hover:bg-red hover:text-white transition">Call Now</a>
         </nav>
