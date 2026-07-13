@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 
 const LINKS = [
   { href: '/admin', label: 'Dashboard' },
@@ -18,12 +18,6 @@ const LINKS = [
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
-  const router = useRouter()
-
-  const handleLogout = async () => {
-    await fetch('/api/auth/logout', { method: 'POST' })
-    router.push('/admin/login')
-  }
 
   if (pathname === '/admin/login') return children
 
@@ -51,12 +45,14 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           ))}
         </nav>
         <div className="p-3 border-t border-gray-800">
-          <button
-            onClick={handleLogout}
-            className="w-full px-3 py-2 text-sm text-gray-400 hover:text-white hover:bg-gray-800 rounded-lg transition text-left"
-          >
-            Logout
-          </button>
+          <form method="POST" action="/api/auth/logout">
+            <button
+              type="submit"
+              className="w-full px-3 py-2 text-sm text-gray-400 hover:text-white hover:bg-gray-800 rounded-lg transition text-left"
+            >
+              Logout
+            </button>
+          </form>
         </div>
       </aside>
       <main className="flex-1 p-8 overflow-auto">{children}</main>
