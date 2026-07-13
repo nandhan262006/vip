@@ -13,7 +13,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   try {
     const gallery = await getGalleryBySlug(slug)
     if (!gallery) return {}
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://vipstudios.in'
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.vipstudios.in'
     let images: string[] = []
     try { images = JSON.parse(gallery.images) } catch {}
 

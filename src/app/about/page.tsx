@@ -3,7 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { getAwardsCached, getStatsCached } from '@/lib/data'
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://vipstudios.in'
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.vipstudios.in'
 
 export const metadata: Metadata = {
   title: 'Best Photographer in Nellore — Vijay Kumar | Awards & Experience',

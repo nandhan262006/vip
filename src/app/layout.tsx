@@ -16,7 +16,7 @@ export const viewport: Viewport = {
 
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await getSettingsCached()
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://vipstudios.in'
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.vipstudios.in'
   const seoKeywords = (() => { try { return JSON.parse(settings.seoKeywords || '[]') } catch { return [] } })()
   return {
     metadataBase: new URL(baseUrl),
@@ -57,7 +57,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const settings = await getSettings()
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://vipstudios.in'
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.vipstudios.in'
   const whatsapp = settings.whatsapp || '919299950999'
   const phone = settings.phone || '+919299950999'
   const instagram = settings.instagram || 'https://www.instagram.com/vipstudios.in/'
