@@ -16,12 +16,12 @@ export default function Header({ whatsapp, phone }: HeaderProps) {
     <header className="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-gray-200">
       <div className="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
         <Link href="/" className="flex items-center">
-          <Image src="/logo.png" alt="VIP Studio" width={200} height={100} className="h-16 w-auto object-contain" />
+          <Image src="/logo.png" alt="VIP Studios" width={200} height={100} className="h-16 w-auto object-contain" priority />
         </Link>
 
         <nav className="hidden md:flex items-center gap-8">
           <Link href="/" className="text-sm text-gray-600 hover:text-red transition">Home</Link>
-          <Link href="/about" className="text-sm text-gray-600 hover:text-red transition">About</Link>
+          <Link href="/#about" className="text-sm text-gray-600 hover:text-red transition">About</Link>
           <Link href="/#services" className="text-sm text-gray-600 hover:text-red transition">Services</Link>
           <Link href="/portfolio" className="text-sm text-gray-600 hover:text-red transition">Portfolio</Link>
           <Link href="/build-your-quote" className="text-sm text-gray-600 hover:text-red transition">Quote</Link>
@@ -42,7 +42,7 @@ export default function Header({ whatsapp, phone }: HeaderProps) {
       {menuOpen && (
         <div className="md:hidden border-t border-gray-200 bg-white/95 px-4 py-4 space-y-3">
           <Link href="/" className="block text-sm text-gray-600 hover:text-red" onClick={() => setMenuOpen(false)}>Home</Link>
-          <Link href="/about" className="block text-sm text-gray-600 hover:text-red" onClick={() => setMenuOpen(false)}>About</Link>
+          <Link href="/#about" className="block text-sm text-gray-600 hover:text-red" onClick={() => setMenuOpen(false)}>About</Link>
           <Link href="/#services" className="block text-sm text-gray-600 hover:text-red" onClick={() => setMenuOpen(false)}>Services</Link>
           <Link href="/portfolio" className="block text-sm text-gray-600 hover:text-red" onClick={() => setMenuOpen(false)}>Portfolio</Link>
           <Link href="/build-your-quote" className="block text-sm text-gray-600 hover:text-red" onClick={() => setMenuOpen(false)}>Quote</Link>

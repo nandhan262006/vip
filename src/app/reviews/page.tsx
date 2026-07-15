@@ -6,7 +6,7 @@ export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
   title: 'Client Reviews',
-  description: 'Read what our clients say about VIP Studio wedding photography.',
+  description: 'Read what our clients say about VIP Studios wedding photography.',
 }
 
 export default async function ReviewsPage() {

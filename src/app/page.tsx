@@ -4,7 +4,7 @@ import ServicesStack from '@/components/ServicesStack'
 import HeroSection from '@/components/HeroSection'
 import ReviewCarousel from '@/components/ReviewCarousel'
 import ReviewSubmitForm from '@/components/ReviewSubmitForm'
-import { getSettingsCached, getServicesCached, getGalleries, getReviews } from '@/lib/data'
+import { getSettingsCached, getServicesCached, getGalleries, getReviews, getStatsCached } from '@/lib/data'
 
 export const dynamic = 'force-dynamic'
 
@@ -16,20 +16,41 @@ export default async function HomePage() {
   let services: { id: string; title: string; description: string; imageUrl: string; order: number }[] = []
   let galleries: { id: string; title: string; coverImage: string; featured: boolean; gridSpan: string }[] = []
   let reviews: { id: string; name: string; text: string; rating: number; avatar: string; date: string; order: number }[] = []
+  let stats: { id: string; number: string; label: string; description: string }[] = []
   let settings: Record<string, string> = {}
 
   try {
-    const [s, g, rev] = await Promise.all([getServicesCached(), getGalleries(), getReviews()])
+    const [s, g, rev, st] = await Promise.all([getServicesCached(), getGalleries(), getReviews(), getStatsCached()])
     services = s
     galleries = g.filter(gal => gal.featured).slice(0, 10)
     reviews = rev.filter(r => r.featured)
+    stats = st
     settings = await getSettings()
   } catch (e) { console.error('Homepage data fetch error:', e) }
+  if (stats.length === 0) stats = [
+    { id: '1', number: '25+', label: 'Years of Experience', description: 'Serving Nellore since 2000' },
+    { id: '2', number: '1500+', label: 'Weddings', description: 'Trusted by families across Andhra' },
+    { id: '3', number: 'Award', label: 'Winner', description: 'National & industry recognition' },
+  ]
 
   const heroTitle = settings.heroTitle || 'Best Photographer in Nellore'
-  const heroSubtitle = settings.heroSubtitle || 'VIP Studio Wedding Photography'
+  const heroSubtitle = settings.heroSubtitle || 'VIP Studios Wedding Photography'
   const whatsapp = settings.whatsapp || '919299950999'
   const address = settings.address || '26-1-1639, beside MGB Mall, Obulreddy Nagar, Dargamitta, Nellore — 524003'
+
+  const aboutImage = settings.aboutImage || '/unnamed (4).webp'
+  const aboutName = settings.aboutName || 'Vijay'
+  const aboutRole = settings.aboutRole || 'Founder of VIP Studios'
+  const aboutSectionLabel = settings.aboutSectionLabel || 'About'
+  const aboutSubheading = settings.aboutSubheading || 'VIP Studios'
+  const aboutBioRaw = settings.aboutBio || ''
+  const aboutBio = aboutBioRaw ? aboutBioRaw.split(/\n\s*\n/).filter(Boolean) : [
+    "Before VIP Studios, I earned a <strong>National Award</strong>. <strong>Wedding Photographer of the Year 2010 (Kodak)</strong>. 15 Years of Excellence.",
+    "I'm Vijay, founder of <strong>VIP Studios</strong>. With over <strong>25 years</strong> of experience in wedding photography, I've always believed that the best photographs come from capturing people exactly as they are — real emotions, real moments, and real stories.",
+    "This National Award Winning Wedding Photography is a reminder of the passion, creativity, and dedication that continue to drive every wedding we capture today.",
+    "If you're searching for the Best Wedding Photographers in Nellore, Wedding Photography in Nellore, Candid Wedding Photographers in Nellore, Traditional Wedding Photography, Bridal Photography, Groom Portraits, Pre Wedding Photography, Engagement Photography, or Wedding Cinematography, <strong>VIP Studios</strong> brings award-winning experience to every celebration.",
+    "For over 15 years, families across Nellore and beyond have trusted <strong>VIP Studios</strong> to preserve their most important memories through authentic wedding storytelling and timeless imagery.",
+  ]
 
   const fallbackServices = services.length > 0 ? services.map(s => ({ _id: s.id, ...s })) : [
     { _id: '1', title: 'Bridal Photography', description: 'Elegant bridal portraits.', imageUrl: '/BRIDAL.png' },
@@ -54,17 +75,50 @@ export default async function HomePage() {
       ]
 
   const fallbackReviews = reviews.length > 0 ? reviews : [
-    { id: 'fr-1', name: 'Priya Sharma', text: 'VIP Studio made our wedding unforgettable! Vijay sir captured every emotion so beautifully. The candid shots are our absolute favorite.', rating: 5, avatar: '', date: 'July 2026', order: 0 },
+    { id: 'fr-1', name: 'Priya Sharma', text: 'VIP Studios made our wedding unforgettable! Vijay sir captured every emotion so beautifully. The candid shots are our absolute favorite.', rating: 5, avatar: '', date: 'July 2026', order: 0 },
     { id: 'fr-2', name: 'Rahul Reddy', text: 'Outstanding professionalism and creativity. The cinematography was like a movie — our friends still talk about the wedding film.', rating: 5, avatar: '', date: 'June 2026', order: 1 },
-    { id: 'fr-3', name: 'Ananya Krishnan', text: 'Booked VIP Studio for my brother\'s wedding and they exceeded all expectations. The pre-wedding shoot was magical.', rating: 5, avatar: '', date: 'May 2026', order: 2 },
-    { id: 'fr-4', name: 'Karthik Ravi', text: 'We traveled from Bangalore to get shot by VIP Studio. Completely worth it! The bridal portraits are stunning.', rating: 5, avatar: '', date: 'April 2026', order: 3 },
+    { id: 'fr-3', name: 'Ananya Krishnan', text: 'Booked VIP Studios for my brother\'s wedding and they exceeded all expectations. The pre-wedding shoot was magical.', rating: 5, avatar: '', date: 'May 2026', order: 2 },
+    { id: 'fr-4', name: 'Karthik Ravi', text: 'We traveled from Bangalore to get shot by VIP Studios. Completely worth it! The bridal portraits are stunning.', rating: 5, avatar: '', date: 'April 2026', order: 3 },
     { id: 'fr-5', name: 'Sneha Patel', text: 'From engagement to reception, VIP Studios covered every event perfectly. The drone shots were breathtaking.', rating: 5, avatar: '', date: 'March 2026', order: 4 },
-    { id: 'fr-6', name: 'Venkatesh Rao', text: 'Fourth wedding in our family captured by VIP Studio — that speaks volumes! The most trusted photographers in Nellore.', rating: 5, avatar: '', date: 'February 2026', order: 5 },
+    { id: 'fr-6', name: 'Venkatesh Rao', text: 'Fourth wedding in our family captured by VIP Studios — that speaks volumes! The most trusted photographers in Nellore.', rating: 5, avatar: '', date: 'February 2026', order: 5 },
   ]
 
   return (
     <div>
       <HeroSection heroTitle={heroTitle} heroSubtitle={heroSubtitle} />
+
+      <section id="about" className="py-24 px-4 bg-white" aria-labelledby="home-about-heading">
+        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-14 items-center">
+          <div className="relative aspect-[3/4] rounded-2xl overflow-hidden bg-gray-100 shadow-xl">
+            <Image src={aboutImage} alt={aboutName} fill className="object-cover" sizes="(max-width: 768px) 100vw, 50vw" />
+            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6">
+              <p className="text-white text-xl font-bold">{aboutName}</p>
+              <p className="text-red text-sm">{aboutRole}</p>
+            </div>
+          </div>
+          <div className="space-y-6">
+            <span className="text-red font-semibold text-sm uppercase tracking-widest">{aboutSectionLabel}</span>
+            <h2 id="home-about-heading" className="text-3xl md:text-4xl font-bold text-gray-900 leading-tight" dangerouslySetInnerHTML={{ __html: aboutSubheading }} />
+            <div className="space-y-3 text-gray-500 leading-relaxed">
+              {aboutBio.map((para, i) => (
+                <p key={i} dangerouslySetInnerHTML={{ __html: para }} />
+              ))}
+            </div>
+            <div className="grid grid-cols-3 gap-4">
+              {stats.map((stat) => (
+                <div key={stat.id} className="text-center p-4 rounded-xl bg-surface border border-gray-200">
+                  <div className="text-xl md:text-3xl font-bold text-red">{stat.number}</div>
+                  <div className="text-gray-500 text-sm mt-1">{stat.label}</div>
+                </div>
+              ))}
+            </div>
+            <Link href="/portfolio" className="inline-flex items-center gap-2 text-red font-medium hover:text-red-dark transition">
+              View My Work <span aria-hidden="true">&rarr;</span>
+            </Link>
+          </div>
+        </div>
+      </section>
+
       <ServicesStack services={fallbackServices} />
 
       <section className="py-24 px-4 bg-surface">
@@ -127,7 +181,7 @@ export default async function HomePage() {
               </a>
             </div>
             <div className="rounded-2xl overflow-hidden shadow-lg bg-gray-100">
-              <iframe src="https://www.google.com/maps?ll=14.4330217,79.9670549&z=17&t=m&hl=en-US&gl=US&mapclient=embed&q=VIP+STUDIOS+Nellore&output=embed" width="100%" height="350" style={{ border: 0 }} allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade" title="VIP Studio Location" />
+              <iframe src="https://www.google.com/maps?ll=14.4330217,79.9670549&z=17&t=m&hl=en-US&gl=US&mapclient=embed&q=VIP+STUDIOS+Nellore&output=embed" width="100%" height="350" style={{ border: 0 }} allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade" title="VIP Studios Location" />
             </div>
           </div>
         </div>

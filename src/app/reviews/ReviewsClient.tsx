@@ -94,7 +94,7 @@ export default function ReviewsClient({ reviews }: { reviews: Review[] }) {
         <span className="text-red font-semibold text-sm uppercase tracking-widest">Testimonials</span>
         <h1 className="text-4xl font-bold mt-3 text-gray-900">What Our Clients Say</h1>
         <p className="text-gray-500 mt-4 max-w-xl mx-auto">
-          Real reviews from real couples who trusted VIP Studio to capture their most precious moments.
+          Real reviews from real couples who trusted VIP Studios to capture their most precious moments.
         </p>
       </div>
 

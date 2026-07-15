@@ -8,19 +8,19 @@ async function getSettings() {
 
 export const metadata: Metadata = {
   title: 'Contact',
-  description: 'Get in touch with VIP Studio for wedding photography booking inquiries.',
+  description: 'Get in touch with VIP Studios for wedding photography booking inquiries.',
   openGraph: {
-    title: 'Contact VIP Studio | Wedding Photography Nellore',
+    title: 'Contact VIP Studios | Wedding Photography Nellore',
     description: 'Book your wedding photography with National Award Winner Vijay.',
     url: '/contact',
-    siteName: 'VIP Studio',
+    siteName: 'VIP Studios',
     locale: 'en_IN',
     type: 'website',
-    images: [{ url: '/logo.png', width: 512, height: 512, alt: 'VIP Studio Contact' }],
+    images: [{ url: '/logo.png', width: 512, height: 512, alt: 'VIP Studios Contact' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Contact VIP Studio | Wedding Photography Nellore',
+    title: 'Contact VIP Studios | Wedding Photography Nellore',
     description: 'Book your wedding photography with National Award Winner Vijay.',
     images: ['/logo.png'],
   },
@@ -65,7 +65,7 @@ export default async function ContactPage() {
       </div>
 
       <div className="mt-12 rounded-2xl overflow-hidden shadow-lg bg-gray-100">
-        <iframe src="https://www.google.com/maps?ll=14.4330217,79.9670549&z=17&t=m&hl=en-US&gl=US&mapclient=embed&q=VIP+STUDIOS+Nellore&output=embed" width="100%" height="350" style={{ border: 0 }} allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade" title="VIP Studio Location in Nellore" />
+        <iframe src="https://www.google.com/maps?ll=14.4330217,79.9670549&z=17&t=m&hl=en-US&gl=US&mapclient=embed&q=VIP+STUDIOS+Nellore&output=embed" width="100%" height="350" style={{ border: 0 }} allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade" title="VIP Studios Location in Nellore" />
       </div>
     </div>
   )

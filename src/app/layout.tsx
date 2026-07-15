@@ -20,28 +20,29 @@ export async function generateMetadata(): Promise<Metadata> {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.vipstudios.in'
   const seoKeywords = (() => { try { return JSON.parse(settings.seoKeywords || '[]') } catch { return [] } })()
   return {
+    metadataBase: new URL(baseUrl),
     icons: {
       icon: '/favicon.png',
       apple: '/favicon.png',
     },
     title: {
-      default: settings.seoTitle || 'Best Photographer in Nellore | Vijay — VIP Studio Wedding Photography',
-      template: '%s | VIP Studio — Best Photographer in Nellore',
+      default: settings.seoTitle || 'Best Photographer in Nellore | Vijay — VIP Studios Wedding Photography',
+      template: '%s | VIP Studios — Best Photographer in Nellore',
     },
-    description: settings.seoDescription || 'National Award Winning Best Photographer in Nellore — Vijay Kumar of VIP Studio.',
+    description: settings.seoDescription || 'National Award Winning Best Photographer in Nellore — Vijay Kumar of VIP Studios.',
     keywords: seoKeywords,
     openGraph: {
-      title: 'Best Photographer in Nellore — VIP Studio | National Award Winning Wedding Photography',
+      title: 'Best Photographer in Nellore — VIP Studios | National Award Winning Wedding Photography',
       description: settings.seoDescription || 'National Award Winning Best Photographer in Nellore.',
       url: '/',
-      siteName: 'VIP Studio - Best Photographer in Nellore',
+      siteName: 'VIP Studios - Best Photographer in Nellore',
       locale: 'en_IN',
       type: 'website',
-      images: [{ url: '/og-image.png', width: 409, height: 510, alt: 'VIP Studio — Best Photographer in Nellore | Wedding Photography' }],
+      images: [{ url: '/og-image.png', width: 409, height: 510, alt: 'VIP Studios — Best Photographer in Nellore | Wedding Photography' }],
     },
     twitter: {
       card: 'summary_large_image',
-      title: 'Best Photographer in Nellore — VIP Studio | Award Winning Wedding Photography',
+      title: 'Best Photographer in Nellore — VIP Studios | Award Winning Wedding Photography',
       description: settings.seoDescription || 'National Award Winning Best Photographer in Nellore.',
       images: ['/og-image.png'],
     },
@@ -64,7 +65,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const facebook = settings.facebook || 'https://www.facebook.com/VIPstudiosnellore'
   const youtube = settings.youtube || ''
   const address = settings.address || ''
-  const email = settings.email || 'contact@vipstudio.com'
+  const email = settings.email || 'contact@vipstudios.com'
 
   const googleMaps = settings.googleMaps || 'https://maps.app.goo.gl/JUXE7VGbpJDuJyzMA'
 
@@ -75,7 +76,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         '@type': 'WebSite',
         '@id': `${baseUrl}/#website`,
         url: baseUrl,
-        name: 'VIP Studio — Best Photographer in Nellore',
+        name: 'VIP Studios — Best Photographer in Nellore',
         description: settings.seoDescription || 'National Award Winning Best Photographer in Nellore.',
         publisher: { '@id': `${baseUrl}/#organization` },
         inLanguage: 'en-IN',
@@ -102,7 +103,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       {
         '@type': 'LocalBusiness',
         '@id': `${baseUrl}/#organization`,
-        name: 'VIP Studio — Best Photographer in Nellore',
+        name: 'VIP Studios — Best Photographer in Nellore',
         image: `${baseUrl}/logo.png`,
         url: baseUrl,
         telephone: phone,
@@ -129,7 +130,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <a
           href={`tel:${phone}`}
           className="fixed bottom-20 right-6 z-50 bg-red text-white p-3.5 rounded-full shadow-lg hover:bg-red-dark transition shadow-red/40 hover:shadow-xl hover:shadow-red/50"
-          aria-label="Call VIP Studio"
+          aria-label="Call VIP Studios"
         >
           <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.57.57a1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.24.2 2.45.57 3.57a1 1 0 01-.25 1.01l-2.2 2.2z" /></svg>
         </a>

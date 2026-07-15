@@ -18,20 +18,20 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     try { images = JSON.parse(gallery.images) } catch {}
 
     return {
-      title: `${gallery.title} | VIP Studio`,
+      title: `${gallery.title} | VIP Studios`,
       description: gallery.description,
       openGraph: {
-        title: `${gallery.title} | VIP Studio Wedding Photography`,
+        title: `${gallery.title} | VIP Studios Wedding Photography`,
         description: gallery.description,
         url: `${baseUrl}/portfolio/${slug}`,
-        siteName: 'VIP Studio',
+        siteName: 'VIP Studios',
         locale: 'en_IN',
         type: 'website',
         images: [{ url: images[0] || gallery.coverImage, width: 800, height: 600, alt: gallery.title }],
       },
       twitter: {
         card: 'summary_large_image',
-        title: `${gallery.title} | VIP Studio`,
+        title: `${gallery.title} | VIP Studios`,
         description: gallery.description,
         images: [images[0] || gallery.coverImage],
       },

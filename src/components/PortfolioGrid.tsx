@@ -69,7 +69,7 @@ export default function PortfolioGrid({ items, single }: { items: GalleryItem[];
           >
             <Image
               src={item.image}
-              alt={`${item.title} by VIP Studio`}
+              alt={`${item.title} by VIP Studios`}
               fill
               className="object-cover group-hover:scale-105 transition duration-700"
               sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"

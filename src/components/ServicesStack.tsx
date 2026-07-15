@@ -76,68 +76,7 @@ export default function ServicesStack({ services }: { services: { _id: string; t
 
   return (
     <section id="services" className="relative bg-surface overflow-hidden">
-      <div className="grid md:grid-cols-2 gap-10 items-center max-w-5xl mx-auto px-4 pt-24 pb-16">
-        <div className="relative aspect-[3/4] rounded-2xl overflow-hidden bg-gray-200 order-1">
-          <Image
-            src="/og-image.png"
-            alt="VIP Studio"
-            fill
-            className="object-cover"
-            sizes="(max-width: 768px) 100vw, 50vw"
-            priority
-          />
-          <div className="absolute bottom-0 right-0 bg-gradient-to-l from-black/70 to-transparent p-5 text-right">
-            <p className="text-white text-lg font-medium">Vijay Kumar</p>
-            <p className="text-red text-xs">CEO, VIP STUDIOS</p>
-          </div>
-        </div>
-        <div className="order-2">
-          <span className="text-red font-semibold text-sm uppercase tracking-widest">About</span>
-          <h2 className="text-4xl font-bold mt-3 mb-4 text-gray-900">VIP Studio</h2>
-          <div className="space-y-4 text-gray-500 leading-relaxed mb-6">
-            <p>
-              🇮🇳 Before VIP STUDIOS, I earned a <strong className="text-gray-900">National Award</strong>.
-            </p>
-            <p>📸 <strong className="text-gray-900">Wedding Photographer of the Year 2010</strong> (Kodak)</p>
-            <p>✨ <strong className="text-gray-900">15 Years of Excellence</strong></p>
-            <p>
-              I&apos;m Vijay, founder of VIP STUDIOS. With over 25 years of experience in wedding photography,
-              I&apos;ve always believed that the best photographs come from capturing people exactly as they are —
-              real emotions, real moments, and real stories.
-            </p>
-            <p>
-              This National Award Winning Wedding Photography is a reminder of the passion, creativity,
-              and dedication that continue to drive every wedding we capture today.
-            </p>
-            <p>
-              If you&apos;re searching for the Best Wedding Photographers in Nellore, Wedding Photography
-              in Nellore, Candid Wedding Photographers in Nellore, Traditional Wedding Photography,
-              Bridal Photography, Groom Portraits, Pre Wedding Photography, Engagement Photography,
-              or Wedding Cinematography, VIP STUDIOS brings award-winning experience to every celebration.
-            </p>
-            <p>
-              For over 15 years, families across Nellore and beyond have trusted VIP STUDIOS to preserve
-              their most important memories through authentic wedding storytelling and timeless imagery.
-            </p>
-          </div>
-          <div className="grid grid-cols-3 gap-4 mb-6">
-            <div className="text-center p-4 rounded-xl bg-white border border-gray-200">
-              <div className="text-xl md:text-3xl font-bold text-red">25+</div>
-              <div className="text-gray-500 text-sm mt-1">Years of Experience</div>
-            </div>
-            <div className="text-center p-4 rounded-xl bg-white border border-gray-200">
-              <div className="text-xl md:text-3xl font-bold text-red">1500+</div>
-              <div className="text-gray-500 text-sm mt-1">Weddings</div>
-            </div>
-            <div className="text-center p-4 rounded-xl bg-white border border-gray-200">
-              <div className="text-xl md:text-3xl font-bold text-red">Award</div>
-              <div className="text-gray-500 text-sm mt-1">Winner</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="text-center pt-16 pb-8 px-4 max-w-7xl mx-auto">
+      <div className="text-center pt-24 pb-8 px-4 max-w-7xl mx-auto">
         <span className="text-red font-semibold text-sm uppercase tracking-widest">What We Offer</span>
         <h2 className="text-4xl font-bold mt-3 mb-4 text-gray-900">Our Services</h2>
         <p className="text-gray-500 max-w-2xl mx-auto">

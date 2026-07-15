@@ -65,7 +65,7 @@ export default function HeroSection({ heroTitle, heroSubtitle }: { heroTitle?: s
         </motion.div>
       </div>
 
-      <h1 className="sr-only">{heroTitle || 'Best Photographer in Nellore'} — VIP Studio | {heroSubtitle || 'National Award Winning Wedding Photography & Cinematography by Vijay Kumar'}</h1>
+      <h1 className="sr-only">{heroTitle || 'Best Photographer in Nellore'} — VIP Studios | {heroSubtitle || 'National Award Winning Wedding Photography & Cinematography by Vijay Kumar'}</h1>
     </section>
   )
 }

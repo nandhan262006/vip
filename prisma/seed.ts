@@ -23,10 +23,10 @@ async function main() {
     { key: 'youtube', value: 'https://www.youtube.com/channel/UCtNRNNFqPvOB_4SK7' },
     { key: 'googleMaps', value: 'https://maps.app.goo.gl/JUXE7VGbpJDuJyzMA' },
     { key: 'heroTitle', value: 'Best Photographer in Nellore' },
-    { key: 'heroSubtitle', value: 'VIP Studio Wedding Photography' },
-    { key: 'seoTitle', value: 'Best Photographer in Nellore | VIP Studio' },
-    { key: 'seoDescription', value: 'National Award Winning Best Photographer in Nellore — Vijay Kumar of VIP Studio. 25+ years experience in candid wedding photography, cinematography, bridal portraits & event coverage.' },
-    { key: 'seoKeywords', value: '["best photographer in Nellore","best wedding photographer Nellore","top photographer Nellore","candid photographer Nellore","wedding photography Nellore","wedding cinematography Nellore","VIP Studio Nellore","Vijay photographer Nellore"]' },
+    { key: 'heroSubtitle', value: 'VIP Studios Wedding Photography' },
+    { key: 'seoTitle', value: 'Best Photographer in Nellore | VIP Studios' },
+    { key: 'seoDescription', value: 'National Award Winning Best Photographer in Nellore — Vijay Kumar of VIP Studios. 25+ years experience in candid wedding photography, cinematography, bridal portraits & event coverage.' },
+    { key: 'seoKeywords', value: '["best photographer in Nellore","best wedding photographer Nellore","top photographer Nellore","candid photographer Nellore","wedding photography Nellore","wedding cinematography Nellore","VIP Studios Nellore","Vijay photographer Nellore"]' },
   ]
   for (const s of settings) {
     await prisma.siteSetting.upsert({ where: { key: s.key }, update: { value: s.value }, create: s })
@@ -89,8 +89,8 @@ async function main() {
   const awards = [
     { year: '2010', title: 'Wedding Photographer of the Year', organization: 'Kodak', description: 'Recognized as the top wedding photographer in India for exceptional candid wedding photography and storytelling through the lens.', order: 0 },
     { year: '2009', title: 'National Award — Wedding Photography', organization: 'Government of India', description: 'Prestigious national recognition for outstanding contribution to wedding photography and cinematography.', order: 1 },
-    { year: '2015', title: '15 Years of Excellence', organization: 'VIP Studio', description: 'Celebrating a decade and a half of capturing beautiful wedding stories across Nellore and Andhra Pradesh.', order: 2 },
-    { year: '2020', title: '20+ Years of Service Excellence', organization: 'VIP Studio', description: 'Two decades of trusted wedding photography services, earning the reputation as the best photographer in Nellore.', order: 3 },
+    { year: '2015', title: '15 Years of Excellence', organization: 'VIP Studios', description: 'Celebrating a decade and a half of capturing beautiful wedding stories across Nellore and Andhra Pradesh.', order: 2 },
+    { year: '2020', title: '20+ Years of Service Excellence', organization: 'VIP Studios', description: 'Two decades of trusted wedding photography services, earning the reputation as the best photographer in Nellore.', order: 3 },
     { year: '2024', title: 'Top Rated Photographer Nellore', organization: 'Google Reviews', description: 'Consistently rated 4.9 stars by couples and families for exceptional wedding photography and cinematography.', order: 4 },
   ]
   for (const a of awards) {
@@ -162,12 +162,12 @@ async function main() {
 
   // --- Reviews ---
   const reviews = [
-    { name: 'Priya Sharma', text: 'VIP Studio made our wedding unforgettable! Vijay sir captured every emotion so beautifully. The candid shots are our absolute favorite. Best wedding photographer in Nellore, hands down!', rating: 5, date: 'July 2026' },
+    { name: 'Priya Sharma', text: 'VIP Studios made our wedding unforgettable! Vijay sir captured every emotion so beautifully. The candid shots are our absolute favorite. Best wedding photographer in Nellore, hands down!', rating: 5, date: 'July 2026' },
     { name: 'Rahul Reddy', text: 'Outstanding professionalism and creativity. The cinematography was like a movie — our friends still talk about the wedding film. Thank you VIP Studios for these priceless memories.', rating: 5, date: 'June 2026' },
-    { name: 'Ananya Krishnan', text: 'Booked VIP Studio for my brother\'s wedding and they exceeded all expectations. The pre-wedding shoot was magical. Vijay has an incredible eye for detail. Highly recommended!', rating: 5, date: 'May 2026' },
-    { name: 'Karthik Ravi', text: 'We traveled from Bangalore to get shot by VIP Studio after seeing their work online. Completely worth it! The bridal portraits are stunning. True national-award-winning quality.', rating: 5, date: 'April 2026' },
+    { name: 'Ananya Krishnan', text: 'Booked VIP Studios for my brother\'s wedding and they exceeded all expectations. The pre-wedding shoot was magical. Vijay has an incredible eye for detail. Highly recommended!', rating: 5, date: 'May 2026' },
+    { name: 'Karthik Ravi', text: 'We traveled from Bangalore to get shot by VIP Studios after seeing their work online. Completely worth it! The bridal portraits are stunning. True national-award-winning quality.', rating: 5, date: 'April 2026' },
     { name: 'Sneha Patel', text: 'From engagement to reception, VIP Studios covered every event perfectly. The drone shots of our outdoor wedding were breathtaking. Professional, punctual, and passionate about their craft.', rating: 5, date: 'March 2026' },
-    { name: 'Venkatesh Rao', text: 'Fourth wedding in our family captured by VIP Studio — that speaks volumes! Vijay and team are the most trusted photographers in Nellore. Their experience shows in every frame.', rating: 5, date: 'February 2026' },
+    { name: 'Venkatesh Rao', text: 'Fourth wedding in our family captured by VIP Studios — that speaks volumes! Vijay and team are the most trusted photographers in Nellore. Their experience shows in every frame.', rating: 5, date: 'February 2026' },
   ]
   for (let i = 0; i < reviews.length; i++) {
     await prisma.review.upsert({

@@ -59,7 +59,7 @@ export default function GalleryViewer({
         >
           <Image
             src={gallery.images[idx]}
-            alt={`${gallery.title} - ${gallery.categoryTitle} photography by VIP Studio`}
+            alt={`${gallery.title} - ${gallery.categoryTitle} photography by VIP Studios`}
             fill
             className="object-contain"
             sizes="100vw"
@@ -113,7 +113,7 @@ export default function GalleryViewer({
         <Lightbox
           images={gallery.images.map((src) => ({
             src,
-            alt: `${gallery.title} by VIP Studio`,
+            alt: `${gallery.title} by VIP Studios`,
           }))}
           currentIndex={idx}
           onClose={() => setLightboxOpen(false)}

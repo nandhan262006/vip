@@ -75,7 +75,7 @@ function buildPdf(
   doc.setFont('helvetica', 'bold')
   doc.setFontSize(24)
   doc.setTextColor(...R)
-  doc.text('VIP Studio', tx, y)
+  doc.text('VIP Studios', tx, y)
   y += 8
   doc.setFont('helvetica', 'normal')
   doc.setFontSize(10)
@@ -265,7 +265,7 @@ export default function QuoteBuilder() {
       body: JSON.stringify({ name: form.name, email: form.email, phone: form.phone, message: `Quote: ${fmt(total)} | Date: ${form.date || '—'} | Venue: ${form.venue || '—'}` }),
     }).catch(() => {})
     const msg = [
-      `*New Quote from VIP Studio*`,
+      `*New Quote from VIP Studios*`,
       `Name: ${form.name}`,
       `Date: ${form.date || '—'}`,
       `Venue: ${form.venue || '—'}`,
