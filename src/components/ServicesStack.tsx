@@ -28,9 +28,11 @@ export default function ServicesStack({ services }: { services: { _id: string; t
     ro.observe(el)
 
     const onWheel = (e: WheelEvent) => {
+      const dir = e.deltaY > 0 ? 1 : -1
+      const nextIdx = s.idx + dir
+      if (nextIdx < 0 || nextIdx >= services.length) return
       e.preventDefault()
-      const idx = s.idx + (e.deltaY > 0 ? 1 : -1)
-      snap(idx)
+      snap(nextIdx)
     }
     el.addEventListener('wheel', onWheel, { passive: false })
 
