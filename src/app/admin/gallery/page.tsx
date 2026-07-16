@@ -29,19 +29,26 @@ export default function AdminGalleryPage() {
     const file = e.target.files?.[0]
     if (!file || !selected) return
     setUploading(true)
-    const fd = new FormData()
-    fd.append('file', file)
-    fd.append('folder', `gallery/${selected.slug}`)
-    const res = await fetch('/api/upload', { method: 'POST', body: fd })
-    const { url } = await res.json()
-    const newImages = [...images, url]
-    setImages(newImages)
-    await fetch('/api/admin/galleries', {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ ...selected, images: JSON.stringify(newImages) }),
-    })
-    setUploading(false)
+    try {
+      const fd = new FormData()
+      fd.append('file', file)
+      fd.append('folder', `gallery/${selected.slug}`)
+      const res = await fetch('/api/upload', { method: 'POST', body: fd })
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.error || 'Upload failed')
+      const newImages = [...images, data.url]
+      setImages(newImages)
+      await fetch('/api/admin/galleries', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...selected, images: JSON.stringify(newImages) }),
+      })
+    } catch (err) {
+      console.error('Upload error:', err)
+      alert('Upload failed. Please check if the storage service is configured.')
+    } finally {
+      setUploading(false)
+    }
     fetch('/api/admin/galleries').then(r => r.json()).then(setGalleries)
   }
 

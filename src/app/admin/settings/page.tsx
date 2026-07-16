@@ -56,13 +56,20 @@ export default function AdminSettingsPage() {
     const file = e.target.files?.[0]
     if (!file) return
     setUploading(true)
-    const fd = new FormData()
-    fd.append('file', file)
-    fd.append('folder', 'about')
-    const res = await fetch('/api/upload', { method: 'POST', body: fd })
-    const { url } = await res.json()
-    setSettings({ ...settings, aboutImage: url })
-    setUploading(false)
+    try {
+      const fd = new FormData()
+      fd.append('file', file)
+      fd.append('folder', 'about')
+      const res = await fetch('/api/upload', { method: 'POST', body: fd })
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.error || 'Upload failed')
+      setSettings({ ...settings, aboutImage: data.url })
+    } catch (err) {
+      console.error('Upload error:', err)
+      alert('Upload failed. Please check if the storage service is configured.')
+    } finally {
+      setUploading(false)
+    }
   }
 
   const handleChange = (key: string, value: string) => {

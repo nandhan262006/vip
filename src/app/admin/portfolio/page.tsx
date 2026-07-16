@@ -44,13 +44,20 @@ export default function AdminPortfolioPage() {
     const file = e.target.files?.[0]
     if (!file) return
     setUploading(true)
-    const fd = new FormData()
-    fd.append('file', file)
-    fd.append('folder', 'portfolio')
-    const res = await fetch('/api/upload', { method: 'POST', body: fd })
-    const { url } = await res.json()
-    setForm({ ...form, coverImage: url })
-    setUploading(false)
+    try {
+      const fd = new FormData()
+      fd.append('file', file)
+      fd.append('folder', 'portfolio')
+      const res = await fetch('/api/upload', { method: 'POST', body: fd })
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.error || 'Upload failed')
+      setForm({ ...form, coverImage: data.url })
+    } catch (err) {
+      console.error('Upload error:', err)
+      alert('Upload failed. Please check if the storage service is configured.')
+    } finally {
+      setUploading(false)
+    }
   }
 
   const handleSave = async () => {

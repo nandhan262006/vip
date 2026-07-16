@@ -32,24 +32,31 @@ export default function AdminReviewsPage() {
     const files = e.target.files
     if (!files || files.length === 0) return
     setUploading(true)
-    const urls: string[] = []
-    for (const file of Array.from(files)) {
-      const fd = new FormData()
-      fd.append('file', file)
-      fd.append('folder', 'reviews')
-      const res = await fetch('/api/upload', { method: 'POST', body: fd })
-      const { url } = await res.json()
-      urls.push(url)
+    try {
+      const urls: string[] = []
+      for (const file of Array.from(files)) {
+        const fd = new FormData()
+        fd.append('file', file)
+        fd.append('folder', 'reviews')
+        const res = await fetch('/api/upload', { method: 'POST', body: fd })
+        const data = await res.json()
+        if (!res.ok) throw new Error(data.error || 'Upload failed')
+        urls.push(data.url)
+      }
+      if (type === 'avatar') {
+        setForm(f => ({ ...f, avatar: urls[0] }))
+      } else {
+        setForm(f => {
+          const current = (() => { try { return JSON.parse(f.images || '[]') as string[] } catch { return [] as string[] } })()
+          return { ...f, images: JSON.stringify([...current, ...urls]) }
+        })
+      }
+    } catch (err) {
+      console.error('Upload error:', err)
+      alert('Upload failed. Please check if the storage service is configured.')
+    } finally {
+      setUploading(false)
     }
-    if (type === 'avatar') {
-      setForm(f => ({ ...f, avatar: urls[0] }))
-    } else {
-      setForm(f => {
-        const current = (() => { try { return JSON.parse(f.images || '[]') as string[] } catch { return [] as string[] } })()
-        return { ...f, images: JSON.stringify([...current, ...urls]) }
-      })
-    }
-    setUploading(false)
     e.target.value = ''
   }
 
