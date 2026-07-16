@@ -1,25 +1,38 @@
-import { put, del } from '@vercel/blob'
+import { v2 as cloudinary } from 'cloudinary'
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+})
 
 export async function uploadImage(file: File, folder: string): Promise<string> {
-  const ext = file.name.split('.').pop() || 'jpg'
-  const filename = `${folder}/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`
+  const bytes = await file.arrayBuffer()
+  const buffer = Buffer.from(bytes)
 
-  const token = process.env.BLOB_READ_WRITE_TOKEN
-  if (!token) throw new Error('BLOB_READ_WRITE_TOKEN is not set')
-
-  const result = await put(filename, file, {
-    access: 'public',
-    addRandomSuffix: false,
-    token,
+  return new Promise((resolve, reject) => {
+    cloudinary.uploader.upload_stream(
+      { folder, resource_type: 'image' },
+      (error, result) => {
+        if (error) reject(error)
+        else resolve(result!.secure_url)
+      }
+    ).end(buffer)
   })
-
-  return result.url
 }
 
 export async function deleteImage(url: string): Promise<void> {
   try {
-    await del(url)
+    const publicId = extractPublicId(url)
+    if (publicId) {
+      await cloudinary.uploader.destroy(publicId)
+    }
   } catch {
-    // blob may already be deleted
+    // image may already be deleted
   }
+}
+
+function extractPublicId(url: string): string | null {
+  const match = url.match(/\/upload\/(?:v\d+\/)?(.+?)\.\w+$/)
+  return match ? match[1] : null
 }
