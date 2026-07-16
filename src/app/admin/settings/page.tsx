@@ -37,19 +37,29 @@ const SETTINGS_FIELDS: SettingField[] = [
 
 export default function AdminSettingsPage() {
   const [settings, setSettings] = useState<Record<string, string>>({})
+  const [saving, setSaving] = useState(false)
   const [saved, setSaved] = useState(false)
   const [uploading, setUploading] = useState(false)
 
   useEffect(() => { fetch('/api/admin/settings').then(r => r.json()).then(setSettings) }, [])
 
   const handleSave = async () => {
-    await fetch('/api/admin/settings', {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(settings),
-    })
-    setSaved(true)
-    setTimeout(() => setSaved(false), 2000)
+    setSaving(true)
+    try {
+      const res = await fetch('/api/admin/settings', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(settings),
+      })
+      if (!res.ok) throw new Error('Save failed')
+      setSaved(true)
+      setTimeout(() => setSaved(false), 2000)
+    } catch (err) {
+      console.error('Save error:', err)
+      alert('Failed to save settings.')
+    } finally {
+      setSaving(false)
+    }
   }
 
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -80,9 +90,9 @@ export default function AdminSettingsPage() {
     <div>
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-bold text-gray-900">Site Settings</h1>
-        <button onClick={handleSave}
-          className="bg-red text-white px-6 py-2 rounded-lg font-medium hover:bg-red-dark transition">
-          {saved ? 'Saved!' : 'Save All'}
+        <button onClick={handleSave} disabled={saving}
+          className="bg-red text-white px-6 py-2 rounded-lg font-medium hover:bg-red-dark transition disabled:opacity-50">
+          {saving ? 'Saving...' : saved ? 'Saved!' : 'Save All'}
         </button>
       </div>
 
