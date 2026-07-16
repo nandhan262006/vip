@@ -75,7 +75,7 @@ export default function ServicesStack({ services }: { services: { _id: string; t
   }
 
   return (
-    <section id="services" className="relative bg-surface overflow-hidden">
+    <section id="services" className="relative bg-surface overflow-hidden scroll-mt-20">
       <div className="text-center pt-24 pb-8 px-4 max-w-7xl mx-auto">
         <span className="text-red font-semibold text-sm uppercase tracking-widest">What We Offer</span>
         <h2 className="text-4xl font-bold mt-3 mb-4 text-gray-900">Our Services</h2>

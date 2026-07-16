@@ -87,7 +87,7 @@ export default async function HomePage() {
     <div>
       <HeroSection heroTitle={heroTitle} heroSubtitle={heroSubtitle} />
 
-      <section id="about" className="py-24 px-4 bg-white" aria-labelledby="home-about-heading">
+      <section id="about" className="py-24 px-4 bg-white scroll-mt-20" aria-labelledby="home-about-heading">
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-14 items-center">
           <div className="relative aspect-[3/4] rounded-2xl overflow-hidden bg-gray-100 shadow-xl">
             <Image src={aboutImage} alt={aboutName} fill className="object-cover" sizes="(max-width: 768px) 100vw, 50vw" />
