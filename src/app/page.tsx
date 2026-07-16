@@ -14,7 +14,7 @@ async function getSettings() {
 
 export default async function HomePage() {
   let services: { id: string; title: string; description: string; imageUrl: string; order: number }[] = []
-  let galleries: { id: string; title: string; coverImage: string; featured: boolean; gridSpan: string }[] = []
+  let galleries: { id: string; title: string; slug: string; coverImage: string; featured: boolean; gridSpan: string }[] = []
   let reviews: { id: string; name: string; text: string; rating: number; avatar: string; date: string; order: number }[] = []
   let stats: { id: string; number: string; label: string; description: string }[] = []
   let settings: Record<string, string> = {}
