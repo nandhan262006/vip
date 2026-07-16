@@ -253,7 +253,7 @@ export default function QuoteBuilder() {
       body: JSON.stringify({ name: form.name, email: form.email, phone: form.phone, message: `Quote: ${fmt(total)} | Date: ${form.date || '—'} | Venue: ${form.venue || '—'}` }),
     }).catch(() => {})
     const doc = buildPdf(form, total, summary, logoDataUrl || undefined)
-    doc.save(`TBD-Quote-${form.name.replace(/\s+/g, '-') || 'quote'}.pdf`)
+    doc.save(`VIP-${form.name.replace(/\s+/g, '-') || 'quote'}.pdf`)
   }, [form, total, summary, logoDataUrl])
 
   const doWhatsApp = useCallback(() => {
