@@ -40,7 +40,17 @@ export default function ReviewCarousel({ reviews }: { reviews: Review[] }) {
     return () => cancelAnimationFrame(animationId)
   }, [reviews.length])
 
-  if (reviews.length === 0) return null
+  if (reviews.length === 0) {
+    return (
+      <section className="py-20 px-4 bg-white overflow-hidden">
+        <div className="max-w-7xl mx-auto text-center mb-10">
+          <span className="text-red font-semibold text-sm uppercase tracking-widest">Testimonials</span>
+          <h2 className="text-4xl font-bold mt-3 text-gray-900">What Our Clients Say</h2>
+        </div>
+        <p className="text-center text-gray-400 py-8">No reviews yet. Be the first to share your experience!</p>
+      </section>
+    )
+  }
 
   const doubled = [...reviews, ...reviews]
 

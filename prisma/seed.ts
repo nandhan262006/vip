@@ -74,38 +74,38 @@ async function main() {
 
   // --- Services ---
   const services = [
-    { title: 'Bridal Photography', description: 'Elegant bridal portraits that capture every detail of your special day, from the intricate jewellery to the joyous tears.', imageUrl: '/BRIDAL.png', order: 0 },
-    { title: 'Engagement Photography', description: 'Beautiful engagement shoots that tell your love story against stunning backdrops.', imageUrl: '/ENGAGEMENT.png', order: 1 },
-    { title: 'Candid Photography', description: 'Natural, unposed moments that reflect genuine emotions — the laughter, the tears, the pure joy.', imageUrl: '/CANDID.png', order: 2 },
-    { title: 'Wedding Cinematography', description: 'Cinematic wedding films that bring your most cherished memories to life with stunning visuals.', imageUrl: '/WEDDING.png', order: 3 },
-    { title: 'Pre-Wedding Shoot', description: 'Creative pre-wedding sessions at handpicked locations that capture your unique bond.', imageUrl: '/PREWEDDING.png', order: 4 },
-    { title: 'Event Photography', description: 'Professional coverage for engagements, receptions, and all your special celebrations.', imageUrl: '/CORPERATE.png', order: 5 },
+    { id: 'svc-1', title: 'Bridal Photography', description: 'Elegant bridal portraits that capture every detail of your special day, from the intricate jewellery to the joyous tears.', imageUrl: '/BRIDAL.png', order: 0 },
+    { id: 'svc-2', title: 'Engagement Photography', description: 'Beautiful engagement shoots that tell your love story against stunning backdrops.', imageUrl: '/ENGAGEMENT.png', order: 1 },
+    { id: 'svc-3', title: 'Candid Photography', description: 'Natural, unposed moments that reflect genuine emotions — the laughter, the tears, the pure joy.', imageUrl: '/CANDID.png', order: 2 },
+    { id: 'svc-4', title: 'Wedding Cinematography', description: 'Cinematic wedding films that bring your most cherished memories to life with stunning visuals.', imageUrl: '/WEDDING.png', order: 3 },
+    { id: 'svc-5', title: 'Pre-Wedding Shoot', description: 'Creative pre-wedding sessions at handpicked locations that capture your unique bond.', imageUrl: '/PREWEDDING.png', order: 4 },
+    { id: 'svc-6', title: 'Event Photography', description: 'Professional coverage for engagements, receptions, and all your special celebrations.', imageUrl: '/CORPERATE.png', order: 5 },
   ]
   for (const s of services) {
-    await prisma.service.create({ data: s })
+    await prisma.service.upsert({ where: { id: s.id }, update: s, create: s })
   }
 
   // --- Awards ---
   const awards = [
-    { year: '2010', title: 'Wedding Photographer of the Year', organization: 'Kodak', description: 'Recognized as the top wedding photographer in India for exceptional candid wedding photography and storytelling through the lens.', order: 0 },
-    { year: '2009', title: 'National Award — Wedding Photography', organization: 'Government of India', description: 'Prestigious national recognition for outstanding contribution to wedding photography and cinematography.', order: 1 },
-    { year: '2015', title: '15 Years of Excellence', organization: 'VIP Studios', description: 'Celebrating a decade and a half of capturing beautiful wedding stories across Nellore and Andhra Pradesh.', order: 2 },
-    { year: '2020', title: '20+ Years of Service Excellence', organization: 'VIP Studios', description: 'Two decades of trusted wedding photography services, earning the reputation as the best photographer in Nellore.', order: 3 },
-    { year: '2024', title: 'Top Rated Photographer Nellore', organization: 'Google Reviews', description: 'Consistently rated 4.9 stars by couples and families for exceptional wedding photography and cinematography.', order: 4 },
+    { id: 'awd-1', year: '2010', title: 'Wedding Photographer of the Year', organization: 'Kodak', description: 'Recognized as the top wedding photographer in India for exceptional candid wedding photography and storytelling through the lens.', order: 0 },
+    { id: 'awd-2', year: '2009', title: 'National Award — Wedding Photography', organization: 'Government of India', description: 'Prestigious national recognition for outstanding contribution to wedding photography and cinematography.', order: 1 },
+    { id: 'awd-3', year: '2015', title: '15 Years of Excellence', organization: 'VIP Studios', description: 'Celebrating a decade and a half of capturing beautiful wedding stories across Nellore and Andhra Pradesh.', order: 2 },
+    { id: 'awd-4', year: '2020', title: '20+ Years of Service Excellence', organization: 'VIP Studios', description: 'Two decades of trusted wedding photography services, earning the reputation as the best photographer in Nellore.', order: 3 },
+    { id: 'awd-5', year: '2024', title: 'Top Rated Photographer Nellore', organization: 'Google Reviews', description: 'Consistently rated 4.9 stars by couples and families for exceptional wedding photography and cinematography.', order: 4 },
   ]
   for (const a of awards) {
-    await prisma.award.create({ data: a })
+    await prisma.award.upsert({ where: { id: a.id }, update: a, create: a })
   }
 
   // --- Stats ---
   const stats = [
-    { number: '25+', label: 'Years of Experience', description: 'Serving Nellore since 2000', order: 0 },
-    { number: '500+', label: 'Weddings Captured', description: 'Trusted by families across Andhra', order: 1 },
-    { number: '4.9', label: 'Google Rating', description: '180+ 5-star reviews', order: 2 },
-    { number: '15+', label: 'Award Wins', description: 'National & industry recognition', order: 3 },
+    { id: 'stat-1', number: '25+', label: 'Years of Experience', description: 'Serving Nellore since 2000', order: 0 },
+    { id: 'stat-2', number: '500+', label: 'Weddings Captured', description: 'Trusted by families across Andhra', order: 1 },
+    { id: 'stat-3', number: '4.9', label: 'Google Rating', description: '180+ 5-star reviews', order: 2 },
+    { id: 'stat-4', number: '15+', label: 'Award Wins', description: 'National & industry recognition', order: 3 },
   ]
   for (const s of stats) {
-    await prisma.stat.create({ data: s })
+    await prisma.stat.upsert({ where: { id: s.id }, update: s, create: s })
   }
 
   // --- Quote Steps ---

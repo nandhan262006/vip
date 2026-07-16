@@ -29,6 +29,9 @@ export const metadata: Metadata = {
 export default async function ContactPage() {
   const settings = await getSettings()
   const address = settings.address || '26-1-1639, beside MGB Mall, Obulreddy Nagar, Dargamitta, Nellore — 524003'
+  const whatsapp = settings.whatsapp || '919299950999'
+  const instagram = settings.instagram || 'https://www.instagram.com/vipstudios.in/'
+  const facebook = settings.facebook || 'https://www.facebook.com/VIPstudiosnellore'
 
   return (
     <div className="py-20 px-4 max-w-3xl mx-auto">
@@ -45,15 +48,15 @@ export default async function ContactPage() {
             </div>
             <div>
               <p className="font-medium text-gray-900">Phone / WhatsApp</p>
-              <a href="https://wa.me/919299950999" target="_blank" rel="noopener noreferrer" className="text-red hover:text-red-dark transition">+91 92999 50999</a>
+              <a href={`https://wa.me/${whatsapp}`} target="_blank" rel="noopener noreferrer" className="text-red hover:text-red-dark transition">+91 {whatsapp.replace(/\D/g, '').slice(-10)}</a>
             </div>
             <div>
               <p className="font-medium text-gray-900">Instagram</p>
-              <a href="https://www.instagram.com/vipstudios.in/" target="_blank" rel="noopener noreferrer" className="text-gray-900 underline hover:text-gray-600">@vipstudios.in</a>
+              <a href={instagram} target="_blank" rel="noopener noreferrer" className="text-gray-900 underline hover:text-gray-600">@vipstudios.in</a>
             </div>
             <div>
               <p className="font-medium text-gray-900">Facebook</p>
-              <a href="https://www.facebook.com/VIPstudiosnellore" target="_blank" rel="noopener noreferrer" className="text-gray-900 underline hover:text-gray-600">VIP Weddings Nellore</a>
+              <a href={facebook} target="_blank" rel="noopener noreferrer" className="text-gray-900 underline hover:text-gray-600">VIP Weddings Nellore</a>
             </div>
           </div>
           <div className="mt-6">

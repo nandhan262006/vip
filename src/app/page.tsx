@@ -62,16 +62,16 @@ export default async function HomePage() {
   ]
 
   const portfolioItems = galleries.length > 0
-    ? galleries.map(g => ({ src: g.coverImage, label: g.title, span: g.gridSpan || '' }))
+    ? galleries.map(g => ({ src: g.coverImage, label: g.title, span: g.gridSpan || '', slug: g.slug }))
     : [
-        { src: '/BRIDAL.png', label: 'Bridal', span: 'col-span-2 row-span-2 md:col-span-2 md:row-span-2' },
-        { src: '/CANDID.png', label: 'Candid', span: '' },
-        { src: '/ENGAGEMENT.png', label: 'Engagement', span: 'row-span-2' },
-        { src: '/WEDDING.png', label: 'Wedding', span: 'col-span-2 md:col-span-2' },
-        { src: '/PREWEDDING.png', label: 'Pre-Wedding', span: 'row-span-2 md:row-span-2' },
-        { src: '/CORPERATE.png', label: 'Events', span: '' },
-        { src: '/MATERNITY.png', label: 'Maternity', span: '' },
-        { src: '/HERO.png', label: 'Fashion', span: 'col-span-2 md:col-span-2' },
+        { src: '/BRIDAL.png', label: 'Bridal', span: 'col-span-2 row-span-2 md:col-span-2 md:row-span-2', slug: 'bridal' },
+        { src: '/CANDID.png', label: 'Candid', span: '', slug: 'candid' },
+        { src: '/ENGAGEMENT.png', label: 'Engagement', span: 'row-span-2', slug: 'engagement' },
+        { src: '/WEDDING.png', label: 'Wedding', span: 'col-span-2 md:col-span-2', slug: 'wedding' },
+        { src: '/PREWEDDING.png', label: 'Pre-Wedding', span: 'row-span-2 md:row-span-2', slug: 'prewedding' },
+        { src: '/CORPERATE.png', label: 'Events', span: '', slug: 'events' },
+        { src: '/MATERNITY.png', label: 'Maternity', span: '', slug: 'maternity' },
+        { src: '/HERO.png', label: 'Fashion', span: 'col-span-2 md:col-span-2', slug: 'fashion' },
       ]
 
   const fallbackReviews = reviews.length > 0 ? reviews : [
@@ -85,7 +85,7 @@ export default async function HomePage() {
 
   return (
     <div>
-      <HeroSection heroTitle={heroTitle} heroSubtitle={heroSubtitle} />
+      <HeroSection heroTitle={heroTitle} heroSubtitle={heroSubtitle} whatsapp={whatsapp} />
 
       <section id="about" className="py-24 px-4 bg-white scroll-mt-20" aria-labelledby="home-about-heading">
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-14 items-center">
@@ -133,8 +133,8 @@ export default async function HomePage() {
             </Link>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 auto-rows-[200px] md:auto-rows-[240px] grid-flow-dense">
-            {portfolioItems.map((item: { src: string; label: string; span: string }, i: number) => (
-              <Link key={i} href="/portfolio" className={`group relative overflow-hidden rounded-xl bg-gray-200 ${item.span}`}>
+            {portfolioItems.map((item: { src: string; label: string; span: string; slug: string }, i: number) => (
+              <Link key={i} href={`/portfolio/${item.slug}`} className={`group relative overflow-hidden rounded-xl bg-gray-200 ${item.span}`}>
                 <Image src={item.src} alt={item.label} fill className="object-cover group-hover:scale-105 transition duration-700" sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300" />
                 <div className="absolute bottom-0 left-0 right-0 p-4 text-white translate-y-2 group-hover:translate-y-0 transition duration-300 opacity-0 group-hover:opacity-100">
