@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import Lightbox from '@/components/Lightbox'
@@ -42,7 +41,7 @@ export default function GalleryViewer({
 
       <div className="relative max-w-5xl mx-auto">
         <div
-          className="relative aspect-[4/3] md:aspect-[16/9] rounded-xl overflow-hidden bg-gray-100 cursor-pointer select-none"
+          className="relative rounded-xl overflow-hidden bg-gray-100 cursor-pointer select-none"
           onClick={() => setLightboxOpen(true)}
           onTouchStart={(e) => {
             const startX = e.touches[0].clientX
@@ -57,13 +56,10 @@ export default function GalleryViewer({
             }
           }}
         >
-          <Image
+          <img
             src={gallery.images[idx]}
             alt={`${gallery.title} - ${gallery.categoryTitle} photography by VIP Studios`}
-            fill
-            className="object-contain"
-            sizes="100vw"
-            priority
+            className="w-full h-auto block"
           />
 
           <div className="absolute inset-0 bg-black/0 hover:bg-black/10 transition" />

@@ -38,9 +38,13 @@ export default function AdminPortfolioPage() {
     return () => { ignore = true }
   }, [])
 
+  const parseImages = (images?: string): string[] => {
+    try { return images ? JSON.parse(images) : [] } catch { return [] }
+  }
+
   const resetForm = () => { setForm({}); setEditing(false) }
 
-  const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleUploadCover = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
     if (!file) return
     setUploading(true)
@@ -60,11 +64,43 @@ export default function AdminPortfolioPage() {
     }
   }
 
+  const handleUploadImages = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files
+    if (!files?.length) return
+    setUploading(true)
+    try {
+      const existing = parseImages(form.images)
+      const uploaded: string[] = []
+      for (let i = 0; i < files.length; i++) {
+        const fd = new FormData()
+        fd.append('file', files[i])
+        fd.append('folder', 'portfolio')
+        const res = await fetch('/api/upload', { method: 'POST', body: fd })
+        const data = await res.json()
+        if (!res.ok) throw new Error(data.error || 'Upload failed')
+        uploaded.push(data.url)
+      }
+      setForm({ ...form, images: JSON.stringify([...existing, ...uploaded]) })
+    } catch (err) {
+      console.error('Upload error:', err)
+      alert('Upload failed. Please check if the storage service is configured.')
+    } finally {
+      setUploading(false)
+      e.target.value = ''
+    }
+  }
+
+  const handleRemoveImage = (index: number) => {
+    const existing = parseImages(form.images)
+    existing.splice(index, 1)
+    setForm({ ...form, images: JSON.stringify(existing) })
+  }
+
   const handleSave = async () => {
     const method = editing ? 'PUT' : 'POST'
     const body = {
       ...form,
-      images: '[]',
+      images: form.images || '[]',
       order: editing ? form.order : galleries.length,
       slug: form.slug || form.title?.toLowerCase().replace(/\s+/g, '-'),
     }
@@ -155,10 +191,28 @@ export default function AdminPortfolioPage() {
             ))}
           </select>
           <div>
-            <input type="file" accept="image/*" onChange={handleUpload} className="text-sm" />
+            <label className="text-sm text-gray-600 mb-1 block">Cover Image</label>
+            <input type="file" accept="image/*" onChange={handleUploadCover} className="text-sm" />
             {uploading && <span className="text-sm text-gray-500 ml-2">Uploading...</span>}
             {form.coverImage && (
               <img src={form.coverImage} alt="" className="mt-2 h-32 rounded-lg object-cover" />
+            )}
+          </div>
+          <div>
+            <label className="text-sm text-gray-600 mb-1 block">Gallery Images (select multiple)</label>
+            <input type="file" accept="image/*" multiple onChange={handleUploadImages} className="text-sm" />
+            {parseImages(form.images).length > 0 && (
+              <div className="flex flex-wrap gap-2 mt-2">
+                {parseImages(form.images).map((url, i) => (
+                  <div key={i} className="relative group">
+                    <img src={url} alt="" className="h-24 w-24 rounded-lg object-cover" />
+                    <button onClick={() => handleRemoveImage(i)}
+                      className="absolute top-1 right-1 bg-black/60 text-white text-xs w-5 h-5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                      &times;
+                    </button>
+                  </div>
+                ))}
+              </div>
             )}
           </div>
           <div className="flex gap-3">

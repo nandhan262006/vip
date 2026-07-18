@@ -23,7 +23,7 @@ export default function HeroSection({ heroTitle, heroSubtitle, whatsapp = '91929
 
   return (
     <section className="relative bg-[#FDF8F3] overflow-hidden">
-      <div className="max-w-[1600px] mx-auto md:min-h-screen md:flex">
+      <div className="max-w-[1600px] mx-auto md:flex md:min-h-[91vh] overflow-hidden">
         <motion.div className="hidden md:block absolute top-0 right-0 w-[58%] h-full" variants={slideRight} initial="hidden" animate="visible">
           <Image src="/AWARDWINNIGPHOTO.jpeg" alt="" fill className="object-cover" priority sizes="58vw" />
         </motion.div>
@@ -32,13 +32,13 @@ export default function HeroSection({ heroTitle, heroSubtitle, whatsapp = '91929
           <Image src="/AWARDWINNIGPHOTO.jpeg" alt="" fill className="object-cover" priority sizes="(max-width: 767px) 100vw, 0vw" />
         </motion.div>
 
-        <motion.div className="relative z-10 flex flex-col justify-center px-6 sm:px-8 lg:px-16 pt-6 pb-4 md:pt-24 md:pb-16 md:w-[42%]" variants={stagger} initial="hidden" animate="visible">
+        <motion.div className="relative z-10 flex flex-col justify-center px-6 sm:px-8 lg:px-16 pt-4 pb-4 md:pt-12 md:pb-12 md:w-[42%]" variants={stagger} initial="hidden" animate="visible">
           <motion.div variants={fadeUp}>
             <span className="text-[10px] sm:text-xs tracking-[0.25em] font-semibold text-gray-700 uppercase">WE CAPTURE.</span>
             <span className="block w-8 h-[3px] bg-[#B40000] mt-2 rounded-full" />
           </motion.div>
 
-          <motion.h1 variants={fadeUp} className="mt-4 md:mt-8 text-[3rem] sm:text-[4.5rem] md:text-[5rem] lg:text-[6rem] xl:text-[7rem] leading-[0.9] font-extrabold tracking-tight">
+          <motion.h1 variants={fadeUp} className="mt-4 md:mt-8 text-[2rem] sm:text-[2.8rem] md:text-[5rem] lg:text-[6rem] xl:text-[7rem] leading-[0.9] font-extrabold tracking-tight">
             <span className="text-black">YOU </span>
             <span className="text-[#B40000]">RELIVE.</span>
           </motion.h1>
