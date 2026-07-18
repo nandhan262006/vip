@@ -8,7 +8,6 @@ const LINKS = [
   { href: '/admin/about', label: 'About' },
   { href: '/admin/services', label: 'Services' },
   { href: '/admin/portfolio', label: 'Portfolio' },
-  { href: '/admin/gallery', label: 'Gallery' },
   { href: '/admin/awards', label: 'Awards' },
   { href: '/admin/stats', label: 'Stats' },
   { href: '/admin/quotes', label: 'Quotes' },
