@@ -2,16 +2,20 @@ import { NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
 import { uploadImage } from '@/lib/storage'
 
-export async function POST(request: Request) {
-  const cookieStore = await cookies()
-  if (cookieStore.get('admin_auth')?.value !== 'true') {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-  }
+const PUBLIC_FOLDERS = ['reviews-public']
 
+export async function POST(request: Request) {
   try {
     const formData = await request.formData()
     const file = formData.get('file') as File
     const folder = (formData.get('folder') as string) || 'general'
+
+    if (!PUBLIC_FOLDERS.includes(folder)) {
+      const cookieStore = await cookies()
+      if (cookieStore.get('admin_auth')?.value !== 'true') {
+        return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+      }
+    }
 
     if (!file) {
       return NextResponse.json({ error: 'No file provided' }, { status: 400 })
