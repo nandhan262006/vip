@@ -173,7 +173,7 @@ export default function QuoteBuilder() {
         reader.onloadend = () => setLogoDataUrl(reader.result as string)
         reader.readAsDataURL(blob)
       })
-    fetch('/api/admin/quotes')
+    fetch('/api/quotes')
       .then((r) => r.json())
       .then((data: Step[]) => {
         const steps: Step[] = (data as unknown as Array<{ stepId: string; title: string; subtitle: string | null; type: string; items: string }>).map((q) => ({
